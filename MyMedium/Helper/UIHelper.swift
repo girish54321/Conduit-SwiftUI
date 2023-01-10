@@ -16,6 +16,8 @@ struct TitleModifier: ViewModifier {
     }
 }
 
+
+
 extension Text {
     func appTestStyle() -> some View {
         self
@@ -27,6 +29,12 @@ extension Text {
 
 extension Image {
     func imageModifier() -> some View {
+        self
+            .resizable()
+            .scaledToFit()
+    }
+    
+    func imageModifierCircle() -> some View {
         self
             .resizable()
             .scaledToFit()
