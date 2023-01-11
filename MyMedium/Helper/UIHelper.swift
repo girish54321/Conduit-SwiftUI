@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import AlertToast
 
 struct TitleModifier: ViewModifier {
     func body(content: Content) -> some View {
@@ -16,10 +17,8 @@ struct TitleModifier: ViewModifier {
     }
 }
 
-
-
 extension Text {
-    func appTestStyle() -> some View {
+    func appTextStyle() -> some View {
         self
             .font(.title)
             .fontWeight(.heavy)
@@ -57,6 +56,6 @@ extension Image {
 }
 
 struct AppMessage {
-//    static let loadindView = AlertToast(type: .loading, title: "Loading")
+    static let loadindView = AlertToast(type: .loading, title: "Loading")
 }
 

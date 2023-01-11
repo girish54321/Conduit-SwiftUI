@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct MyMediumApp: App {
+    
+    @AppStorage(AppConst.isLogedIn) var isLogedIn: Bool = false
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            WelcomeScreen()
+                .environmentObject(AlertViewModel())
         }
     }
 }

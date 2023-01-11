@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		92203B0E296E8F2C00A15F60 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92203B0D296E8F2C00A15F60 /* Helper.swift */; };
 		924B469D296D44050070AC14 /* PulsateCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924B469C296D44050070AC14 /* PulsateCircle.swift */; };
 		92594903296D6DA20029B2C1 /* CreateAccountScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92594902296D6DA20029B2C1 /* CreateAccountScreen.swift */; };
 		92594907296D733D0029B2C1 /* NavModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92594906296D733D0029B2C1 /* NavModal.swift */; };
@@ -19,9 +20,19 @@
 		92D2D73C296C1735008BA685 /* AppInputBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D2D73B296C1735008BA685 /* AppInputBox.swift */; };
 		92D2D73F296C1778008BA685 /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D2D73E296C1778008BA685 /* UIHelper.swift */; };
 		92D2D743296C1980008BA685 /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D2D742296C1980008BA685 /* WelcomeScreen.swift */; };
+		92FD151F296EC1B400C8AE0E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 92FD151E296EC1B400C8AE0E /* Alamofire */; };
+		92FD1524296EC41100C8AE0E /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FD1523296EC41100C8AE0E /* ApiError.swift */; };
+		92FD1527296EC45000C8AE0E /* AuthApiEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FD1526296EC45000C8AE0E /* AuthApiEndpoint.swift */; };
+		92FD1529296EC47600C8AE0E /* AuthServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FD1528296EC47600C8AE0E /* AuthServices.swift */; };
+		92FD152B296EC59400C8AE0E /* RestAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FD152A296EC59400C8AE0E /* RestAPIClient.swift */; };
+		92FD152F296EC71C00C8AE0E /* AuthModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FD152E296EC71C00C8AE0E /* AuthModal.swift */; };
+		92FD1532296ECBAE00C8AE0E /* AlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FD1531296ECBAE00C8AE0E /* AlertViewModel.swift */; };
+		92FD1535296ED1EC00C8AE0E /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 92FD1534296ED1EC00C8AE0E /* AlertToast */; };
+		92FD1537296ED6E000C8AE0E /* AuthViewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FD1536296ED6E000C8AE0E /* AuthViewModal.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		92203B0D296E8F2C00A15F60 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		924B469C296D44050070AC14 /* PulsateCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulsateCircle.swift; sourceTree = "<group>"; };
 		92594902296D6DA20029B2C1 /* CreateAccountScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountScreen.swift; sourceTree = "<group>"; };
 		92594906296D733D0029B2C1 /* NavModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavModal.swift; sourceTree = "<group>"; };
@@ -35,6 +46,13 @@
 		92D2D73B296C1735008BA685 /* AppInputBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInputBox.swift; sourceTree = "<group>"; };
 		92D2D73E296C1778008BA685 /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 		92D2D742296C1980008BA685 /* WelcomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreen.swift; sourceTree = "<group>"; };
+		92FD1523296EC41100C8AE0E /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
+		92FD1526296EC45000C8AE0E /* AuthApiEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthApiEndpoint.swift; sourceTree = "<group>"; };
+		92FD1528296EC47600C8AE0E /* AuthServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServices.swift; sourceTree = "<group>"; };
+		92FD152A296EC59400C8AE0E /* RestAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestAPIClient.swift; sourceTree = "<group>"; };
+		92FD152E296EC71C00C8AE0E /* AuthModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModal.swift; sourceTree = "<group>"; };
+		92FD1531296ECBAE00C8AE0E /* AlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewModel.swift; sourceTree = "<group>"; };
+		92FD1536296ED6E000C8AE0E /* AuthViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModal.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +60,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92FD151F296EC1B400C8AE0E /* Alamofire in Frameworks */,
+				92FD1535296ED1EC00C8AE0E /* AlertToast in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,7 +79,8 @@
 		92594905296D73280029B2C1 /* Modal */ = {
 			isa = PBXGroup;
 			children = (
-				92594906296D733D0029B2C1 /* NavModal.swift */,
+				92FD152D296EC63C00C8AE0E /* NavModal */,
+				92FD152C296EC63100C8AE0E /* AuthModal */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
@@ -83,6 +104,8 @@
 		92D2D728296C15EB008BA685 /* MyMedium */ = {
 			isa = PBXGroup;
 			children = (
+				92FD1530296ECB9E00C8AE0E /* GlobalState */,
+				92FD1522296EC3E700C8AE0E /* Networking */,
 				92594905296D73280029B2C1 /* Modal */,
 				92D2D73D296C1765008BA685 /* Helper */,
 				92D2D738296C168D008BA685 /* Views */,
@@ -126,6 +149,7 @@
 				92D2D73E296C1778008BA685 /* UIHelper.swift */,
 				924B469C296D44050070AC14 /* PulsateCircle.swift */,
 				92594908296D83300029B2C1 /* AppConst.swift */,
+				92203B0D296E8F2C00A15F60 /* Helper.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -147,6 +171,50 @@
 			path = Welcome;
 			sourceTree = "<group>";
 		};
+		92FD1522296EC3E700C8AE0E /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				92FD1525296EC43E00C8AE0E /* AuthServers */,
+				92FD1523296EC41100C8AE0E /* ApiError.swift */,
+				92FD152A296EC59400C8AE0E /* RestAPIClient.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		92FD1525296EC43E00C8AE0E /* AuthServers */ = {
+			isa = PBXGroup;
+			children = (
+				92FD1526296EC45000C8AE0E /* AuthApiEndpoint.swift */,
+				92FD1528296EC47600C8AE0E /* AuthServices.swift */,
+			);
+			path = AuthServers;
+			sourceTree = "<group>";
+		};
+		92FD152C296EC63100C8AE0E /* AuthModal */ = {
+			isa = PBXGroup;
+			children = (
+				92FD152E296EC71C00C8AE0E /* AuthModal.swift */,
+			);
+			path = AuthModal;
+			sourceTree = "<group>";
+		};
+		92FD152D296EC63C00C8AE0E /* NavModal */ = {
+			isa = PBXGroup;
+			children = (
+				92594906296D733D0029B2C1 /* NavModal.swift */,
+			);
+			path = NavModal;
+			sourceTree = "<group>";
+		};
+		92FD1530296ECB9E00C8AE0E /* GlobalState */ = {
+			isa = PBXGroup;
+			children = (
+				92FD1531296ECBAE00C8AE0E /* AlertViewModel.swift */,
+				92FD1536296ED6E000C8AE0E /* AuthViewModal.swift */,
+			);
+			path = GlobalState;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -163,6 +231,10 @@
 			dependencies = (
 			);
 			name = MyMedium;
+			packageProductDependencies = (
+				92FD151E296EC1B400C8AE0E /* Alamofire */,
+				92FD1534296ED1EC00C8AE0E /* AlertToast */,
+			);
 			productName = MyMedium;
 			productReference = 92D2D726296C15EB008BA685 /* MyMedium.app */;
 			productType = "com.apple.product-type.application";
@@ -191,6 +263,10 @@
 				Base,
 			);
 			mainGroup = 92D2D71D296C15EB008BA685;
+			packageReferences = (
+				92FD151D296EC1B400C8AE0E /* XCRemoteSwiftPackageReference "Alamofire" */,
+				92FD1533296ED1EC00C8AE0E /* XCRemoteSwiftPackageReference "AlertToast" */,
+			);
 			productRefGroup = 92D2D727296C15EB008BA685 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -217,12 +293,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92FD1537296ED6E000C8AE0E /* AuthViewModal.swift in Sources */,
+				92203B0E296E8F2C00A15F60 /* Helper.swift in Sources */,
 				92D2D743296C1980008BA685 /* WelcomeScreen.swift in Sources */,
+				92FD1527296EC45000C8AE0E /* AuthApiEndpoint.swift in Sources */,
 				92D2D73A296C16B2008BA685 /* AppButton.swift in Sources */,
 				92D2D72C296C15EB008BA685 /* ContentView.swift in Sources */,
 				92D2D73C296C1735008BA685 /* AppInputBox.swift in Sources */,
+				92FD152B296EC59400C8AE0E /* RestAPIClient.swift in Sources */,
+				92FD1524296EC41100C8AE0E /* ApiError.swift in Sources */,
 				92D2D73F296C1778008BA685 /* UIHelper.swift in Sources */,
+				92FD152F296EC71C00C8AE0E /* AuthModal.swift in Sources */,
 				92594903296D6DA20029B2C1 /* CreateAccountScreen.swift in Sources */,
+				92FD1532296ECBAE00C8AE0E /* AlertViewModel.swift in Sources */,
+				92FD1529296EC47600C8AE0E /* AuthServices.swift in Sources */,
 				924B469D296D44050070AC14 /* PulsateCircle.swift in Sources */,
 				92D2D72A296C15EB008BA685 /* MyMediumApp.swift in Sources */,
 				92594907296D733D0029B2C1 /* NavModal.swift in Sources */,
@@ -425,6 +509,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		92FD151D296EC1B400C8AE0E /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		92FD1533296ED1EC00C8AE0E /* XCRemoteSwiftPackageReference "AlertToast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/elai950/AlertToast.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		92FD151E296EC1B400C8AE0E /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 92FD151D296EC1B400C8AE0E /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		92FD1534296ED1EC00C8AE0E /* AlertToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 92FD1533296ED1EC00C8AE0E /* XCRemoteSwiftPackageReference "AlertToast" */;
+			productName = AlertToast;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 92D2D71E296C15EB008BA685 /* Project object */;
 }

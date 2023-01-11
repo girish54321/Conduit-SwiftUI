@@ -17,8 +17,18 @@ struct AppConst {
     static let emailPattern = #"^\S+@\S+\.\S+$"#
     
     struct ApiConst {
-         let apiEndPoint = "https://reqres.in/api"
+         let apiEndPoint = "https://api.realworld.io/api/"
     }
+}
+
+struct AppIconsSF {
+    static let emailIcon = "envelope.fill"
+    static let passwordIcon = "lock.fill"
+    static let eyeOpenIcon = ""
+    static let eyeCloseIcon = ""
+    static let checkMark = "checkmark.circle.fill"
+    static let worngMark = "x.circle"
+    static let userIcon = "person.crop.circle.fill"
 }
 
 struct AppKeyBoardType {

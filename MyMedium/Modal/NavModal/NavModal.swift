@@ -14,6 +14,6 @@ struct WelcomeScreenType: Identifiable, Hashable {
 struct LoginScreenType: Identifiable, Hashable {
     let id = UUID()
     let title: String
-    let isCreateAccount: Bool?
+    var isCreateAccount: Bool?
 }
 

@@ -1,5 +1,11 @@
+//
+//  Helper.swift
+//  MyMedium
+//
+//  Created by neosoft on 11/01/23.
+//
 
-
+import Foundation
 struct Helpers {
     static func isVaildEmailRegx(text:String) -> Bool {
         var isValidEmail = false

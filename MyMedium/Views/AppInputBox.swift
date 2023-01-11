@@ -13,7 +13,6 @@ struct AppInputBox: View {
     var rightIcon: String?
     var placeHoldr: String
     
-    var view: TextField<Text>?
     var passwordView: SecureField<Text>?
     var keyboard: Int?
     
@@ -41,13 +40,11 @@ struct AppInputBox: View {
                         if keyboard != nil{
                             TextField(placeHoldr, text: $value)
                                 .keyboardType(UIKeyboardType(rawValue: keyboard!) ?? .default)
-                        } else if view != nil {
-                            view
                         } else {
                             passwordView
                         }
                     }
-                    if rightIcon != nil {
+                    if rightIcon != nil && state != nil {
                         Image(systemName:rightIcon ?? "")
                             .inputIconStyle()
                             .padding(.trailing,8)
@@ -76,7 +73,6 @@ struct AppInputBox_Previews: PreviewProvider {
             AppInputBox(leftIcon: "heart.text.square",
                         rightIcon: "checkmark.circle.fill",
                         placeHoldr: "Placeholder",
-                        view: TextField("Plasw", text: $emailText),
                         value: $emailText)
             .previewLayout(.sizeThatFits)
             .padding()

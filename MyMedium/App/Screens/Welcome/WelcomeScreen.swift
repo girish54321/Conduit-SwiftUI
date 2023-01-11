@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct WelcomeScreen: View {
     
@@ -14,6 +15,8 @@ struct WelcomeScreen: View {
     @State private var animationAmount = 1.0
     
     @State private var presentedNumbers = NavigationPath()
+    
+    @EnvironmentObject var viewModel: AlertViewModel
     
     var body: some View {
         NavigationStack (path: $presentedNumbers) {
@@ -56,7 +59,7 @@ struct WelcomeScreen: View {
                         .padding(.horizontal)
                     VStack (alignment: .center,spacing: 16) {
                         AppButton(
-                            text: "Login Up",
+                            text: "Login",
                             whiteButton: true,
                             clicked: {
                                 let data = LoginScreenType(title: "Welcome Back", isCreateAccount: false)
@@ -70,6 +73,7 @@ struct WelcomeScreen: View {
                             })
                     }
                     .padding(.horizontal)
+                    .padding(.bottom, 18)
                 }
                 .offset(x: 0, y: 190)
             }
@@ -79,17 +83,23 @@ struct WelcomeScreen: View {
             }
             .navigationBarTitleDisplayMode(.large)
         }
-        
         .onAppear(perform: {
             withAnimation{
                 isAnimating = true
             }
         })
+        .toast(isPresenting: $viewModel.show){
+            viewModel.alertToast
+        }
+        .alert(isPresented: $viewModel.showAlert) { () -> Alert in
+            Alert(title: Text("Error"), message: Text(viewModel.errorMessage))
+        }
     }
 }
 
 struct WelcomeScreen_Previews: PreviewProvider {
     static var previews: some View {
         WelcomeScreen()
+            .environmentObject(AlertViewModel())
     }
 }

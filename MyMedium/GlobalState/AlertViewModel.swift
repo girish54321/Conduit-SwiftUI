@@ -1,0 +1,30 @@
+//
+//  AlertViewModel.swift
+//  MyMedium
+//
+//  Created by neosoft on 11/01/23.
+//
+
+import Foundation
+import AlertToast
+
+class AlertViewModel: ObservableObject {
+    
+    @Published var show = false
+    @Published var alertToast = AlertToast(displayMode: .banner(.slide), type: .regular, title: "SOME TITLE"){
+          didSet {
+              show.toggle()
+          }
+      }
+    
+    func toggle() {
+        show.toggle()
+    }
+    
+    @Published var showAlert = false
+    @Published var errorMessage = "" {
+        didSet {
+            showAlert.toggle()
+        }
+    }
+}
