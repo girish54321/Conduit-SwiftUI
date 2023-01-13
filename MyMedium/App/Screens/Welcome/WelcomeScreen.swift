@@ -37,7 +37,9 @@ struct WelcomeScreen: View {
                             )
                     )
                     .onAppear {
-                        animationAmount = 1
+                        withAnimation {
+                            animationAmount = 2
+                        }
                     }
                 VStack(alignment: .center,spacing: 19)  {
                     VStack(alignment: .leading,spacing: 10) {

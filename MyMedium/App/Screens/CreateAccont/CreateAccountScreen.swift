@@ -66,6 +66,8 @@ struct CreateAccountScreen: View {
                 if screnType.isCreateAccount == false {
                     UserLoginApi(email: emailText, password: passwordText)
                     return
+                }else {
+                    crateUserApi(email: emailText, password: passwordText)
                 }
             })
             .padding(.top)
@@ -85,11 +87,47 @@ struct CreateAccountScreen: View {
         }
     }
     
+    func crateUserApi(email : String,password : String) {
+        viewModel.alertToast = AppMessage.loadindView
+        let postData: [String: Any] = [
+            "username": "test",
+            "email" : "test",
+            "password":"23"
+        ]
+        let user: [String:Any] = [
+            "user": postData
+        ]
+        AuthServices().createAccount(parameters: user){
+            result in
+            switch result {
+            case .success(_):
+                print("2")
+                withAnimation{
+                    //                        isLogedIn = true
+                }
+            case .failure(let error):
+                switch error {
+                case .NetworkErrorAPIError(let errorMessage):
+                    viewModel.toggle()
+                    viewModel.errorMessage = errorMessage
+                    print("3")
+                    print(errorMessage)
+                case .BadURL:
+                    print("BadURL")
+                case .NoData:
+                    print("NoData")
+                case .DecodingErrpr:
+                    print("DecodingErrpr")
+                }
+            }
+        }
+    }
+    
     func UserLoginApi(email : String,password : String) {
         viewModel.alertToast = AppMessage.loadindView
         let postData: [String: Any] = [
-            "email" : "eve.holt@reqres.in",
-            "password":"cityslicka"
+            "email" : "samsungceo@mail.com",
+            "password":"23"
         ]
         let user: [String:Any] = [
             "user": postData

@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import SwiftyJSON
 
 // Create API Clinet
 class RestAPIClient {
@@ -39,7 +40,7 @@ class RestAPIClient {
                         case .failure(let error):
                             completion(.failure(.NetworkErrorAPIError(error.localizedDescription)))
                         }
-                    } else if(statusCode == 401 || statusCode == 403 || statusCode == 404){
+                    } else if(statusCode == 401 || statusCode == 403 || statusCode == 404 || statusCode == 422){
                         print("stat")
                         guard let jsonData = response.data else {
                             return
@@ -47,7 +48,21 @@ class RestAPIClient {
                         do {
                             let json = try JSONSerialization.jsonObject(with: jsonData) as? [String: Any]
                             let error = removeSpecialCharsFromString(text: "\(json!["errors"] ?? "Error")")
-                            completion(.failure(.NetworkErrorAPIError(error)))
+                            var errorList:[String] = []
+                            let errorData = JSON(json!["errors"])
+                            errorData.dictionaryValue.forEach({
+                                print("pring in loop data2")
+                                var sunError:[String] = []
+                                var finalSubError = ""
+                                errorData[$0.key].forEach ({val in
+                                    sunError.append(val.1.rawValue as! String)
+                                })
+                                finalSubError  = sunError.joined(separator: ", ")
+                                errorList.append($0.key + " " + finalSubError)
+                            })
+                            var displayError: String = errorList.joined(separator: ", ")
+                            let dynamicKeys = json!.keys
+                            completion(.failure(.NetworkErrorAPIError(displayError.capitalized)))
                         } catch {
                             print("Error deserializing JSON: \(error)")
                             completion(.failure(.NetworkErrorAPIError("Error deserializing JSON")))
@@ -56,7 +71,6 @@ class RestAPIClient {
                         guard let jsonData = response.data else {
                             return
                         }
-                        //                        completion(.failure(.NetworkErrorAPIError("Api Error")))
                         do {
                             let json = try JSONSerialization.jsonObject(with: jsonData) as? [String: Any]
                             let error = removeSpecialCharsFromString(text: "\(json!["errors"] ?? "Error")")
@@ -78,7 +92,7 @@ class RestAPIClient {
             return text.filter {okayChars.contains($0) }
         }
     }
-   
+    
 }
 
 // Error Case

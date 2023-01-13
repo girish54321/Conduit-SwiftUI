@@ -18,7 +18,7 @@ class AuthApiEndpoint {
         case .login:
             return createApi(endPoint: "users/login")
         case .register:
-            return createApi(endPoint: "/register")
+            return createApi(endPoint: "users")
         }
     }
     
