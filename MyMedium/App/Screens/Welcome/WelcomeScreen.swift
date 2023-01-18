@@ -13,10 +13,11 @@ struct WelcomeScreen: View {
     @State private var selection: String? = nil
     @State private var isAnimating: Bool = false
     @State private var animationAmount = 1.0
-    
     @State private var presentedNumbers = NavigationPath()
+    @EnvironmentObject var appViewModel: AppViewModel
     
-    @EnvironmentObject var viewModel: AlertViewModel
+    @AppStorage(AppConst.isSkiped) var isSkiped: Bool = false
+    @AppStorage(AppConst.tokan) var tokan: String = ""
     
     var body: some View {
         NavigationStack (path: $presentedNumbers) {
@@ -75,7 +76,7 @@ struct WelcomeScreen: View {
                             })
                     }
                     .padding(.horizontal)
-                    .padding(.bottom, 18)
+                    .padding(.bottom, 140)
                 }
                 .offset(x: 0, y: 190)
             }
@@ -83,6 +84,12 @@ struct WelcomeScreen: View {
             .navigationDestination(for: LoginScreenType.self) { type in
                 CreateAccountScreen(screnType: type)
             }
+            .navigationBarItems(
+                trailing:
+                    SkipButton(clicked: {
+                        isSkiped = true
+                    })
+            )
             .navigationBarTitleDisplayMode(.large)
         }
         .onAppear(perform: {
@@ -90,18 +97,26 @@ struct WelcomeScreen: View {
                 isAnimating = true
             }
         })
-        .toast(isPresenting: $viewModel.show){
-            viewModel.alertToast
+        .toast(isPresenting: $appViewModel.show){
+            appViewModel.alertToast
         }
-        .alert(isPresented: $viewModel.showAlert) { () -> Alert in
-            Alert(title: Text("Error"), message: Text(viewModel.errorMessage))
+        .alert(isPresented: $appViewModel.showAlert) { () -> Alert in
+            Alert(title: Text("Error"), message: Text(appViewModel.errorMessage))
         }
+        .safeAreaInset(edge: .bottom) {
+//                Text("Outside Safe Area")
+//                    .font(.largeTitle)
+//                    .foregroundColor(.white)
+//                    .frame(maxWidth: .infinity)
+//                    .padding()
+//                    .background(.indigo)
+            }
     }
 }
 
 struct WelcomeScreen_Previews: PreviewProvider {
     static var previews: some View {
         WelcomeScreen()
-            .environmentObject(AlertViewModel())
+            .environmentObject(AppViewModel())
     }
 }

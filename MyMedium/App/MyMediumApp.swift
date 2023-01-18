@@ -10,12 +10,20 @@ import SwiftUI
 @main
 struct MyMediumApp: App {
     
-    @AppStorage(AppConst.isLogedIn) var isLogedIn: Bool = false
+    @AppStorage(AppConst.isSkiped) var isSkiped: Bool = false
+    @AppStorage(AppConst.tokan) var tokan: String = ""
     
     var body: some Scene {
         WindowGroup {
-            WelcomeScreen()
-                .environmentObject(AlertViewModel())
+            if isSkiped == true || tokan != "" {
+                HomeScreen()
+                    .environmentObject(AppViewModel())
+                    .environmentObject(AuthViewModel())
+            } else {
+                WelcomeScreen()
+                    .environmentObject(AppViewModel())
+                    .environmentObject(AuthViewModel())
+            }
         }
     }
 }

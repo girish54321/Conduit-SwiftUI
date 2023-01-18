@@ -6,21 +6,16 @@
 //
 
 import Foundation
-// MARK: - Welcome
+// MARK: - LoginScuccess
 struct LoginScuccess: Codable {
-    let user: User
+    let user: User?
 }
 
 // MARK: - User
 struct User: Codable {
-    let email, token, username, bio: String
-    let image: String
+    let email, token, username, bio: String?
+    let image: String?
 }
-
-
-//struct LoginScuccess: Codable {
-//    let token: String?
-//}
 
 struct LoginFail: Codable {
     let error: String?

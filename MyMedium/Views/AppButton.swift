@@ -47,3 +47,12 @@ struct AppButton: View {
         }
     }
 }
+
+struct SkipButton: View {
+    var clicked: (() -> Void)
+    var body: some View {
+        Button(action: clicked){
+            Text("Skip").foregroundColor(.blue).underline()
+        }
+    }
+}

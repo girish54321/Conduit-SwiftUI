@@ -8,6 +8,7 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+import SwiftUI
 
 // Create API Clinet
 class RestAPIClient {
@@ -18,7 +19,17 @@ class RestAPIClient {
                                     parameters: Parameters? = nil,
                                     completion: @escaping(Result<T,NetworkError>) -> Void) {
         
-        AF.request(endPoint,method: method,parameters: parameters,encoding: URLEncoding.default)
+        @AppStorage(AppConst.tokan) var tokan: String = ""
+        var headers: HTTPHeaders? = nil
+        if(tokan != ""){
+            headers = [
+                "Authorization": "Bearer \(tokan)",
+                "Accept": "application/json"
+            ]
+        } else {
+            headers = nil
+        }
+        AF.request(endPoint,method: method,parameters: parameters,encoding: URLEncoding.default,headers: headers)
             .response { response in
                 DispatchQueue.main.async {
                     let statusCode = response.response?.statusCode
@@ -31,11 +42,18 @@ class RestAPIClient {
                                 completion(.failure(.NoData))
                                 return
                             }
-                            // JSON TO Types
+//                            do {
+//                                let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+//                                print(json)
+//                            }catch{
+//                                print(error)
+//                            }
+//                             JSON TO Types
                             guard let obj = try? JSONDecoder().decode(T.self, from: data) else {
                                 completion(.failure(.DecodingErrpr))
                                 return
                             }
+//
                             completion(.success(obj))
                         case .failure(let error):
                             completion(.failure(.NetworkErrorAPIError(error.localizedDescription)))

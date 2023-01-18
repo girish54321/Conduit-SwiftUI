@@ -26,6 +26,18 @@ extension Text {
     }
 }
 
+extension VStack {
+    func inputTextStyle() -> some View {
+        self
+            .background(
+                Rectangle()
+                    .fill(Color.gray.opacity(0.05))
+                    .frame(height: 55)
+                    .cornerRadius(4)
+            )
+    }
+}
+
 extension Image {
     func imageModifier() -> some View {
         self

@@ -14,6 +14,8 @@ struct AppConst {
     static let LoginUrl = "login"
     static let usersListUrl = "users"
     static let isLogedIn = "isLogedIn"
+    static let tokan = "JWT_TOKAN"
+    static let isSkiped = "SIKPED"
     static let emailPattern = #"^\S+@\S+\.\S+$"#
     
     struct ApiConst {
@@ -29,6 +31,10 @@ struct AppIconsSF {
     static let checkMark = "checkmark.circle.fill"
     static let worngMark = "x.circle"
     static let userIcon = "person.crop.circle.fill"
+    static let homeIcon = "message"
+    static let trandingIcon = "flame.fill"
+    static let profileIcon = "person"
+    static let settingsIcon = "gear"
 }
 
 struct AppKeyBoardType {

@@ -24,7 +24,8 @@ struct AppInputBox: View {
     var body: some View {
         VStack (alignment: .leading, spacing: 4) {
             Text(title ?? "NA Title")
-                .font(.subheadline)
+//                .font(.subheadline)
+                .font(.headline)
             VStack {
                 HStack (spacing:8) {
                     if leftIcon != nil {
@@ -55,12 +56,7 @@ struct AppInputBox: View {
                     }
                 }
             }
-            .background(
-                Rectangle()
-                    .fill(Color.gray.opacity(0.05))
-                    .frame(height: 55)
-                    .cornerRadius(4)
-            )
+            .inputTextStyle()
         .frame(height: 55)
         }
     }

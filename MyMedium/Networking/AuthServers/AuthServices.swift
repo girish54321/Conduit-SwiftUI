@@ -31,4 +31,15 @@ class AuthServices {
                                          completion: completion
             )
         }
+    
+    func getUser (
+        parameters: Parameters?,
+        completion: @escaping(Result<LoginScuccess,NetworkError>) -> Void){
+            return RestAPIClient.request(type: LoginScuccess.self,
+                                         endPoint: AuthApiEndpoint().createEndPoint(endPoint: .profile),
+                                         method:.get,
+                                         parameters:parameters,
+                                         completion: completion
+            )
+        }
 }

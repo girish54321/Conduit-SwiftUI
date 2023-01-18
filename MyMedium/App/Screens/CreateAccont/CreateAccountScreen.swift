@@ -14,7 +14,10 @@ struct CreateAccountScreen: View {
     @State private var passwordText: String = ""
     @State private var username: String = ""
     
-    @EnvironmentObject var viewModel: AlertViewModel
+    @EnvironmentObject var appViewModel: AppViewModel
+    @EnvironmentObject var authViewModel: AuthViewModel
+    @AppStorage(AppConst.isSkiped) var isSkiped: Bool = false
+    @AppStorage(AppConst.tokan) var tokan: String = ""
     
     var body: some View {
         VStack (spacing: 14) {
@@ -40,9 +43,6 @@ struct CreateAccountScreen: View {
                 keyboard: AppKeyBoardType.emailAddress,
                 title:"Email", value: $emailText
             )
-            .onChange(of: emailText) { newValue in
-                let result = Helpers.isVaildEmailRegx(text: emailText)
-            }
             AppInputBox(
                 leftIcon: AppIconsSF.passwordIcon,
                 placeHoldr: "Password",
@@ -88,7 +88,7 @@ struct CreateAccountScreen: View {
     }
     
     func crateUserApi(email : String,password : String) {
-        viewModel.alertToast = AppMessage.loadindView
+        appViewModel.alertToast = AppMessage.loadindView
         let postData: [String: Any] = [
             "username": "test",
             "email" : "test",
@@ -101,15 +101,10 @@ struct CreateAccountScreen: View {
             result in
             switch result {
             case .success(_):
-                print("2")
-                withAnimation{
-                    //                        isLogedIn = true
-                }
+                print("Done")
             case .failure(let error):
                 switch error {
                 case .NetworkErrorAPIError(let errorMessage):
-                    viewModel.toggle()
-                    viewModel.errorMessage = errorMessage
                     print("3")
                     print(errorMessage)
                 case .BadURL:
@@ -124,10 +119,11 @@ struct CreateAccountScreen: View {
     }
     
     func UserLoginApi(email : String,password : String) {
-        viewModel.alertToast = AppMessage.loadindView
+        appViewModel.alertToast = AppMessage.loadindView
+        print("login")
         let postData: [String: Any] = [
             "email" : "samsungceo@mail.com",
-            "password":"23"
+            "password": "djffdk23!23"
         ]
         let user: [String:Any] = [
             "user": postData
@@ -135,16 +131,16 @@ struct CreateAccountScreen: View {
         AuthServices().userLogin(parameters: user){
             result in
             switch result {
-            case .success(_):
-                print("2")
-                withAnimation{
-                    //                        isLogedIn = true
+            case .success(let data):
+                withAnimation {
+                    tokan = data.user?.token ?? ""
                 }
+                authViewModel.saveUser(data: data)
             case .failure(let error):
                 switch error {
                 case .NetworkErrorAPIError(let errorMessage):
-                    viewModel.toggle()
-                    viewModel.errorMessage = errorMessage
+                    appViewModel.toggle()
+                    appViewModel.errorMessage = errorMessage
                     print("3")
                     print(errorMessage)
                 case .BadURL:
@@ -163,7 +159,7 @@ struct CreateAccountScreen_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             CreateAccountScreen()
-                .environmentObject(AlertViewModel())
+                .environmentObject(AppViewModel())
         }
     }
 }

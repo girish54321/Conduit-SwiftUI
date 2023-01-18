@@ -8,7 +8,7 @@
 import Foundation
 import AlertToast
 
-class AlertViewModel: ObservableObject {
+class AppViewModel: ObservableObject {
     
     @Published var show = false
     @Published var alertToast = AlertToast(displayMode: .banner(.slide), type: .regular, title: "SOME TITLE"){
