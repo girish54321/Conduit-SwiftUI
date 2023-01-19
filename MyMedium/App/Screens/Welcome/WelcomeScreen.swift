@@ -13,14 +13,14 @@ struct WelcomeScreen: View {
     @State private var selection: String? = nil
     @State private var isAnimating: Bool = false
     @State private var animationAmount = 1.0
-    @State private var presentedNumbers = NavigationPath()
+    @State private var presentedScreen = NavigationPath()
     @EnvironmentObject var appViewModel: AppViewModel
     
     @AppStorage(AppConst.isSkiped) var isSkiped: Bool = false
     @AppStorage(AppConst.tokan) var tokan: String = ""
     
     var body: some View {
-        NavigationStack (path: $presentedNumbers) {
+        NavigationStack (path: $presentedScreen) {
             VStack {
                 Image(systemName: "keyboard")
                     .imageModifier()
@@ -66,13 +66,13 @@ struct WelcomeScreen: View {
                             whiteButton: true,
                             clicked: {
                                 let data = LoginScreenType(title: "Welcome Back", isCreateAccount: false)
-                                presentedNumbers.append(data)
+                                presentedScreen.append(data)
                             })
                         AppButton(
                             text: "Sign Up",
                             clicked: {
                                 let data = LoginScreenType(title: "Let's Start", isCreateAccount: true)
-                                presentedNumbers.append(data)
+                                presentedScreen.append(data)
                             })
                     }
                     .padding(.horizontal)
@@ -104,13 +104,7 @@ struct WelcomeScreen: View {
             Alert(title: Text("Error"), message: Text(appViewModel.errorMessage))
         }
         .safeAreaInset(edge: .bottom) {
-//                Text("Outside Safe Area")
-//                    .font(.largeTitle)
-//                    .foregroundColor(.white)
-//                    .frame(maxWidth: .infinity)
-//                    .padding()
-//                    .background(.indigo)
-            }
+        }
     }
 }
 

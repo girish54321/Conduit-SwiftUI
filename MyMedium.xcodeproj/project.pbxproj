@@ -16,6 +16,11 @@
 		92594907296D733D0029B2C1 /* NavModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92594906296D733D0029B2C1 /* NavModal.swift */; };
 		92594909296D83300029B2C1 /* AppConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92594908296D83300029B2C1 /* AppConst.swift */; };
 		92611DA5297166F5009D8AA9 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 92611DA4297166F5009D8AA9 /* SwiftyJSON */; };
+		9265794E2977D3CE00C8B4BB /* ArticleDetailViewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9265794D2977D3CE00C8B4BB /* ArticleDetailViewScreen.swift */; };
+		926579502977E2F300C8B4BB /* AboutAuthorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9265794F2977E2F300C8B4BB /* AboutAuthorView.swift */; };
+		9286E8EC2977F3F5006E2987 /* ProfileServers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286E8EB2977F3F5006E2987 /* ProfileServers.swift */; };
+		9286E8EE2977F40D006E2987 /* ProfileApiEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286E8ED2977F40D006E2987 /* ProfileApiEndpoint.swift */; };
+		9286E8F12977F4FF006E2987 /* ProfileModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286E8F02977F4FF006E2987 /* ProfileModal.swift */; };
 		92D2D72A296C15EB008BA685 /* MyMediumApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D2D729296C15EB008BA685 /* MyMediumApp.swift */; };
 		92D2D72C296C15EB008BA685 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D2D72B296C15EB008BA685 /* ContentView.swift */; };
 		92D2D72E296C15ED008BA685 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92D2D72D296C15ED008BA685 /* Assets.xcassets */; };
@@ -38,7 +43,7 @@
 		92FD1529296EC47600C8AE0E /* AuthServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FD1528296EC47600C8AE0E /* AuthServices.swift */; };
 		92FD152B296EC59400C8AE0E /* RestAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FD152A296EC59400C8AE0E /* RestAPIClient.swift */; };
 		92FD152F296EC71C00C8AE0E /* AuthModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FD152E296EC71C00C8AE0E /* AuthModal.swift */; };
-		92FD1532296ECBAE00C8AE0E /* AlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FD1531296ECBAE00C8AE0E /* AlertViewModel.swift */; };
+		92FD1532296ECBAE00C8AE0E /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FD1531296ECBAE00C8AE0E /* AppViewModel.swift */; };
 		92FD1535296ED1EC00C8AE0E /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 92FD1534296ED1EC00C8AE0E /* AlertToast */; };
 		92FD1537296ED6E000C8AE0E /* AuthViewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FD1536296ED6E000C8AE0E /* AuthViewModal.swift */; };
 /* End PBXBuildFile section */
@@ -52,6 +57,11 @@
 		92594902296D6DA20029B2C1 /* CreateAccountScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountScreen.swift; sourceTree = "<group>"; };
 		92594906296D733D0029B2C1 /* NavModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavModal.swift; sourceTree = "<group>"; };
 		92594908296D83300029B2C1 /* AppConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConst.swift; sourceTree = "<group>"; };
+		9265794D2977D3CE00C8B4BB /* ArticleDetailViewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailViewScreen.swift; sourceTree = "<group>"; };
+		9265794F2977E2F300C8B4BB /* AboutAuthorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutAuthorView.swift; sourceTree = "<group>"; };
+		9286E8EB2977F3F5006E2987 /* ProfileServers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileServers.swift; sourceTree = "<group>"; };
+		9286E8ED2977F40D006E2987 /* ProfileApiEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileApiEndpoint.swift; sourceTree = "<group>"; };
+		9286E8F02977F4FF006E2987 /* ProfileModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModal.swift; sourceTree = "<group>"; };
 		92D2D726296C15EB008BA685 /* MyMedium.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyMedium.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92D2D729296C15EB008BA685 /* MyMediumApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMediumApp.swift; sourceTree = "<group>"; };
 		92D2D72B296C15EB008BA685 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -74,7 +84,7 @@
 		92FD1528296EC47600C8AE0E /* AuthServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServices.swift; sourceTree = "<group>"; };
 		92FD152A296EC59400C8AE0E /* RestAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestAPIClient.swift; sourceTree = "<group>"; };
 		92FD152E296EC71C00C8AE0E /* AuthModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModal.swift; sourceTree = "<group>"; };
-		92FD1531296ECBAE00C8AE0E /* AlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewModel.swift; sourceTree = "<group>"; };
+		92FD1531296ECBAE00C8AE0E /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
 		92FD1536296ED6E000C8AE0E /* AuthViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModal.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -135,11 +145,37 @@
 		92594905296D73280029B2C1 /* Modal */ = {
 			isa = PBXGroup;
 			children = (
+				9286E8EF2977F4EC006E2987 /* ProfileModal */,
 				92EBBBDF29756DAD006E34EE /* ArticleModal */,
 				92FD152D296EC63C00C8AE0E /* NavModal */,
 				92FD152C296EC63100C8AE0E /* AuthModal */,
 			);
 			path = Modal;
+			sourceTree = "<group>";
+		};
+		9265794C2977D3BF00C8B4BB /* ArticleDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				9265794D2977D3CE00C8B4BB /* ArticleDetailViewScreen.swift */,
+			);
+			path = ArticleDetailView;
+			sourceTree = "<group>";
+		};
+		9286E8EA2977F3E1006E2987 /* ProfileServers */ = {
+			isa = PBXGroup;
+			children = (
+				9286E8EB2977F3F5006E2987 /* ProfileServers.swift */,
+				9286E8ED2977F40D006E2987 /* ProfileApiEndpoint.swift */,
+			);
+			path = ProfileServers;
+			sourceTree = "<group>";
+		};
+		9286E8EF2977F4EC006E2987 /* ProfileModal */ = {
+			isa = PBXGroup;
+			children = (
+				9286E8F02977F4FF006E2987 /* ProfileModal.swift */,
+			);
+			path = ProfileModal;
 			sourceTree = "<group>";
 		};
 		92D2D71D296C15EB008BA685 = {
@@ -243,6 +279,7 @@
 		92EBBBD029755777006E34EE /* App */ = {
 			isa = PBXGroup;
 			children = (
+				9265794C2977D3BF00C8B4BB /* ArticleDetailView */,
 				9205B2C52976C7F9004541EA /* CreateArticle */,
 				9205B2C229769B09004541EA /* Profile */,
 				9205B2C129769AE6004541EA /* TrandingArticle */,
@@ -256,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				92EBBBD82975619E006E34EE /* ArticleRow.swift */,
+				9265794F2977E2F300C8B4BB /* AboutAuthorView.swift */,
 			);
 			path = ArticleViews;
 			sourceTree = "<group>";
@@ -280,6 +318,7 @@
 		92FD1522296EC3E700C8AE0E /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				9286E8EA2977F3E1006E2987 /* ProfileServers */,
 				92EBBBDA297561F1006E34EE /* ArticleServers */,
 				92FD1525296EC43E00C8AE0E /* AuthServers */,
 				92FD1523296EC41100C8AE0E /* ApiError.swift */,
@@ -316,7 +355,7 @@
 		92FD1530296ECB9E00C8AE0E /* GlobalState */ = {
 			isa = PBXGroup;
 			children = (
-				92FD1531296ECBAE00C8AE0E /* AlertViewModel.swift */,
+				92FD1531296ECBAE00C8AE0E /* AppViewModel.swift */,
 				92FD1536296ED6E000C8AE0E /* AuthViewModal.swift */,
 			);
 			path = GlobalState;
@@ -405,6 +444,7 @@
 				92FD1537296ED6E000C8AE0E /* AuthViewModal.swift in Sources */,
 				92EBBBD429755DC3006E34EE /* AppNetworkImage.swift in Sources */,
 				92203B0E296E8F2C00A15F60 /* Helper.swift in Sources */,
+				9286E8F12977F4FF006E2987 /* ProfileModal.swift in Sources */,
 				92D2D743296C1980008BA685 /* WelcomeScreen.swift in Sources */,
 				9205B2C72976C9A7004541EA /* CreateArticleScreen.swift in Sources */,
 				92FD1527296EC45000C8AE0E /* AuthApiEndpoint.swift in Sources */,
@@ -412,16 +452,20 @@
 				92D2D72C296C15EB008BA685 /* ContentView.swift in Sources */,
 				92D2D73C296C1735008BA685 /* AppInputBox.swift in Sources */,
 				92FD152B296EC59400C8AE0E /* RestAPIClient.swift in Sources */,
+				9286E8EC2977F3F5006E2987 /* ProfileServers.swift in Sources */,
 				92FD1524296EC41100C8AE0E /* ApiError.swift in Sources */,
 				92EBBBD92975619E006E34EE /* ArticleRow.swift in Sources */,
+				9265794E2977D3CE00C8B4BB /* ArticleDetailViewScreen.swift in Sources */,
+				926579502977E2F300C8B4BB /* AboutAuthorView.swift in Sources */,
 				92EBBBD62975612E006E34EE /* ChipView.swift in Sources */,
+				9286E8EE2977F40D006E2987 /* ProfileApiEndpoint.swift in Sources */,
 				92EBBBCF2975512D006E34EE /* HomeScreen.swift in Sources */,
 				92D2D73F296C1778008BA685 /* UIHelper.swift in Sources */,
 				92EBBBDE29756D32006E34EE /* ArticleServices.swift in Sources */,
 				9205B2C429769B2A004541EA /* ProfileScreen.swift in Sources */,
 				92FD152F296EC71C00C8AE0E /* AuthModal.swift in Sources */,
 				92594903296D6DA20029B2C1 /* CreateAccountScreen.swift in Sources */,
-				92FD1532296ECBAE00C8AE0E /* AlertViewModel.swift in Sources */,
+				92FD1532296ECBAE00C8AE0E /* AppViewModel.swift in Sources */,
 				92FD1529296EC47600C8AE0E /* AuthServices.swift in Sources */,
 				9205B2C029768F7A004541EA /* FeedScreen.swift in Sources */,
 				92EBBBE129756EB9006E34EE /* Articles.swift in Sources */,

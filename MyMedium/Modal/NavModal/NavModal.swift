@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 struct WelcomeScreenType: Identifiable, Hashable {
     let id = UUID()
     let title: String
@@ -15,5 +16,21 @@ struct LoginScreenType: Identifiable, Hashable {
     let id = UUID()
     let title: String
     var isCreateAccount: Bool?
+}
+
+struct SelectedArticleScreenType: Identifiable, Hashable {
+    var identifier: String {
+        return UUID().uuidString
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        return hasher.combine(identifier)
+    }
+    
+    public static func == (lhs: SelectedArticleScreenType, rhs: SelectedArticleScreenType) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
+    let id = UUID()
+    var selectedArticle : Article?
 }
 

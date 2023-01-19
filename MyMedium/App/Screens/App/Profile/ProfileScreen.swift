@@ -32,28 +32,6 @@ struct ProfileScreen: View {
                     Spacer()
                 }
             }
-            .onAppear {
-                AuthServices().getUser(parameters: nil){
-                    result in
-                    switch result {
-                    case .success(let data):
-                        withAnimation {
-                            authViewModel.userState = data
-                        }
-                    case .failure(let error):
-                        switch error {
-                        case .NetworkErrorAPIError(let errorMessage):
-                            print(errorMessage)
-                        case .BadURL:
-                            print("BadURL")
-                        case .NoData:
-                            print("NoData")
-                        case .DecodingErrpr:
-                            print("DecodingErrpr")
-                        }
-                    }
-                }
-            }
             .navigationBarItems(
                 trailing:
                     Button(action: {
@@ -70,28 +48,7 @@ struct ProfileScreen: View {
         }
     }
     
-    func getProfile() {
-        AuthServices().getUser(parameters: nil){
-            result in
-            switch result {
-            case .success(let data):
-                withAnimation {
-                    authViewModel.userState = data
-                }
-            case .failure(let error):
-                switch error {
-                case .NetworkErrorAPIError(let errorMessage):
-                    print(errorMessage)
-                case .BadURL:
-                    print("BadURL")
-                case .NoData:
-                    print("NoData")
-                case .DecodingErrpr:
-                    print("DecodingErrpr")
-                }
-            }
-        }
-    }
+
 }
 
 

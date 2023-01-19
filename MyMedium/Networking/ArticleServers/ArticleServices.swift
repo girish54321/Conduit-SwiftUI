@@ -31,4 +31,15 @@ class ArticleServices {
                                          completion: completion
             )
         }
+    
+    func uploadArticle (
+        parameters: Parameters?,
+        completion: @escaping(Result<Article,NetworkError>) -> Void){
+            return RestAPIClient.request(type: Article.self,
+                                         endPoint: ArticleApiEndpoint().createEndPoint(endPoint: .uploadArticle),
+                                         method:.post,
+                                         parameters:parameters,
+                                         completion: completion
+            )
+        }
 }

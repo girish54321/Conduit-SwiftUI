@@ -10,11 +10,23 @@ import SwiftUI
 struct TrandingArticleScreen: View {
     
     @State var articleData: TrandingArticles? = nil
+    @State private var presentedScreen = NavigationPath()
     
     var body: some View {
-        NavigationView {
+        NavigationStack (path: $presentedScreen) {
             List(articleData?.articles ?? []) { article in
-                ArticleRow(article: article)
+                Button (action: {
+                    let data = SelectedArticleScreenType(selectedArticle: article)
+                    presentedScreen.append(data)
+                }, label: {
+                    HStack {
+                        ArticleRow(article: article)
+                    }
+                })
+                .buttonStyle(.plain)
+            }
+            .navigationDestination(for: SelectedArticleScreenType.self) { type in
+                ArticleDetailViewScreen(article: type.selectedArticle!)
             }
             .navigationBarTitle("Articles")
             .onAppear {

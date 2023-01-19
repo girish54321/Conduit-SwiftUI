@@ -16,8 +16,8 @@ struct TrandingArticles: Codable {
 // MARK: - Article
 struct Article: Codable, Identifiable {
     let id = UUID()
-    let slug, title, description, body: String?
-    let tagList: [String]?
+    var slug, title, description, body: String?
+    var tagList: [String]?
     let createdAt, updatedAt: String?
     let favorited: Bool?
     let favoritesCount: Int?
@@ -29,7 +29,7 @@ struct Author: Codable {
     let username: String?
     let bio: String?
     let image: String?
-    let following: Bool?
+    var following: Bool?
 }
 
 
@@ -37,4 +37,28 @@ struct Author: Codable {
 struct FeedArticle: Codable {
     let articles: [Article]?
     let articlesCount: Int?
+}
+
+// MARK: - Create Article Modal AF
+struct RequestParams {
+    let article: ArticleParams
+    func toDictionary() -> [String: Any] {
+        return ["article": article.toDictionary()]
+    }
+}
+
+struct ArticleParams {
+    var title: String
+    var description: String
+    var body: String
+    var tagList: [String]
+    
+    func toDictionary() -> [String: Any] {
+        return [
+            "title": title,
+            "description": description,
+            "body": body,
+            "tagList": tagList
+        ]
+    }
 }

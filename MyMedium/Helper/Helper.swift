@@ -19,12 +19,19 @@ struct Helpers {
     
     static func isValidPassword(text:String) -> Bool {
         var isValidPassword = false
-     
+        
         if text.count >= 6 {
             isValidPassword = true
         } else {
             isValidPassword = false
         }
         return isValidPassword
+    }
+    
+    static func isTheOwner (user: User?, author: Author?) -> Bool {
+        if (user?.username != author?.username) {
+            return false
+        }
+        return true
     }
 }

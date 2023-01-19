@@ -35,6 +35,8 @@ struct AppIconsSF {
     static let trandingIcon = "flame.fill"
     static let profileIcon = "person"
     static let settingsIcon = "gear"
+    static let editIcon = "pencil"
+    static let deleteIcon = "trash"
 }
 
 struct AppKeyBoardType {

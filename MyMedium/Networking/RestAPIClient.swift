@@ -20,6 +20,9 @@ class RestAPIClient {
                                     completion: @escaping(Result<T,NetworkError>) -> Void) {
         
         @AppStorage(AppConst.tokan) var tokan: String = ""
+        print(endPoint)
+        let encodedURL = endPoint.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        print(encodedURL)
         var headers: HTTPHeaders? = nil
         if(tokan != ""){
             headers = [
@@ -28,11 +31,13 @@ class RestAPIClient {
             ]
         } else {
             headers = nil
-        }
-        AF.request(endPoint,method: method,parameters: parameters,encoding: URLEncoding.default,headers: headers)
+        }//encoding: URLEncoding(destination: .queryString)
+        AF.request(encodedURL,method: method,parameters: parameters,headers: headers)
             .response { response in
                 DispatchQueue.main.async {
+                    print(response)
                     let statusCode = response.response?.statusCode
+                    print(statusCode)
                     // If statusCode == 200 || 2001
                     if(statusCode == 200 || statusCode == 201){
                         let result = response.result
@@ -40,14 +45,14 @@ class RestAPIClient {
                         case .success(let data):
                             guard let data = data else {
                                 completion(.failure(.NoData))
-                                return
+                                return //https://api.realworld.io/api/profiles/Rahul%20G/follow
                             }
-//                            do {
-//                                let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
-//                                print(json)
-//                            }catch{
-//                                print(error)
-//                            }
+                            do {
+                                let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+                                print(json)
+                            }catch{
+                                print(error)
+                            }
 //                             JSON TO Types
                             guard let obj = try? JSONDecoder().decode(T.self, from: data) else {
                                 completion(.failure(.DecodingErrpr))
@@ -101,7 +106,6 @@ class RestAPIClient {
                             }
                             
                         }
-                        
                     }
                 }
             }

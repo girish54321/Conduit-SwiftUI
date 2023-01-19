@@ -8,16 +8,52 @@
 import SwiftUI
 
 struct FeedScreen: View {
+    
     @State var articleData: FeedArticle? = nil
+    @State private var presentedScreen = NavigationPath()
+    @EnvironmentObject var authViewModel: AuthViewModel
     
     var body: some View {
-        NavigationView {
+        NavigationStack (path: $presentedScreen) {
             List(articleData?.articles ?? []) { article in
-                ArticleRow(article: article)
+                Button (action: {
+                    let data = SelectedArticleScreenType(selectedArticle: article)
+                    presentedScreen.append(data)
+                }, label: {
+                    HStack {
+                        ArticleRow(article: article)
+                    }
+                })
+                .buttonStyle(.plain)
+            }
+            .navigationDestination(for: SelectedArticleScreenType.self) { type in
+                ArticleDetailViewScreen(article: type.selectedArticle!)
             }
             .navigationBarTitle("Feed")
-            .onAppear {
-                getUserList()
+        }
+        .onAppear {
+            getUserList()
+            getProfile()
+        }
+    }
+    
+    func getProfile() {
+        AuthServices().getUser(parameters: nil){
+            result in
+            switch result {
+            case .success(let data):
+                authViewModel.userState = data
+            case .failure(let error):
+                switch error {
+                case .NetworkErrorAPIError(let errorMessage):
+                    print(errorMessage)
+                case .BadURL:
+                    print("BadURL")
+                case .NoData:
+                    print("NoData")
+                case .DecodingErrpr:
+                    print("DecodingErrpr")
+                }
             }
         }
     }

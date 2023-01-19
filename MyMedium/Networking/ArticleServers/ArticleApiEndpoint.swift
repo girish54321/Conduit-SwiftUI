@@ -11,6 +11,7 @@ class ArticleApiEndpoint {
     enum ArticleApiType {
         case getTranding
         case feed
+        case uploadArticle
     }
     
     func createEndPoint(endPoint: ArticleApiType) -> String {
@@ -19,6 +20,8 @@ class ArticleApiEndpoint {
             return createApi(endPoint: "articles")
         case .feed:
             return createApi(endPoint: "articles/feed")
+        case .uploadArticle:
+            return createApi(endPoint: "articles")
         }
     }
     
