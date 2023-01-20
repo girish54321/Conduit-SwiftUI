@@ -10,14 +10,14 @@ import SwiftUI
 struct TrandingArticleScreen: View {
     
     @State var articleData: TrandingArticles? = nil
-    @State private var presentedScreen = NavigationPath()
+    @EnvironmentObject var navStack: TrandingNavigationStackViewModal
     
     var body: some View {
-        NavigationStack (path: $presentedScreen) {
+        NavigationStack (path: $navStack.presentedScreen) {
             List(articleData?.articles ?? []) { article in
                 Button (action: {
                     let data = SelectedArticleScreenType(selectedArticle: article)
-                    presentedScreen.append(data)
+                    navStack.presentedScreen.append(data)
                 }, label: {
                     HStack {
                         ArticleRow(article: article)
@@ -65,6 +65,7 @@ struct TrandingArticleScreen: View {
     struct TrandingArticleScreen_Previews: PreviewProvider {
         static var previews: some View {
             TrandingArticleScreen()
+                .environmentObject(FeedNavigationStackViewModal())
         }
     }
 }

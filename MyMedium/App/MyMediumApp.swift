@@ -19,6 +19,8 @@ struct MyMediumApp: App {
                 HomeScreen()
                     .environmentObject(AppViewModel())
                     .environmentObject(AuthViewModel())
+                    .environmentObject(FeedNavigationStackViewModal())
+                    .environmentObject(TrandingNavigationStackViewModal())
             } else {
                 WelcomeScreen()
                     .environmentObject(AppViewModel())

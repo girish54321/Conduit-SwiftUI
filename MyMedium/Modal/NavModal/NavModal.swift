@@ -34,3 +34,19 @@ struct SelectedArticleScreenType: Identifiable, Hashable {
     var selectedArticle : Article?
 }
 
+struct CreateArticleScreenType: Identifiable, Hashable {
+    var identifier: String {
+        return UUID().uuidString
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        return hasher.combine(identifier)
+    }
+    
+    public static func == (lhs: CreateArticleScreenType, rhs: CreateArticleScreenType) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
+    let id = UUID()
+    var selectedArticle : Article?
+}
+

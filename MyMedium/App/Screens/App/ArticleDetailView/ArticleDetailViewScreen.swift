@@ -6,12 +6,18 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct ArticleDetailViewScreen: View {
     
-    let article: Article
+    @State var article: Article
     @EnvironmentObject var authViewModel: AuthViewModel
+    @EnvironmentObject var navStack: FeedNavigationStackViewModal
+    @EnvironmentObject var navStack2: TrandingNavigationStackViewModal
     @State var isTheOwner : Bool = false
+    @State var isFeedStack: Bool = false
+    @State private var showDeleteAlert = false
+    @EnvironmentObject var appViewModel: AppViewModel
     
     var body: some View {
         ScrollView {
@@ -35,6 +41,21 @@ struct ArticleDetailViewScreen: View {
                     .animation(.spring(), value: article.title)
                 Text(article.body ?? "NA")
                     .padding(.vertical)
+                HStack {
+                    Text(Helpers.formatDateFormat(dateString: article.createdAt ?? ""))
+                    Spacer()
+                    Button(action: {
+                        if (article.favorited == true){
+                            removeBookMarkArticle()
+                        } else {
+                            bookMarkArticle()
+                        }
+                    }) {
+                        Image(systemName: article.favorited ?? false ? AppIconsSF.bookMarkFillIcon : AppIconsSF.bookMarkIcon)
+                            .frame(width: 30,height: 30)
+                    }
+                    .frame(width: 30,height: 30)
+                }
                 AboutAuthorView(author: article.author)
             }
             .padding()
@@ -50,14 +71,21 @@ struct ArticleDetailViewScreen: View {
                     if isTheOwner {
                         HStack {
                             Button(action: {
-                                // Edit action here
+                                let data = CreateArticleScreenType(selectedArticle: article)
+                                if (!isFeedStack){
+                                    navStack2.presentedScreen.append(data)
+                                    return
+                                }
+                                navStack.presentedScreen.append(data)
                             }) {
-                                Image(systemName: "pencil")
+                                Image(systemName: AppIconsSF.editIcon)
                             }
                             Button(action: {
-                                // Edit action here
+                                withAnimation {
+                                    showDeleteAlert.toggle()
+                                }
                             }) {
-                                Image(systemName: "trash")
+                                Image(systemName: AppIconsSF.deleteIcon)
                             }
                         }
                     } else {
@@ -65,7 +93,105 @@ struct ArticleDetailViewScreen: View {
                     }
                 }
         )
+        .alert(isPresented: $showDeleteAlert) {
+            Alert(title: Text("Delete Article"),
+                  message: Text("Are you sure you want to delete this article?"),
+                  primaryButton: .destructive(Text("Yes")) {
+                deleteArticle()
+            }, secondaryButton: .cancel())
+        }
+        .navigationDestination(for: CreateArticleScreenType.self) { type in
+            let data = type.selectedArticle
+            CreateArticleScreen(article: ArticleParams(title: data?.title ?? "", description: data?.description ?? "", body: data?.body ?? "", tagList: data?.tagList ?? []),slug: article.slug)
+        }
         .navigationBarTitle(Text(article.title ?? "NA"), displayMode: .inline)
+    }
+    
+    func deleteArticle () {
+        ArticleServices().deleteAricle(parameters: nil, endpoint: article.slug ?? ""){
+            res in
+            switch res {
+            case .success(let data):
+                print("remove bookmar")
+                appViewModel.alertToast = AlertToast(displayMode: .banner(.slide), type: .complete(.green), title: "Article Delete!")
+                if (!isFeedStack){
+                    navStack2.presentedScreen.removeLast()
+                    return
+                }
+                navStack.presentedScreen.removeLast()
+                print(data)
+            case .failure(let error):
+                switch error {
+                case .NetworkErrorAPIError(let errorMessage):
+                    print("3")
+                    print(errorMessage)
+                    appViewModel.errorMessage = errorMessage
+                case .BadURL:
+                    print("BadURL")
+                case .NoData:
+                    print("NoData")
+                case .DecodingErrpr:
+                    print("DecodingErrpr")
+                }
+            }
+        }
+    }
+    
+    func removeBookMarkArticle () {
+        FavoritesServices().removeBookMarkArticle(parameters: nil, endpoint: "\(article.slug ?? "")/favorite"){
+            res in
+            switch res {
+            case .success(let data):
+                print("removeBookMarkArticle")
+//                print(data.article?.favorited)
+                appViewModel.alertToast = AlertToast(displayMode: .banner(.slide), type: .complete(.green), title: "Article Bookmark removed!")
+                withAnimation {
+                    article.favorited = data.article?.favorited
+                }
+                print(data)
+            case .failure(let error):
+                switch error {
+                case .NetworkErrorAPIError(let errorMessage):
+                    print("3")
+                    print(errorMessage)
+                    appViewModel.errorMessage = errorMessage
+                case .BadURL:
+                    print("BadURL")
+                case .NoData:
+                    print("NoData")
+                case .DecodingErrpr:
+                    print("DecodingErrpr")
+                }
+            }
+        }
+    }
+    
+    func bookMarkArticle () {
+        FavoritesServices().bookMarkArticle(parameters: nil, endpoint: "\(article.slug ?? "")/favorite"){
+            res in
+            switch res {
+            case .success(let data):
+                print("bookMarkArticle")
+                print(data.article?.favorited)
+                appViewModel.alertToast = AlertToast(displayMode: .banner(.slide), type: .complete(.green), title: "Article Bookmark!")
+                withAnimation {
+                    article.favorited = data.article?.favorited
+                }
+            case .failure(let error):
+                switch error {
+                case .NetworkErrorAPIError(let errorMessage):
+                    print("3")
+                    print(errorMessage)
+                    appViewModel.errorMessage = errorMessage
+                case .BadURL:
+                    print("BadURL")
+                case .NoData:
+                    print("NoData")
+                case .DecodingErrpr:
+                    print("DecodingErrpr")
+                }
+            }
+        }
     }
 }
 
@@ -73,9 +199,12 @@ struct ArticleDetailViewScreen: View {
 struct ArticleDetailViewScreen_Previews: PreviewProvider {
     
     static var previews: some View {
-        let data = Article(slug: "", title: "If we quantify the alarm, we can get to the FTP pixel through the online SSL interface!", description: "Omnis perspiciatis qui quia commodi sequi modi. Nostrum quam aut cupiditate est facere omnis possimus. Tenetur similique nemo illo soluta molestias facere quo. Ipsam totam facilis delectus nihil quidem soluta vel est omnis", body: "Quia quo iste et aperiam voluptas consectetur a omnis et.\\nDolores et earum consequuntur sunt et.\\nEa nulla ab voluptatem dicta vel. Temporibus aut adipisci magnam aliquam eveniet nihil laudantium reprehenderit sit.\\nAspernatur cumque labore voluptates mollitia deleniti et. Quos pariatur tenetur.\\nQuasi omnis eveniet eos maiores esse magni possimus blanditiis.\\nQui incidunt sit quos consequa.", tagList: [""], createdAt: "", updatedAt: "", favorited: true, favoritesCount: 2, author: Author(username: "Girish", bio: "My Bios is my bio", image: "", following: true))
+        let data = Article(slug: "", title: "If we quantify the alarm, we can get to the FTP pixel through the online SSL interface!", description: "Omnis perspiciatis qui quia commodi sequi modi. Nostrum quam aut cupiditate est facere omnis possimus. Tenetur similique nemo illo soluta molestias facere quo. Ipsam totam facilis delectus nihil quidem soluta vel est omnis", body: "Quia quo iste et aperiam voluptas consectetur a omnis et.\\nDolores et earum consequuntur sunt et.\\nEa nulla ab voluptatem dicta vel. Temporibus aut adipisci magnam aliquam eveniet nihil laudantium reprehenderit sit.\\nAspernatur cumque labore voluptates mollitia deleniti et. Quos pariatur tenetur.\\nQuasi omnis eveniet eos maiores esse magni possimus blanditiis.\\nQui incidunt sit quos consequa.", tagList: [""], favoritedBy: [], createdAt: "2022-12-09T13:46:24.264Z", updatedAt: "2022-12-09T13:46:24.264Z", favorited: true, favoritesCount: 2, author: Author(username: "Girish", bio: "My Bios is my bio", image: "", following: true))
         NavigationView {
             ArticleDetailViewScreen(article: data)
         }
+        .environmentObject(FeedNavigationStackViewModal())
+        .environmentObject(AuthViewModel())
+        .environmentObject(AppViewModel())
     }
 }

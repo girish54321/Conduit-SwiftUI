@@ -12,10 +12,13 @@ struct AboutAuthorView: View {
     
     var body: some View {
         VStack(alignment: .center) {
+//            AppNetworkImage(imageUrl: author?.image ?? "")
             AppNetworkImage(imageUrl: author?.image ?? "")
                 .frame(width: 50, height: 50)
-                .clipShape(Circle())
-                .overlay(Circle().stroke(Color.white, lineWidth: 2))
+                .clipShape(
+                    RoundedRectangle(cornerRadius: 12)
+                )
+//                .overlay(Circle().stroke(Color.white, lineWidth: 2))
                 .shadow(radius: 2)
             Text(author?.username ?? "Name")
                 .font(.title2)

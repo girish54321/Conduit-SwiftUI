@@ -21,6 +21,7 @@
 		9286E8EC2977F3F5006E2987 /* ProfileServers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286E8EB2977F3F5006E2987 /* ProfileServers.swift */; };
 		9286E8EE2977F40D006E2987 /* ProfileApiEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286E8ED2977F40D006E2987 /* ProfileApiEndpoint.swift */; };
 		9286E8F12977F4FF006E2987 /* ProfileModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286E8F02977F4FF006E2987 /* ProfileModal.swift */; };
+		92C5D9F729791F5100C6E6B6 /* NavigationStackViewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C5D9F629791F5100C6E6B6 /* NavigationStackViewModal.swift */; };
 		92D2D72A296C15EB008BA685 /* MyMediumApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D2D729296C15EB008BA685 /* MyMediumApp.swift */; };
 		92D2D72C296C15EB008BA685 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D2D72B296C15EB008BA685 /* ContentView.swift */; };
 		92D2D72E296C15ED008BA685 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92D2D72D296C15ED008BA685 /* Assets.xcassets */; };
@@ -29,6 +30,8 @@
 		92D2D73C296C1735008BA685 /* AppInputBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D2D73B296C1735008BA685 /* AppInputBox.swift */; };
 		92D2D73F296C1778008BA685 /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D2D73E296C1778008BA685 /* UIHelper.swift */; };
 		92D2D743296C1980008BA685 /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D2D742296C1980008BA685 /* WelcomeScreen.swift */; };
+		92E417B32979713F00899FD8 /* FavoritesServers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E417B22979713F00899FD8 /* FavoritesServers.swift */; };
+		92E417B52979715400899FD8 /* FavoritesApiEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E417B42979715400899FD8 /* FavoritesApiEndPoint.swift */; };
 		92EBBBCF2975512D006E34EE /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EBBBCE2975512D006E34EE /* HomeScreen.swift */; };
 		92EBBBD2297557A3006E34EE /* TrandingArticleScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EBBBD1297557A3006E34EE /* TrandingArticleScreen.swift */; };
 		92EBBBD429755DC3006E34EE /* AppNetworkImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EBBBD329755DC3006E34EE /* AppNetworkImage.swift */; };
@@ -62,6 +65,7 @@
 		9286E8EB2977F3F5006E2987 /* ProfileServers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileServers.swift; sourceTree = "<group>"; };
 		9286E8ED2977F40D006E2987 /* ProfileApiEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileApiEndpoint.swift; sourceTree = "<group>"; };
 		9286E8F02977F4FF006E2987 /* ProfileModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModal.swift; sourceTree = "<group>"; };
+		92C5D9F629791F5100C6E6B6 /* NavigationStackViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStackViewModal.swift; sourceTree = "<group>"; };
 		92D2D726296C15EB008BA685 /* MyMedium.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyMedium.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92D2D729296C15EB008BA685 /* MyMediumApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMediumApp.swift; sourceTree = "<group>"; };
 		92D2D72B296C15EB008BA685 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -71,6 +75,8 @@
 		92D2D73B296C1735008BA685 /* AppInputBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInputBox.swift; sourceTree = "<group>"; };
 		92D2D73E296C1778008BA685 /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 		92D2D742296C1980008BA685 /* WelcomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreen.swift; sourceTree = "<group>"; };
+		92E417B22979713F00899FD8 /* FavoritesServers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesServers.swift; sourceTree = "<group>"; };
+		92E417B42979715400899FD8 /* FavoritesApiEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesApiEndPoint.swift; sourceTree = "<group>"; };
 		92EBBBCE2975512D006E34EE /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		92EBBBD1297557A3006E34EE /* TrandingArticleScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrandingArticleScreen.swift; sourceTree = "<group>"; };
 		92EBBBD329755DC3006E34EE /* AppNetworkImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNetworkImage.swift; sourceTree = "<group>"; };
@@ -268,6 +274,15 @@
 			path = Welcome;
 			sourceTree = "<group>";
 		};
+		92E417B12979713100899FD8 /* FavoritesServers */ = {
+			isa = PBXGroup;
+			children = (
+				92E417B22979713F00899FD8 /* FavoritesServers.swift */,
+				92E417B42979715400899FD8 /* FavoritesApiEndPoint.swift */,
+			);
+			path = FavoritesServers;
+			sourceTree = "<group>";
+		};
 		92EBBBCD2975511D006E34EE /* HomeScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -318,6 +333,7 @@
 		92FD1522296EC3E700C8AE0E /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				92E417B12979713100899FD8 /* FavoritesServers */,
 				9286E8EA2977F3E1006E2987 /* ProfileServers */,
 				92EBBBDA297561F1006E34EE /* ArticleServers */,
 				92FD1525296EC43E00C8AE0E /* AuthServers */,
@@ -357,6 +373,7 @@
 			children = (
 				92FD1531296ECBAE00C8AE0E /* AppViewModel.swift */,
 				92FD1536296ED6E000C8AE0E /* AuthViewModal.swift */,
+				92C5D9F629791F5100C6E6B6 /* NavigationStackViewModal.swift */,
 			);
 			path = GlobalState;
 			sourceTree = "<group>";
@@ -443,6 +460,7 @@
 			files = (
 				92FD1537296ED6E000C8AE0E /* AuthViewModal.swift in Sources */,
 				92EBBBD429755DC3006E34EE /* AppNetworkImage.swift in Sources */,
+				92E417B32979713F00899FD8 /* FavoritesServers.swift in Sources */,
 				92203B0E296E8F2C00A15F60 /* Helper.swift in Sources */,
 				9286E8F12977F4FF006E2987 /* ProfileModal.swift in Sources */,
 				92D2D743296C1980008BA685 /* WelcomeScreen.swift in Sources */,
@@ -470,7 +488,9 @@
 				9205B2C029768F7A004541EA /* FeedScreen.swift in Sources */,
 				92EBBBE129756EB9006E34EE /* Articles.swift in Sources */,
 				92EBBBDC29756CBE006E34EE /* ArticleApiEndpoint.swift in Sources */,
+				92E417B52979715400899FD8 /* FavoritesApiEndPoint.swift in Sources */,
 				924B469D296D44050070AC14 /* PulsateCircle.swift in Sources */,
+				92C5D9F729791F5100C6E6B6 /* NavigationStackViewModal.swift in Sources */,
 				92D2D72A296C15EB008BA685 /* MyMediumApp.swift in Sources */,
 				92EBBBD2297557A3006E34EE /* TrandingArticleScreen.swift in Sources */,
 				92594907296D733D0029B2C1 /* NavModal.swift in Sources */,

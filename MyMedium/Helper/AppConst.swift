@@ -37,6 +37,8 @@ struct AppIconsSF {
     static let settingsIcon = "gear"
     static let editIcon = "pencil"
     static let deleteIcon = "trash"
+    static let bookMarkIcon = "bookmark"
+    static let bookMarkFillIcon = "bookmark.fill"
 }
 
 struct AppKeyBoardType {

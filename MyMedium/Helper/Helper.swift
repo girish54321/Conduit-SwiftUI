@@ -34,4 +34,19 @@ struct Helpers {
         }
         return true
     }
+    
+    static func formatDateFormat (dateString: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        
+        if let date = dateFormatter.date(from: dateString) {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMM d, yyyy h:mm a"
+            let formattedDate = dateFormatter.string(from: date)
+            return formattedDate
+        } else {
+            return "Invalid Date"
+        }
+    }
 }
+

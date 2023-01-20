@@ -24,11 +24,13 @@ struct HomeScreen: View {
                     Image(systemName: AppIconsSF.trandingIcon)
                     Text("Tranding")
                 }
-            CreateArticleScreen()
-                .tabItem {
-                    Image(systemName: AppIconsSF.profileIcon)
-                    Text("Add Post")
-                }
+            NavigationView {
+                CreateArticleScreen()
+            }
+            .tabItem {
+                Image(systemName: AppIconsSF.profileIcon)
+                Text("Add Post")
+            }
             ProfileScreen()
                 .tabItem {
                     Image(systemName: AppIconsSF.settingsIcon)

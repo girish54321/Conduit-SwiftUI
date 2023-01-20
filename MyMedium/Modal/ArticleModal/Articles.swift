@@ -18,10 +18,16 @@ struct Article: Codable, Identifiable {
     let id = UUID()
     var slug, title, description, body: String?
     var tagList: [String]?
+    let favoritedBy: [FavoritedBy]?
     let createdAt, updatedAt: String?
-    let favorited: Bool?
+    var favorited: Bool?
     let favoritesCount: Int?
     let author: Author?
+}
+
+// MARK: - FollowArticle
+struct FavArticleRes: Codable {
+    let article: Article?
 }
 
 // MARK: - Author
@@ -30,6 +36,16 @@ struct Author: Codable {
     let bio: String?
     let image: String?
     var following: Bool?
+}
+
+// MARK: - FavoritedBy
+struct FavoritedBy: Codable {
+    let id: Int?
+    let email: String?
+    let username, password: String?
+    let image: String?
+    let bio: String?
+    let demo: Bool?
 }
 
 

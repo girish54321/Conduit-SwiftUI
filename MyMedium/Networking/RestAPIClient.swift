@@ -38,6 +38,10 @@ class RestAPIClient {
                     print(response)
                     let statusCode = response.response?.statusCode
                     print(statusCode)
+                    if(statusCode == 204){
+                        completion(.success("Done" as! T))
+                        return
+                    }
                     // If statusCode == 200 || 2001
                     if(statusCode == 200 || statusCode == 201){
                         let result = response.result

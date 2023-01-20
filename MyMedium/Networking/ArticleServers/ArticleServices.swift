@@ -42,4 +42,29 @@ class ArticleServices {
                                          completion: completion
             )
         }
+    
+    
+    func updateArticle (
+        parameters: Parameters?,
+        endpoint: String,
+        completion: @escaping(Result<Article,NetworkError>) -> Void){
+            return RestAPIClient.request(type: Article.self,
+                                         endPoint: "\(ArticleApiEndpoint().createEndPoint(endPoint: .updateArticle))\(endpoint)",
+                                         method:.put,
+                                         parameters:parameters,
+                                         completion: completion
+            )
+        }
+    
+    func deleteAricle (
+        parameters: Parameters?,
+        endpoint: String,
+        completion: @escaping(Result<String,NetworkError>) -> Void){
+            return RestAPIClient.request(type: String.self,
+                                         endPoint: "\(ArticleApiEndpoint().createEndPoint(endPoint: .deleteArticle))\(endpoint)",
+                                         method:.delete,
+                                         parameters:parameters,
+                                         completion: completion
+            )
+        }
 }

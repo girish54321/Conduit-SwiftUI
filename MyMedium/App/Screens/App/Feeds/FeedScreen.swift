@@ -10,15 +10,15 @@ import SwiftUI
 struct FeedScreen: View {
     
     @State var articleData: FeedArticle? = nil
-    @State private var presentedScreen = NavigationPath()
+    @EnvironmentObject var navStack: FeedNavigationStackViewModal
     @EnvironmentObject var authViewModel: AuthViewModel
     
     var body: some View {
-        NavigationStack (path: $presentedScreen) {
+        NavigationStack (path: $navStack.presentedScreen) { 
             List(articleData?.articles ?? []) { article in
                 Button (action: {
                     let data = SelectedArticleScreenType(selectedArticle: article)
-                    presentedScreen.append(data)
+                    navStack.presentedScreen.append(data)
                 }, label: {
                     HStack {
                         ArticleRow(article: article)
@@ -27,7 +27,7 @@ struct FeedScreen: View {
                 .buttonStyle(.plain)
             }
             .navigationDestination(for: SelectedArticleScreenType.self) { type in
-                ArticleDetailViewScreen(article: type.selectedArticle!)
+                ArticleDetailViewScreen(article: type.selectedArticle!,isFeedStack: true)
             }
             .navigationBarTitle("Feed")
         }
@@ -61,7 +61,7 @@ struct FeedScreen: View {
     func getUserList() {
         print("Dping API call")
         let parameters: [String: Any] = [
-            "limit":"5"
+            "limit":"5",
         ]
         ArticleServices().getFeedArticle(parameters: parameters){
             result in
@@ -89,5 +89,7 @@ struct FeedScreen: View {
 struct FeedScreen_Previews: PreviewProvider {
     static var previews: some View {
         FeedScreen()
+            .environmentObject(FeedNavigationStackViewModal())
+            .environmentObject(AuthViewModel())
     }
 }
