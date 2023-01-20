@@ -78,3 +78,8 @@ struct ArticleParams {
         ]
     }
 }
+
+// MARK: - ArticleTag
+struct ArticleTag: Codable {
+    var tags: [String]?
+}

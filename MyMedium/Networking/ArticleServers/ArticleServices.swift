@@ -21,6 +21,17 @@ class ArticleServices {
             )
         }
     
+    func getTags (
+        parameters: Parameters?,
+        completion: @escaping(Result<ArticleTag,NetworkError>) -> Void){
+            return RestAPIClient.request(type: ArticleTag.self,
+                                         endPoint: ArticleApiEndpoint().createEndPoint(endPoint: .getTags),
+                                         method:.get,
+                                         parameters:parameters,
+                                         completion: completion
+            )
+        }
+    
     func getFeedArticle (
         parameters: Parameters?,
         completion: @escaping(Result<FeedArticle,NetworkError>) -> Void){

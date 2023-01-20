@@ -93,7 +93,7 @@ struct WelcomeScreen: View {
             .navigationBarTitleDisplayMode(.large)
         }
         .onAppear(perform: {
-            withAnimation{
+            withAnimation {
                 isAnimating = true
             }
         })

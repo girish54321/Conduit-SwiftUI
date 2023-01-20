@@ -14,6 +14,7 @@ class ArticleApiEndpoint {
         case uploadArticle
         case deleteArticle
         case updateArticle
+        case getTags
     }
     
     func createEndPoint(endPoint: ArticleApiType) -> String {
@@ -28,6 +29,8 @@ class ArticleApiEndpoint {
             return createApi(endPoint: "articles/")
         case.updateArticle:
             return createApi(endPoint: "articles/")
+        case .getTags:
+            return createApi(endPoint: "tags")
         }
     }
     

@@ -13,8 +13,10 @@ struct FeedScreen: View {
     @EnvironmentObject var navStack: FeedNavigationStackViewModal
     @EnvironmentObject var authViewModel: AuthViewModel
     
+    @State private var showBottomSheet = false
+    
     var body: some View {
-        NavigationStack (path: $navStack.presentedScreen) { 
+        NavigationStack (path: $navStack.presentedScreen) {
             List(articleData?.articles ?? []) { article in
                 Button (action: {
                     let data = SelectedArticleScreenType(selectedArticle: article)
@@ -26,14 +28,24 @@ struct FeedScreen: View {
                 })
                 .buttonStyle(.plain)
             }
+            .navigationBarItems(
+                trailing:
+                    Button(action: {
+                        showBottomSheet.toggle()
+                    }) {
+                        Image(systemName: AppIconsSF.editIcon)
+                    }            )
+            .sheet(isPresented: $showBottomSheet, content: {
+                Filtter()
+            })
             .navigationDestination(for: SelectedArticleScreenType.self) { type in
                 ArticleDetailViewScreen(article: type.selectedArticle!,isFeedStack: true)
             }
             .navigationBarTitle("Feed")
         }
         .onAppear {
-            getUserList()
-            getProfile()
+            //            getUserList()
+            //            getProfile()
         }
     }
     

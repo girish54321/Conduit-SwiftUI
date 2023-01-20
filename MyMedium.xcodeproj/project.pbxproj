@@ -21,6 +21,7 @@
 		9286E8EC2977F3F5006E2987 /* ProfileServers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286E8EB2977F3F5006E2987 /* ProfileServers.swift */; };
 		9286E8EE2977F40D006E2987 /* ProfileApiEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286E8ED2977F40D006E2987 /* ProfileApiEndpoint.swift */; };
 		9286E8F12977F4FF006E2987 /* ProfileModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286E8F02977F4FF006E2987 /* ProfileModal.swift */; };
+		92A68369297AB89800D41C60 /* Filtter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A68368297AB89800D41C60 /* Filtter.swift */; };
 		92C5D9F729791F5100C6E6B6 /* NavigationStackViewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C5D9F629791F5100C6E6B6 /* NavigationStackViewModal.swift */; };
 		92D2D72A296C15EB008BA685 /* MyMediumApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D2D729296C15EB008BA685 /* MyMediumApp.swift */; };
 		92D2D72C296C15EB008BA685 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D2D72B296C15EB008BA685 /* ContentView.swift */; };
@@ -65,6 +66,7 @@
 		9286E8EB2977F3F5006E2987 /* ProfileServers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileServers.swift; sourceTree = "<group>"; };
 		9286E8ED2977F40D006E2987 /* ProfileApiEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileApiEndpoint.swift; sourceTree = "<group>"; };
 		9286E8F02977F4FF006E2987 /* ProfileModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModal.swift; sourceTree = "<group>"; };
+		92A68368297AB89800D41C60 /* Filtter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filtter.swift; sourceTree = "<group>"; };
 		92C5D9F629791F5100C6E6B6 /* NavigationStackViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStackViewModal.swift; sourceTree = "<group>"; };
 		92D2D726296C15EB008BA685 /* MyMedium.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyMedium.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92D2D729296C15EB008BA685 /* MyMediumApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMediumApp.swift; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 				9205B2C129769AE6004541EA /* TrandingArticle */,
 				9205B2BE29768615004541EA /* Feeds */,
 				92EBBBCD2975511D006E34EE /* HomeScreen */,
+				92A68368297AB89800D41C60 /* Filtter.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -484,6 +487,7 @@
 				92FD152F296EC71C00C8AE0E /* AuthModal.swift in Sources */,
 				92594903296D6DA20029B2C1 /* CreateAccountScreen.swift in Sources */,
 				92FD1532296ECBAE00C8AE0E /* AppViewModel.swift in Sources */,
+				92A68369297AB89800D41C60 /* Filtter.swift in Sources */,
 				92FD1529296EC47600C8AE0E /* AuthServices.swift in Sources */,
 				9205B2C029768F7A004541EA /* FeedScreen.swift in Sources */,
 				92EBBBE129756EB9006E34EE /* Articles.swift in Sources */,
