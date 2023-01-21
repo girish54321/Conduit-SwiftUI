@@ -15,6 +15,7 @@ struct ArticleRow: View {
                 .font(.headline)
             Text(article?.description ?? "NA")
                 .font(.subheadline)
+                .lineLimit(2)
                 .padding(.top,4)
             HStack {
                 ForEach(article?.tagList ?? [], id: \.self) { data in
@@ -27,7 +28,7 @@ struct ArticleRow: View {
 
 struct ArticleRow_Previews: PreviewProvider {
     static var previews: some View {
-        ArticleRow(article: nil)
+        ArticleRow(article: DummyData().data)
             .padding()
     }
 }

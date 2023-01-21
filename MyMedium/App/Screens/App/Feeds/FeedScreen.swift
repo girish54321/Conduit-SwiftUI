@@ -5,83 +5,62 @@
 //  Created by neosoft on 17/01/23.
 //
 
-import SwiftUI
+import SwiftUI 
+import Shimmer
 
 struct FeedScreen: View {
     
-    @State var articleData: FeedArticle? = nil
     @EnvironmentObject var navStack: FeedNavigationStackViewModal
     @EnvironmentObject var authViewModel: AuthViewModel
-    
-    @State private var showBottomSheet = false
+    @EnvironmentObject var articleViewModel: ArticleViewModel
     
     var body: some View {
         NavigationStack (path: $navStack.presentedScreen) {
-            List(articleData?.articles ?? []) { article in
-                Button (action: {
-                    let data = SelectedArticleScreenType(selectedArticle: article)
-                    navStack.presentedScreen.append(data)
-                }, label: {
-                    HStack {
-                        ArticleRow(article: article)
+            VStack {
+                if !articleViewModel.isLoading {
+                    List(articleViewModel.articleData?.articles ?? []) { article in
+                        Button (action: {
+                            let data = SelectedArticleScreenType(selectedArticle: article)
+                            navStack.presentedScreen.append(data)
+                        }, label: {
+                            HStack {
+                                ArticleRow(article: article)
+                            }
+                        })
+                        .buttonStyle(.plain)
                     }
-                })
-                .buttonStyle(.plain)
+                    .navigationDestination(for: SelectedArticleScreenType.self) { type in
+                        ArticleDetailViewScreen(article: type.selectedArticle!,isFeedStack: true)
+                    }
+                } else {
+                    LoadingListing()
+                }
             }
+            .navigationBarTitle("Feed")
             .navigationBarItems(
                 trailing:
                     Button(action: {
-                        showBottomSheet.toggle()
+                        //                        showBottomSheet.toggle()
                     }) {
                         Image(systemName: AppIconsSF.editIcon)
                     }            )
-            .sheet(isPresented: $showBottomSheet, content: {
-                Filtter()
-            })
-            .navigationDestination(for: SelectedArticleScreenType.self) { type in
-                ArticleDetailViewScreen(article: type.selectedArticle!,isFeedStack: true)
+            //            .sheet(isPresented: $showBottomSheet, content: {
+            //                Filtter()
+            //            })
+            .onAppear {
+                //            getProfile()
+                            articleViewModel.getArticles()
             }
-            .navigationBarTitle("Feed")
         }
-        .onAppear {
-            getUserList()
-            getProfile()
-        }
+        
     }
     
     func getProfile() {
-        AuthServices().getUser(parameters: nil){
+        AuthServices().getUser(parameters: nil) {
             result in
             switch result {
             case .success(let data):
                 authViewModel.userState = data
-            case .failure(let error):
-                switch error {
-                case .NetworkErrorAPIError(let errorMessage):
-                    print(errorMessage)
-                case .BadURL:
-                    print("BadURL")
-                case .NoData:
-                    print("NoData")
-                case .DecodingErrpr:
-                    print("DecodingErrpr")
-                }
-            }
-        }
-    }
-    
-    func getUserList() {
-        print("Dping API call")
-        let parameters: [String: Any] = [
-            "limit":"5",
-        ]
-        ArticleServices().getFeedArticle(parameters: parameters){
-            result in
-            switch result {
-            case .success(let data):
-                withAnimation {
-                    articleData = data
-                }
             case .failure(let error):
                 switch error {
                 case .NetworkErrorAPIError(let errorMessage):
@@ -103,5 +82,6 @@ struct FeedScreen_Previews: PreviewProvider {
         FeedScreen()
             .environmentObject(FeedNavigationStackViewModal())
             .environmentObject(AuthViewModel())
+            .environmentObject(ArticleViewModel())
     }
 }

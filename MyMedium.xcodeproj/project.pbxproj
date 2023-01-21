@@ -53,6 +53,8 @@
 		F46AAFBE297BFC3300B682C4 /* AppHTMLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46AAFBD297BFC3300B682C4 /* AppHTMLView.swift */; };
 		F46AAFC1297BFE0900B682C4 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = F46AAFC0297BFE0900B682C4 /* SwiftSoup */; };
 		F46AAFC3297C170C00B682C4 /* ArticleViewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46AAFC2297C170C00B682C4 /* ArticleViewModal.swift */; };
+		F4E0D909297C2F340084B495 /* Shimmer in Frameworks */ = {isa = PBXBuildFile; productRef = F4E0D908297C2F340084B495 /* Shimmer */; };
+		F4E0D90B297C52D80084B495 /* LoadingListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0D90A297C52D80084B495 /* LoadingListing.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -99,6 +101,7 @@
 		92FD1536296ED6E000C8AE0E /* AuthViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModal.swift; sourceTree = "<group>"; };
 		F46AAFBD297BFC3300B682C4 /* AppHTMLView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHTMLView.swift; sourceTree = "<group>"; };
 		F46AAFC2297C170C00B682C4 /* ArticleViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewModal.swift; sourceTree = "<group>"; };
+		F4E0D90A297C52D80084B495 /* LoadingListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingListing.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +110,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				92611DA5297166F5009D8AA9 /* SwiftyJSON in Frameworks */,
+				F4E0D909297C2F340084B495 /* Shimmer in Frameworks */,
 				F46AAFC1297BFE0900B682C4 /* SwiftSoup in Frameworks */,
 				92FD151F296EC1B400C8AE0E /* Alamofire in Frameworks */,
 				92FD1535296ED1EC00C8AE0E /* AlertToast in Frameworks */,
@@ -249,6 +253,7 @@
 				92D2D73B296C1735008BA685 /* AppInputBox.swift */,
 				92EBBBD329755DC3006E34EE /* AppNetworkImage.swift */,
 				92EBBBD52975612E006E34EE /* ChipView.swift */,
+				F4E0D90A297C52D80084B495 /* LoadingListing.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -410,6 +415,7 @@
 				92FD1534296ED1EC00C8AE0E /* AlertToast */,
 				92611DA4297166F5009D8AA9 /* SwiftyJSON */,
 				F46AAFC0297BFE0900B682C4 /* SwiftSoup */,
+				F4E0D908297C2F340084B495 /* Shimmer */,
 			);
 			productName = MyMedium;
 			productReference = 92D2D726296C15EB008BA685 /* MyMedium.app */;
@@ -444,6 +450,7 @@
 				92FD1533296ED1EC00C8AE0E /* XCRemoteSwiftPackageReference "AlertToast" */,
 				92611DA3297166F5009D8AA9 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				F46AAFBF297BFE0800B682C4 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+				F4E0D907297C2F340084B495 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */,
 			);
 			productRefGroup = 92D2D727296C15EB008BA685 /* Products */;
 			projectDirPath = "";
@@ -511,6 +518,7 @@
 				92EBBBD2297557A3006E34EE /* TrandingArticleScreen.swift in Sources */,
 				92594907296D733D0029B2C1 /* NavModal.swift in Sources */,
 				92594909296D83300029B2C1 /* AppConst.swift in Sources */,
+				F4E0D90B297C52D80084B495 /* LoadingListing.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -743,6 +751,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		F4E0D907297C2F340084B495 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/markiv/SwiftUI-Shimmer";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -765,6 +781,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F46AAFBF297BFE0800B682C4 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
 			productName = SwiftSoup;
+		};
+		F4E0D908297C2F340084B495 /* Shimmer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F4E0D907297C2F340084B495 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */;
+			productName = Shimmer;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
