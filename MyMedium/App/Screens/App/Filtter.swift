@@ -12,26 +12,29 @@ struct Filtter: View {
     let options = ["Option 1", "Option 2", "Option 3"]
     @State private var someBool : Bool = true
     @State private var tagList: ArticleTag? = nil
+    @State private var searchText = ""
+
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("Select an option:")) {
-                    if tagList?.tags?.count ?? 0 > 0 {
-                        Picker("Select an option:", selection: $selectedOption) {
-                            ForEach(0 ..< (tagList?.tags!.count)!) {
-                                Text(self.options[$0])
+                Section(header: Text("Search By User")) {
+                    TextField("Search for a user...", text: $searchText)
+                }
+                Section(header: Text("Search by tag")) {
+                    if tagList?.tags?.count ?? 0 > 1 {
+                        Picker(selection: $selectedOption, label: Text("Tags"), content: {
+                            ForEach(0 ..< (tagList?.tags!.count)!) { index in
+                                Text((self.tagList?.tags![index])!.capitalized).tag(index)
                             }
-                        }
+                        })
+
                     } else {
                         /*@START_MENU_TOKEN@*/EmptyView()/*@END_MENU_TOKEN@*/
                     }
                 }
-                Section(header: Text("Filter by")) {
+                Section(header: Text("my booksmarks only")) {
                     Toggle(isOn: $someBool) {
-                        Text("Some toggle")
-                    }
-                    Toggle(isOn: $someBool) {
-                        Text("Some toggle")
+                        Text("Saved")
                     }
                 }
                 Section {
@@ -51,6 +54,8 @@ struct Filtter: View {
                 withAnimation {
                     tagList = data
                 }
+                
+                print(data.tags?[0])
             case .failure(let error):
                 switch error {
                 case .NetworkErrorAPIError(let errorMessage):

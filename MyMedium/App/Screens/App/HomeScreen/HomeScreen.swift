@@ -33,7 +33,7 @@ struct HomeScreen: View {
             }
             ProfileScreen()
                 .tabItem {
-                    Image(systemName: AppIconsSF.settingsIcon)
+                    Image(systemName: AppIconsSF.userIcon)
                     Text("Profile")
                 }
         }

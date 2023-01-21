@@ -44,8 +44,8 @@ struct FeedScreen: View {
             .navigationBarTitle("Feed")
         }
         .onAppear {
-            //            getUserList()
-            //            getProfile()
+            getUserList()
+            getProfile()
         }
     }
     

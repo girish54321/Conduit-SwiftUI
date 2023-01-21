@@ -41,6 +41,14 @@ struct ArticleDetailViewScreen: View {
                     .animation(.spring(), value: article.title)
                 Text(article.body ?? "NA")
                     .padding(.vertical)
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(article.tagList ?? [], id: \.self) { data in
+                            ChipView(title: data)
+                        }
+                    }
+                }
+                .padding(.bottom)
                 HStack {
                     Text(Helpers.formatDateFormat(dateString: article.createdAt ?? ""))
                     Spacer()
@@ -143,7 +151,7 @@ struct ArticleDetailViewScreen: View {
             switch res {
             case .success(let data):
                 print("removeBookMarkArticle")
-//                print(data.article?.favorited)
+                //                print(data.article?.favorited)
                 appViewModel.alertToast = AlertToast(displayMode: .banner(.slide), type: .complete(.green), title: "Article Bookmark removed!")
                 withAnimation {
                     article.favorited = data.article?.favorited
@@ -199,7 +207,7 @@ struct ArticleDetailViewScreen: View {
 struct ArticleDetailViewScreen_Previews: PreviewProvider {
     
     static var previews: some View {
-        let data = Article(slug: "", title: "If we quantify the alarm, we can get to the FTP pixel through the online SSL interface!", description: "Omnis perspiciatis qui quia commodi sequi modi. Nostrum quam aut cupiditate est facere omnis possimus. Tenetur similique nemo illo soluta molestias facere quo. Ipsam totam facilis delectus nihil quidem soluta vel est omnis", body: "Quia quo iste et aperiam voluptas consectetur a omnis et.\\nDolores et earum consequuntur sunt et.\\nEa nulla ab voluptatem dicta vel. Temporibus aut adipisci magnam aliquam eveniet nihil laudantium reprehenderit sit.\\nAspernatur cumque labore voluptates mollitia deleniti et. Quos pariatur tenetur.\\nQuasi omnis eveniet eos maiores esse magni possimus blanditiis.\\nQui incidunt sit quos consequa.", tagList: [""], favoritedBy: [], createdAt: "2022-12-09T13:46:24.264Z", updatedAt: "2022-12-09T13:46:24.264Z", favorited: true, favoritesCount: 2, author: Author(username: "Girish", bio: "My Bios is my bio", image: "", following: true))
+        let data = Article(slug: "", title: "If we quantify the alarm, we can get to the FTP pixel through the online SSL interface!", description: "Omnis perspiciatis qui quia commodi sequi modi. Nostrum quam aut cupiditate est facere omnis possimus. Tenetur similique nemo illo soluta molestias facere quo. Ipsam totam facilis delectus nihil quidem soluta vel est omnis", body: "Quia quo iste et aperiam voluptas consectetur a omnis et.\\nDolores et earum consequuntur sunt et.\\nEa nulla ab voluptatem dicta vel. Temporibus aut adipisci magnam aliquam eveniet nihil laudantium reprehenderit sit.\\nAspernatur cumque labore voluptates mollitia deleniti et. Quos pariatur tenetur.\\nQuasi omnis eveniet eos maiores esse magni possimus blanditiis.\\nQui incidunt sit quos consequa.", tagList: ["implementations","welcome","introduction","codebaseShow","ipsum","qui","quia","et","cupiditate","deserunt"], favoritedBy: [], createdAt: "2022-12-09T13:46:24.264Z", updatedAt: "2022-12-09T13:46:24.264Z", favorited: true, favoritesCount: 2, author: Author(username: "Girish", bio: "My Bios is my bio", image: "", following: true))
         NavigationView {
             ArticleDetailViewScreen(article: data)
         }

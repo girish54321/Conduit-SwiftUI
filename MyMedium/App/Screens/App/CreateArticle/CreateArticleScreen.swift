@@ -20,30 +20,35 @@ struct CreateArticleScreen: View {
     @EnvironmentObject var navStack2: TrandingNavigationStackViewModal
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(slug ?? "")
-            AppInputBox(
-                placeHoldr: "Enter title here",
-                keyboard: AppKeyBoardType.default,
-                title:"Title", value: $article.title
-            )
-            AppInputBox(
-                placeHoldr: "Enter description here",
-                keyboard: AppKeyBoardType.default,
-                title:"Description", value: $article.description
-            )
-            Text("Body").font(.headline)
-            VStack {
-                TextEditor(text: $article.body)
-                    .border(Color.gray)
-            }
-            .inputTextStyle()
-            HStack {
-                ForEach(article.tagList , id: \.self) { data in
-                    ChipView(title: data)
+        VStack {
+            ScrollView {
+                VStack(alignment: .leading) {
+                    AppInputBox(
+                        placeHoldr: "Enter title here",
+                        keyboard: AppKeyBoardType.default,
+                        title:"Title", value: $article.title
+                    )
+                    AppInputBox(
+                        placeHoldr: "Enter description here",
+                        keyboard: AppKeyBoardType.default,
+                        title:"Description", value: $article.description
+                    )
+                    Text("Body").font(.headline)
+                    VStack {
+                        TextEditor(text: $article.body)
+                            .border(Color.gray)
+                    }
+                    .inputTextStyle()
+                    .frame(height:240)
+                    HStack {
+                        ForEach(article.tagList , id: \.self) { data in
+                            ChipView(title: data)
+                        }
+                    }
+                    Spacer()
                 }
+                .padding()
             }
-            Spacer()
             AppButton(text: "Save", clicked: {
                 if (slug == nil){
                     uploadAricle()
@@ -51,10 +56,9 @@ struct CreateArticleScreen: View {
                     updateArticle()
                 }
             })
-            .padding(.top)
+            .padding()
+            .navigationTitle("Create Article")
         }
-        .padding()
-        .navigationTitle("Create Article")
         
     }
     

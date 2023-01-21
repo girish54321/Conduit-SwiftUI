@@ -30,7 +30,7 @@ struct AppIconsSF {
     static let eyeCloseIcon = ""
     static let checkMark = "checkmark.circle.fill"
     static let worngMark = "x.circle"
-    static let userIcon = "person.crop.circle.fill"
+    static let userIcon = "person.crop.circle.badge.checkmark"
     static let homeIcon = "message"
     static let trandingIcon = "flame.fill"
     static let profileIcon = "person"

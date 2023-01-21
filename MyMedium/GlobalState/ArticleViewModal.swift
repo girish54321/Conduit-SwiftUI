@@ -1,12 +1,12 @@
 //
-//  AuthViewModal.swift
+//  ArticleViewModal.swift
 //  MyMedium
 //
-//  Created by neosoft on 11/01/23.
+//  Created by Girish Parate on 21/01/23.
 //
 
 import Foundation
-class AuthViewModel: ObservableObject {
+class ArticleViewModel: ObservableObject {
     
     @Published var isLogedin = false
     @Published var tokan: String? = nil

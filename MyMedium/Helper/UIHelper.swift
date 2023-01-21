@@ -42,7 +42,8 @@ extension Image {
     func imageModifier() -> some View {
         self
             .resizable()
-            .scaledToFit()
+//            .scaledToFit()
+            .scaledToFill()
     }
     
     func imageModifierCircle() -> some View {
