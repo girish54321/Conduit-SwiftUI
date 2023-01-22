@@ -22,6 +22,7 @@ struct MyMediumApp: App {
                     .environmentObject(FeedNavigationStackViewModal())
                     .environmentObject(TrandingNavigationStackViewModal())
                     .environmentObject(ArticleViewModel())
+                    .environmentObject(FeedArticleViewModel())
             } else {
                 WelcomeScreen()
                     .environmentObject(AppViewModel())

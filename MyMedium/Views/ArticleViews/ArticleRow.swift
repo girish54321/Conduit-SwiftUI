@@ -13,6 +13,7 @@ struct ArticleRow: View {
         VStack(alignment: .leading) {
             Text(article?.title ?? "NA")
                 .font(.headline)
+                .lineLimit(2)
             Text(article?.description ?? "NA")
                 .font(.subheadline)
                 .lineLimit(2)
@@ -21,6 +22,16 @@ struct ArticleRow: View {
                 ForEach(article?.tagList ?? [], id: \.self) { data in
                     ChipView(title: data)
                 }
+            }
+            HStack {
+                Text(Helpers.formatDateFormat(dateString: article?.createdAt ?? ""))
+                Spacer()
+                Button(action: {
+                }) {
+                    Image(systemName: article?.favorited ?? false ? AppIconsSF.bookMarkFillIcon : AppIconsSF.bookMarkIcon)
+                        .frame(width: 30,height: 30)
+                }
+                .frame(width: 30,height: 30)
             }
         }
     }

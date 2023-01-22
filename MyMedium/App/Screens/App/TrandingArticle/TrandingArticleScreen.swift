@@ -9,63 +9,54 @@ import SwiftUI
 
 struct TrandingArticleScreen: View {
     
-    @State var articleData: TrandingArticles? = nil
+    @EnvironmentObject var articleViewModel: ArticleViewModel
     @EnvironmentObject var navStack: TrandingNavigationStackViewModal
     
     var body: some View {
         NavigationStack (path: $navStack.presentedScreen) {
-            List(articleData?.articles ?? []) { article in
-                Button (action: {
-                    let data = SelectedArticleScreenType(selectedArticle: article)
-                    navStack.presentedScreen.append(data)
-                }, label: {
-                    HStack {
-                        ArticleRow(article: article)
+            VStack {
+                if !articleViewModel.isLoading {
+                    List(articleViewModel.articleData?.articles ?? []) { article in
+                        Button (action: {
+                            let data = SelectedArticleScreenType(selectedArticle: article)
+                            navStack.presentedScreen.append(data)
+                        }, label: {
+                            HStack {
+                                ArticleRow(article: article)
+                            }
+                        })
+                        .buttonStyle(.plain)
                     }
-                })
-                .buttonStyle(.plain)
+                    .refreshable {
+                        articleViewModel.getArticles()
+                               }
+                    .navigationDestination(for: SelectedArticleScreenType.self) { type in
+                        ArticleDetailViewScreen(article: type.selectedArticle!)
+                    }
+                } else {
+                    LoadingListing()
+                }
             }
-            .navigationDestination(for: SelectedArticleScreenType.self) { type in
-                ArticleDetailViewScreen(article: type.selectedArticle!)
-            }
+            .sheet(isPresented: $articleViewModel.showFiltterScreen, content: {
+                FiltterScreen()
+            })
             .navigationBarTitle("Articles")
-            .onAppear {
-                getUserList()
-            }
+            .navigationBarItems(
+                trailing:
+                    Button(action: {
+                        articleViewModel.showFiltterScreen.toggle()
+                    }) {
+                        Image(systemName: AppIconsSF.editIcon)
+                    }            )
         }
     }
     
-    func getUserList() {
-        print("Dping API call")
-        let parameters: [String: Any] = [
-            "limit":"5"
-        ]
-        ArticleServices().getTrandingArticle(parameters: parameters){
-            result in
-            switch result {
-            case .success(let data):
-                withAnimation {
-                    articleData = data
-                }
-            case .failure(let error):
-                switch error {
-                case .NetworkErrorAPIError(let errorMessage):
-                    print(errorMessage)
-                case .BadURL:
-                    print("BadURL")
-                case .NoData:
-                    print("NoData")
-                case .DecodingErrpr:
-                    print("DecodingErrpr")
-                }
-            }
-        }
-    }
     
     struct TrandingArticleScreen_Previews: PreviewProvider {
         static var previews: some View {
             TrandingArticleScreen()
-                .environmentObject(FeedNavigationStackViewModal())
+                .environmentObject(TrandingNavigationStackViewModal())
+                .environmentObject(ArticleViewModel())
         }
     }
 }

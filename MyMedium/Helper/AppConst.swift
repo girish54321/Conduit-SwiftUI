@@ -39,6 +39,7 @@ struct AppIconsSF {
     static let deleteIcon = "trash"
     static let bookMarkIcon = "bookmark"
     static let bookMarkFillIcon = "bookmark.fill"
+    static let closeIcon = "xmark"
 }
 
 struct AppKeyBoardType {

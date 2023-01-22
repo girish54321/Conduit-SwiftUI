@@ -79,6 +79,25 @@ struct ArticleParams {
     }
 }
 
+struct ArticleListParams {
+    var tag: String?
+    var author: String?
+    var favorited: String?
+    var limit: String?
+    var offset: String?
+    
+    func toDictionary() -> [String: Any] {
+        let params = [
+            "tag": tag,
+            "author": author,
+            "favorited": favorited,
+            "limit": limit,
+            "offset": offset
+        ]
+        return params.compactMapValues { $0 }
+    }
+}
+
 // MARK: - ArticleTag
 struct ArticleTag: Codable {
     var tags: [String]?

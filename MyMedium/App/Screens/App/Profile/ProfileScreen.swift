@@ -12,7 +12,6 @@ struct ProfileScreen: View {
     @AppStorage(AppConst.isSkiped) var isSkiped: Bool = false
     @AppStorage(AppConst.tokan) var tokan: String = ""
     @State private var showLogOutAlert = false
-    @State var articleData: TrandingArticles? = nil
     
     var body: some View {
         NavigationView {
@@ -33,8 +32,11 @@ struct ProfileScreen: View {
                             .padding(.top,3)
                     }
                 }
+                .onAppear {
+                    authViewModel.getArticles(parameters: ArticleListParams(author:authViewModel.userState?.user?.username,limit: "50"))
+                }
                 Section ("your articles") {
-                    ForEach(articleData?.articles ?? []) { data in
+                    ForEach(authViewModel.userArticle?.articles ?? []) { data in
                         VStack {
                             HStack {
                                 ArticleRow(article: data)
@@ -50,6 +52,7 @@ struct ProfileScreen: View {
                               primaryButton: .destructive(Text("Yes")) {
                             authViewModel.userState = nil
                             authViewModel.tokan = ""
+                            authViewModel.isLogedin = false
                             isSkiped = false
                             tokan = ""
                         }, secondaryButton: .cancel())
@@ -62,43 +65,14 @@ struct ProfileScreen: View {
                                 Text("Logout")
                             }
                     )
-                    .onAppear {
-                        getUserList()
-                    }
                     .navigationBarTitle("Profile")
                 }
             }
-        }
-    }
-    
-    func getUserList() {
-        print("Dping API call")
-        let parameters: [String: Any] = [
-            "limit":"50",
-            "author":authViewModel.userState?.user?.username ?? ""
-        ]
-        ArticleServices().getTrandingArticle(parameters: parameters){
-            result in
-            switch result {
-            case .success(let data):
-                withAnimation {
-                    articleData = data
-                }
-            case .failure(let error):
-                switch error {
-                case .NetworkErrorAPIError(let errorMessage):
-                    print(errorMessage)
-                case .BadURL:
-                    print("BadURL")
-                case .NoData:
-                    print("NoData")
-                case .DecodingErrpr:
-                    print("DecodingErrpr")
-                }
+            .refreshable {
+                authViewModel.getProfile()
             }
         }
     }
-    
 }
 
 
