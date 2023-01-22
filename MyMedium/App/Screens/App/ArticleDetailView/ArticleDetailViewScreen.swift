@@ -10,7 +10,8 @@ import AlertToast
 
 struct ArticleDetailViewScreen: View {
     
-    @State var article: Article
+//    @State var article: Article
+    @EnvironmentObject var articleViewModal: ArticleViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var navStack: FeedNavigationStackViewModal
     @EnvironmentObject var navStack2: TrandingNavigationStackViewModal
@@ -29,48 +30,48 @@ struct ArticleDetailViewScreen: View {
                     .cornerRadius(10)
                     .shadow(radius: 10)
                     .transition(.move(edge: .bottom))
-                    .animation(.spring(), value: article.title)
+                    .animation(.spring(), value: articleViewModal.selectedArticle.title)
                     .padding(.bottom)
-                Text(article.title ?? "NA")
+                Text(articleViewModal.selectedArticle.title ?? "NA")
                     .foregroundColor(.white)
                     .padding()
                     .background(Color.black.opacity(0.5))
                     .cornerRadius(10)
                     .shadow(radius: 10)
                     .transition(.move(edge: .bottom))
-                    .animation(.spring(), value: article.title)
-                Text(article.body ?? "NA")
+                    .animation(.spring(), value: articleViewModal.selectedArticle.title)
+                Text(articleViewModal.selectedArticle.body ?? "NA")
                     .padding(.vertical)
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
-                        ForEach(article.tagList ?? [], id: \.self) { data in
+                        ForEach(articleViewModal.selectedArticle.tagList ?? [], id: \.self) { data in
                             ChipView(title: data)
                         }
                     }
                 }
                 .padding(.bottom)
                 HStack {
-                    Text(Helpers.formatDateFormat(dateString: article.createdAt ?? ""))
+                    Text(Helpers.formatDateFormat(dateString: articleViewModal.selectedArticle.createdAt ?? ""))
                     Spacer()
                     Button(action: {
-                        if (article.favorited == true){
-                            removeBookMarkArticle()
+                        if (articleViewModal.selectedArticle.favorited == true){
+                            articleViewModal.removeBookMarkArticle(appViewModel: appViewModel)
                         } else {
-                            bookMarkArticle()
+                            articleViewModal.bookMarkArticle(appViewModel: appViewModel)
                         }
                     }) {
-                        Image(systemName: article.favorited ?? false ? AppIconsSF.bookMarkFillIcon : AppIconsSF.bookMarkIcon)
+                        Image(systemName: articleViewModal.selectedArticle.favorited ?? false ? AppIconsSF.bookMarkFillIcon : AppIconsSF.bookMarkIcon)
                             .frame(width: 30,height: 30)
                     }
                     .frame(width: 30,height: 30)
                 }
-                AboutAuthorView(author: article.author)
+                AboutAuthorView(author: articleViewModal.selectedArticle.author)
             }
             .padding()
         }
         .onAppear {
             withAnimation {
-                isTheOwner = Helpers.isTheOwner(user: authViewModel.userState?.user, author: article.author)
+                isTheOwner = Helpers.isTheOwner(user: authViewModel.userState?.user, author: articleViewModal.selectedArticle.author)
             }
         }
         .navigationBarItems(
@@ -79,7 +80,7 @@ struct ArticleDetailViewScreen: View {
                     if isTheOwner {
                         HStack {
                             Button(action: {
-                                let data = CreateArticleScreenType(selectedArticle: article)
+                                let data = CreateArticleScreenType(selectedArticle: articleViewModal.selectedArticle)
                                 if (!isFeedStack){
                                     navStack2.presentedScreen.append(data)
                                     return
@@ -110,13 +111,13 @@ struct ArticleDetailViewScreen: View {
         }
         .navigationDestination(for: CreateArticleScreenType.self) { type in
             let data = type.selectedArticle
-            CreateArticleScreen(article: ArticleParams(title: data?.title ?? "", description: data?.description ?? "", body: data?.body ?? "", tagList: data?.tagList ?? []),slug: article.slug)
+            CreateArticleScreen(article: ArticleParams(title: data?.title ?? "", description: data?.description ?? "", body: data?.body ?? "", tagList: data?.tagList ?? []),slug: articleViewModal.selectedArticle.slug)
         }
-        .navigationBarTitle(Text(article.title ?? "NA"), displayMode: .inline)
+        .navigationBarTitle(Text(articleViewModal.selectedArticle.title ?? "NA"), displayMode: .inline)
     }
     
     func deleteArticle () {
-        ArticleServices().deleteAricle(parameters: nil, endpoint: article.slug ?? ""){
+        ArticleServices().deleteAricle(parameters: nil, endpoint: articleViewModal.selectedArticle.slug ?? ""){
             res in
             switch res {
             case .success(let data):
@@ -144,72 +145,15 @@ struct ArticleDetailViewScreen: View {
             }
         }
     }
-    
-    func removeBookMarkArticle () {
-        FavoritesServices().removeBookMarkArticle(parameters: nil, endpoint: "\(article.slug ?? "")/favorite"){
-            res in
-            switch res {
-            case .success(let data):
-                print("removeBookMarkArticle")
-                //                print(data.article?.favorited)
-                appViewModel.alertToast = AlertToast(displayMode: .banner(.slide), type: .complete(.green), title: "Article Bookmark removed!")
-                withAnimation {
-                    article.favorited = data.article?.favorited
-                }
-                print(data)
-            case .failure(let error):
-                switch error {
-                case .NetworkErrorAPIError(let errorMessage):
-                    print("3")
-                    print(errorMessage)
-                    appViewModel.errorMessage = errorMessage
-                case .BadURL:
-                    print("BadURL")
-                case .NoData:
-                    print("NoData")
-                case .DecodingErrpr:
-                    print("DecodingErrpr")
-                }
-            }
-        }
-    }
-    
-    func bookMarkArticle () {
-        FavoritesServices().bookMarkArticle(parameters: nil, endpoint: "\(article.slug ?? "")/favorite"){
-            res in
-            switch res {
-            case .success(let data):
-                print("bookMarkArticle")
-                print(data.article?.favorited)
-                appViewModel.alertToast = AlertToast(displayMode: .banner(.slide), type: .complete(.green), title: "Article Bookmark!")
-                withAnimation {
-                    article.favorited = data.article?.favorited
-                }
-            case .failure(let error):
-                switch error {
-                case .NetworkErrorAPIError(let errorMessage):
-                    print("3")
-                    print(errorMessage)
-                    appViewModel.errorMessage = errorMessage
-                case .BadURL:
-                    print("BadURL")
-                case .NoData:
-                    print("NoData")
-                case .DecodingErrpr:
-                    print("DecodingErrpr")
-                }
-            }
-        }
-    }
+
 }
 
 
 struct ArticleDetailViewScreen_Previews: PreviewProvider {
     
     static var previews: some View {
-        let data = DummyData().data
         NavigationView {
-            ArticleDetailViewScreen(article: data)
+            ArticleDetailViewScreen()
         }
         .environmentObject(FeedNavigationStackViewModal())
         .environmentObject(AuthViewModel())

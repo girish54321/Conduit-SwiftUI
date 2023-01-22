@@ -46,6 +46,7 @@ struct ProfileScreen: View {
                             Divider()
                         }
                     }
+                    .animation(.easeIn)
                     .alert(isPresented: $showLogOutAlert) {
                         Alert(title: Text("Log out?"),
                               message: Text("Are you sure you want to delete this article?"),

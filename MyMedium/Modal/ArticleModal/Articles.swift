@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - TrandingArticles
 struct TrandingArticles: Codable {
-    let articles: [Article]?
+    var articles: [Article]?
     let articlesCount: Int?
 }
 

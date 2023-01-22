@@ -11,17 +11,19 @@ import Shimmer
 struct FeedScreen: View {
     
     @EnvironmentObject var navStack: FeedNavigationStackViewModal
+    @EnvironmentObject var articleViewModel: ArticleViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
-    @EnvironmentObject var articleViewModel: FeedArticleViewModel
+    @EnvironmentObject var feedViewModel: FeedArticleViewModel
     
     var body: some View {
         NavigationStack (path: $navStack.presentedScreen) {
             VStack {
-                if !articleViewModel.isLoading {
-                    List(articleViewModel.articleData?.articles ?? []) { article in
+                if !feedViewModel.isLoading {
+                    List(feedViewModel.articleData?.articles ?? []) { article in
                         Button (action: {
                             let data = SelectedArticleScreenType(selectedArticle: article)
                             navStack.presentedScreen.append(data)
+                            articleViewModel.selectedArticle = article
                         }, label: {
                             HStack {
                                 ArticleRow(article: article)
@@ -30,15 +32,16 @@ struct FeedScreen: View {
                         .buttonStyle(.plain)
                     }
                     .refreshable {
-                        articleViewModel.getArticles()
+                        feedViewModel.getArticles()
                     }
                     .navigationDestination(for: SelectedArticleScreenType.self) { type in
-                        ArticleDetailViewScreen(article: type.selectedArticle!,isFeedStack: true)
+                        ArticleDetailViewScreen(isFeedStack: true)
                     }
                 } else {
                     LoadingListing()
                 }
             }
+            .animation(.spring(), value: feedViewModel.isLoading)
             .navigationBarTitle("For You")
         }
     }

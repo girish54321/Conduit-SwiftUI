@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import AlertToast
 
 class ArticleViewModel: ObservableObject {
     @Published var tagList: ArticleTag? = nil
@@ -14,6 +15,8 @@ class ArticleViewModel: ObservableObject {
     @Published var showFiltterScreen: Bool = false
     @Published var isLoading = true
     @Published var filtterParameters: ArticleListParams = ArticleListParams(limit: "50", offset: "0")
+    
+    @Published var selectedArticle: Article = DummyData().data
     
     init() {
         getArticles()
@@ -59,6 +62,64 @@ class ArticleViewModel: ObservableObject {
                 switch error {
                 case .NetworkErrorAPIError(let errorMessage):
                     print(errorMessage)
+                case .BadURL:
+                    print("BadURL")
+                case .NoData:
+                    print("NoData")
+                case .DecodingErrpr:
+                    print("DecodingErrpr")
+                }
+            }
+        }
+    }
+    
+    func bookMarkArticle (appViewModel: AppViewModel) {
+        FavoritesServices().bookMarkArticle(parameters: nil, endpoint: "\(selectedArticle.slug ?? "")/favorite"){
+            res in
+            switch res {
+            case .success(let data):
+                print("bookMarkArticle")
+                print(data.article?.favorited)
+                appViewModel.alertToast = AlertToast(displayMode: .banner(.slide), type: .complete(.green), title: "Article Bookmark!")
+                self.selectedArticle.favorited = data.article?.favorited
+                if let row = self.articleData?.articles!.firstIndex(where: {$0.slug == self.selectedArticle.slug}) {
+                    self.articleData?.articles?[row] = self.selectedArticle
+                }
+
+            case .failure(let error):
+                switch error {
+                case .NetworkErrorAPIError(let errorMessage):
+                    print("3")
+                    print(errorMessage)
+                    appViewModel.errorMessage = errorMessage
+                case .BadURL:
+                    print("BadURL")
+                case .NoData:
+                    print("NoData")
+                case .DecodingErrpr:
+                    print("DecodingErrpr")
+                }
+            }
+        }
+    }
+    
+    
+    func removeBookMarkArticle (appViewModel: AppViewModel) {
+        FavoritesServices().removeBookMarkArticle(parameters: nil, endpoint: "\(selectedArticle.slug ?? "")/favorite"){
+            res in
+            switch res {
+            case .success(let data):
+                print("removeBookMarkArticle")
+                //                print(data.article?.favorited)
+                appViewModel.alertToast = AlertToast(displayMode: .banner(.slide), type: .complete(.green), title: "Article Bookmark removed!")
+                self.selectedArticle.favorited = data.article?.favorited
+                print(data)
+            case .failure(let error):
+                switch error {
+                case .NetworkErrorAPIError(let errorMessage):
+                    print("3")
+                    print(errorMessage)
+                    appViewModel.errorMessage = errorMessage
                 case .BadURL:
                     print("BadURL")
                 case .NoData:

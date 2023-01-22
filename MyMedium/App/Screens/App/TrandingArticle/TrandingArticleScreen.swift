@@ -20,6 +20,7 @@ struct TrandingArticleScreen: View {
                         Button (action: {
                             let data = SelectedArticleScreenType(selectedArticle: article)
                             navStack.presentedScreen.append(data)
+                            articleViewModel.selectedArticle = article
                         }, label: {
                             HStack {
                                 ArticleRow(article: article)
@@ -29,14 +30,15 @@ struct TrandingArticleScreen: View {
                     }
                     .refreshable {
                         articleViewModel.getArticles()
-                               }
+                    }
                     .navigationDestination(for: SelectedArticleScreenType.self) { type in
-                        ArticleDetailViewScreen(article: type.selectedArticle!)
+                        ArticleDetailViewScreen()
                     }
                 } else {
                     LoadingListing()
                 }
             }
+            .animation(.spring(), value: articleViewModel.isLoading)
             .sheet(isPresented: $articleViewModel.showFiltterScreen, content: {
                 FiltterScreen()
             })
