@@ -142,4 +142,5 @@ class ArticleViewModel: ObservableObject {
             }
         }
     }
+    
 }

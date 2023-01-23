@@ -54,6 +54,10 @@
 		F46AAFBE297BFC3300B682C4 /* AppHTMLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46AAFBD297BFC3300B682C4 /* AppHTMLView.swift */; };
 		F46AAFC1297BFE0900B682C4 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = F46AAFC0297BFE0900B682C4 /* SwiftSoup */; };
 		F46AAFC3297C170C00B682C4 /* ArticleViewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46AAFC2297C170C00B682C4 /* ArticleViewModal.swift */; };
+		F4D6634F297E81100045BDDA /* CommentsViewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D6634E297E81100045BDDA /* CommentsViewModal.swift */; };
+		F4D66352297E82040045BDDA /* CommentServers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D66351297E82040045BDDA /* CommentServers.swift */; };
+		F4D66354297E82190045BDDA /* CommentsApiEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D66353297E82190045BDDA /* CommentsApiEndpoint.swift */; };
+		F4D66357297E85720045BDDA /* CommentModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D66356297E85720045BDDA /* CommentModal.swift */; };
 		F4E0D909297C2F340084B495 /* Shimmer in Frameworks */ = {isa = PBXBuildFile; productRef = F4E0D908297C2F340084B495 /* Shimmer */; };
 		F4E0D90B297C52D80084B495 /* LoadingListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0D90A297C52D80084B495 /* LoadingListing.swift */; };
 /* End PBXBuildFile section */
@@ -103,6 +107,10 @@
 		F468C87B297D1E2F00DFB1BB /* FeedsArticleViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedsArticleViewModal.swift; sourceTree = "<group>"; };
 		F46AAFBD297BFC3300B682C4 /* AppHTMLView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHTMLView.swift; sourceTree = "<group>"; };
 		F46AAFC2297C170C00B682C4 /* ArticleViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewModal.swift; sourceTree = "<group>"; };
+		F4D6634E297E81100045BDDA /* CommentsViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewModal.swift; sourceTree = "<group>"; };
+		F4D66351297E82040045BDDA /* CommentServers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentServers.swift; sourceTree = "<group>"; };
+		F4D66353297E82190045BDDA /* CommentsApiEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsApiEndpoint.swift; sourceTree = "<group>"; };
+		F4D66356297E85720045BDDA /* CommentModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModal.swift; sourceTree = "<group>"; };
 		F4E0D90A297C52D80084B495 /* LoadingListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingListing.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -165,6 +173,7 @@
 		92594905296D73280029B2C1 /* Modal */ = {
 			isa = PBXGroup;
 			children = (
+				F4D66355297E85570045BDDA /* CommentsModal */,
 				9286E8EF2977F4EC006E2987 /* ProfileModal */,
 				92EBBBDF29756DAD006E34EE /* ArticleModal */,
 				92FD152D296EC63C00C8AE0E /* NavModal */,
@@ -350,6 +359,7 @@
 		92FD1522296EC3E700C8AE0E /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				F4D66350297E81E40045BDDA /* CommentServers */,
 				92E417B12979713100899FD8 /* FavoritesServers */,
 				9286E8EA2977F3E1006E2987 /* ProfileServers */,
 				92EBBBDA297561F1006E34EE /* ArticleServers */,
@@ -393,8 +403,26 @@
 				92C5D9F629791F5100C6E6B6 /* NavigationStackViewModal.swift */,
 				F46AAFC2297C170C00B682C4 /* ArticleViewModal.swift */,
 				F468C87B297D1E2F00DFB1BB /* FeedsArticleViewModal.swift */,
+				F4D6634E297E81100045BDDA /* CommentsViewModal.swift */,
 			);
 			path = GlobalState;
+			sourceTree = "<group>";
+		};
+		F4D66350297E81E40045BDDA /* CommentServers */ = {
+			isa = PBXGroup;
+			children = (
+				F4D66351297E82040045BDDA /* CommentServers.swift */,
+				F4D66353297E82190045BDDA /* CommentsApiEndpoint.swift */,
+			);
+			path = CommentServers;
+			sourceTree = "<group>";
+		};
+		F4D66355297E85570045BDDA /* CommentsModal */ = {
+			isa = PBXGroup;
+			children = (
+				F4D66356297E85720045BDDA /* CommentModal.swift */,
+			);
+			path = CommentsModal;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -489,6 +517,7 @@
 				F46AAFC3297C170C00B682C4 /* ArticleViewModal.swift in Sources */,
 				92D2D743296C1980008BA685 /* WelcomeScreen.swift in Sources */,
 				9205B2C72976C9A7004541EA /* CreateArticleScreen.swift in Sources */,
+				F4D66352297E82040045BDDA /* CommentServers.swift in Sources */,
 				92FD1527296EC45000C8AE0E /* AuthApiEndpoint.swift in Sources */,
 				92D2D73A296C16B2008BA685 /* AppButton.swift in Sources */,
 				92D2D72C296C15EB008BA685 /* ContentView.swift in Sources */,
@@ -499,11 +528,13 @@
 				92FD1524296EC41100C8AE0E /* ApiError.swift in Sources */,
 				92EBBBD92975619E006E34EE /* ArticleRow.swift in Sources */,
 				9265794E2977D3CE00C8B4BB /* ArticleDetailViewScreen.swift in Sources */,
+				F4D66357297E85720045BDDA /* CommentModal.swift in Sources */,
 				926579502977E2F300C8B4BB /* AboutAuthorView.swift in Sources */,
 				92EBBBD62975612E006E34EE /* ChipView.swift in Sources */,
 				9286E8EE2977F40D006E2987 /* ProfileApiEndpoint.swift in Sources */,
 				92EBBBCF2975512D006E34EE /* HomeScreen.swift in Sources */,
 				92D2D73F296C1778008BA685 /* UIHelper.swift in Sources */,
+				F4D66354297E82190045BDDA /* CommentsApiEndpoint.swift in Sources */,
 				92EBBBDE29756D32006E34EE /* ArticleServices.swift in Sources */,
 				9205B2C429769B2A004541EA /* ProfileScreen.swift in Sources */,
 				F468C87C297D1E2F00DFB1BB /* FeedsArticleViewModal.swift in Sources */,
@@ -522,6 +553,7 @@
 				92EBBBD2297557A3006E34EE /* TrandingArticleScreen.swift in Sources */,
 				92594907296D733D0029B2C1 /* NavModal.swift in Sources */,
 				92594909296D83300029B2C1 /* AppConst.swift in Sources */,
+				F4D6634F297E81100045BDDA /* CommentsViewModal.swift in Sources */,
 				F4E0D90B297C52D80084B495 /* LoadingListing.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

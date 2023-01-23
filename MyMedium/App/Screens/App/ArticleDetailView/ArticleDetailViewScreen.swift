@@ -21,6 +21,8 @@ struct ArticleDetailViewScreen: View {
     @State private var showDeleteAlert = false
     @EnvironmentObject var appViewModel: AppViewModel
     
+    @State var comments: CommentListResponse?
+    
     var body: some View {
         ScrollView {
             VStack {
