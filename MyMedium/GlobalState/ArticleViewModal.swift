@@ -73,7 +73,7 @@ class ArticleViewModel: ObservableObject {
         }
     }
     
-    func bookMarkArticle (appViewModel: AppViewModel) {
+    func bookMarkArticle (appViewModel: AppViewModel, feedViewModal: FeedArticleViewModel, isFeed: Bool) {
         FavoritesServices().bookMarkArticle(parameters: nil, endpoint: "\(selectedArticle.slug ?? "")/favorite"){
             res in
             switch res {
@@ -81,6 +81,12 @@ class ArticleViewModel: ObservableObject {
                 print("bookMarkArticle")
                 print(data.article?.favorited)
                 appViewModel.alertToast = AlertToast(displayMode: .banner(.slide), type: .complete(.green), title: "Article Bookmark!")
+                if(isFeed) {
+                    self.selectedArticle.favorited = data.article?.favorited
+                    if let row = feedViewModal.articleData?.articles!.firstIndex(where: {$0.slug == self.selectedArticle.slug}) {
+                        feedViewModal.articleData?.articles?[row] = self.selectedArticle
+                    }
+                }
                 self.selectedArticle.favorited = data.article?.favorited
                 if let row = self.articleData?.articles!.firstIndex(where: {$0.slug == self.selectedArticle.slug}) {
                     self.articleData?.articles?[row] = self.selectedArticle
@@ -104,7 +110,7 @@ class ArticleViewModel: ObservableObject {
     }
     
     
-    func removeBookMarkArticle (appViewModel: AppViewModel) {
+    func removeBookMarkArticle (appViewModel: AppViewModel, feedViewModal: FeedArticleViewModel, isFeed: Bool) {
         FavoritesServices().removeBookMarkArticle(parameters: nil, endpoint: "\(selectedArticle.slug ?? "")/favorite"){
             res in
             switch res {
@@ -112,6 +118,12 @@ class ArticleViewModel: ObservableObject {
                 print("removeBookMarkArticle")
                 //                print(data.article?.favorited)
                 appViewModel.alertToast = AlertToast(displayMode: .banner(.slide), type: .complete(.green), title: "Article Bookmark removed!")
+                if(isFeed) {
+                    self.selectedArticle.favorited = data.article?.favorited
+                    if let row = feedViewModal.articleData?.articles!.firstIndex(where: {$0.slug == self.selectedArticle.slug}) {
+                        feedViewModal.articleData?.articles?[row] = self.selectedArticle
+                    }
+                }
                 self.selectedArticle.favorited = data.article?.favorited
                 print(data)
             case .failure(let error):

@@ -15,6 +15,7 @@ struct ArticleDetailViewScreen: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var navStack: FeedNavigationStackViewModal
     @EnvironmentObject var navStack2: TrandingNavigationStackViewModal
+    @EnvironmentObject var feedViewModal: FeedArticleViewModel
     @State var isTheOwner : Bool = false
     @State var isFeedStack: Bool = false
     @State private var showDeleteAlert = false
@@ -55,9 +56,9 @@ struct ArticleDetailViewScreen: View {
                     Spacer()
                     Button(action: {
                         if (articleViewModal.selectedArticle.favorited == true){
-                            articleViewModal.removeBookMarkArticle(appViewModel: appViewModel)
+                            articleViewModal.removeBookMarkArticle(appViewModel: appViewModel,feedViewModal: feedViewModal,isFeed: isFeedStack)
                         } else {
-                            articleViewModal.bookMarkArticle(appViewModel: appViewModel)
+                            articleViewModal.bookMarkArticle(appViewModel: appViewModel, feedViewModal: feedViewModal,isFeed: isFeedStack)
                         }
                     }) {
                         Image(systemName: articleViewModal.selectedArticle.favorited ?? false ? AppIconsSF.bookMarkFillIcon : AppIconsSF.bookMarkIcon)

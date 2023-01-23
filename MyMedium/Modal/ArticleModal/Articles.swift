@@ -27,7 +27,7 @@ struct Article: Codable, Identifiable {
 
 // MARK: - FollowArticle
 struct FavArticleRes: Codable {
-    let article: Article?
+    var article: Article?
 }
 
 // MARK: - Author
@@ -51,7 +51,7 @@ struct FavoritedBy: Codable {
 
 // MARK: - FeedArticle
 struct FeedArticle: Codable {
-    let articles: [Article]?
+    var articles: [Article]?
     let articlesCount: Int?
 }
 
