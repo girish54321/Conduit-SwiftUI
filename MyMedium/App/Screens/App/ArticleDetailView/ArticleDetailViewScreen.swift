@@ -57,10 +57,31 @@ struct ArticleDetailViewScreen: View {
                     Text(Helpers.formatDateFormat(dateString: articleViewModal.selectedArticle.createdAt ?? ""))
                     Spacer()
                     Button(action: {
-                        if (articleViewModal.selectedArticle.favorited == true){
-                            articleViewModal.removeBookMarkArticle(appViewModel: appViewModel,feedViewModal: feedViewModal,isFeed: isFeedStack)
+                        appViewModel.alertToast = AppMessage.loadindView
+                        if (articleViewModal.selectedArticle.favorited == true) {
+                            articleViewModal.removeBookMarkArticle(onComple: {data, error in
+                                appViewModel.toggle()
+                                if ((error) != nil) {
+                                    appViewModel.errorMessage = error!
+                                    return
+                                }
+                                if(isFeedStack){
+                                    feedViewModal.updateSelectedFeedArticle(article: data!)
+                                }
+                                articleViewModal.updateSelectedArticle(article: data!)
+                            })
                         } else {
-                            articleViewModal.bookMarkArticle(appViewModel: appViewModel, feedViewModal: feedViewModal,isFeed: isFeedStack)
+                            articleViewModal.bookMarkArticle(onComple: {data, error in
+                                appViewModel.toggle()
+                                if ((error) != nil) {
+                                    appViewModel.errorMessage = error!
+                                    return
+                                }
+                                if(isFeedStack){
+                                    feedViewModal.updateSelectedFeedArticle(article: data!)
+                                }
+                                articleViewModal.updateSelectedArticle(article: data!)
+                            })
                         }
                     }) {
                         Image(systemName: articleViewModal.selectedArticle.favorited ?? false ? AppIconsSF.bookMarkFillIcon : AppIconsSF.bookMarkIcon)

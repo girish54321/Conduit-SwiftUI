@@ -12,7 +12,6 @@ struct AboutAuthorView: View {
     
     var body: some View {
         VStack(alignment: .center) {
-//            AppNetworkImage(imageUrl: author?.image ?? "")
             AppNetworkImage(imageUrl: author?.image ?? "")
                 .frame(width: 50, height: 50)
                 .clipShape(

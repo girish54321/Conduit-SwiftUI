@@ -9,68 +9,76 @@ import SwiftUI
 
 struct ProfileScreen: View {
     @EnvironmentObject var authViewModel: AuthViewModel
+    @EnvironmentObject var navStack: ProfileNavigationStackViewModal
+    @EnvironmentObject var articleViewModel: ArticleViewModel
     @AppStorage(AppConst.isSkiped) var isSkiped: Bool = false
     @AppStorage(AppConst.tokan) var tokan: String = ""
     @State private var showLogOutAlert = false
     
     var body: some View {
-        NavigationView {
+        NavigationStack (path: $navStack.presentedScreen) {
             List {
-                Section ("Hello") {
-                    VStack(alignment: .leading, spacing: 6) {
-                        AppNetworkImage(imageUrl: authViewModel.userState?.user?.image ?? "https://media5.bollywoodhungama.in/wp-content/uploads/2021/03/WhatsApp-Image-2021-03-26-at-5.08.26-PM.jpeg")
-                            .frame(width: 60, height: 60)
-                            .clipShape(
-                                RoundedRectangle(cornerRadius: 12)
-                            )
-                        Text(authViewModel.userState?.user?.username ?? "username")
-                            .font(.title)
-                        Text(authViewModel.userState?.user?.bio ?? "Bio")
-                            .padding(.top,1)
-                        Text(authViewModel.userState?.user?.email ?? "Email")
-                            .foregroundColor(.gray)
-                            .padding(.top,3)
-                    }
-                }
-                .onAppear {
-                    authViewModel.getArticles(parameters: ArticleListParams(author:authViewModel.userState?.user?.username,limit: "50"))
-                }
-                Section ("your articles") {
-                    ForEach(authViewModel.userArticle?.articles ?? []) { data in
+                ProfileView(profileImage: authViewModel.userState?.user?.image ?? "https://media5.bollywoodhungama.in/wp-content/uploads/2021/03/WhatsApp-Image-2021-03-26-at-5.08.26-PM.jpeg", userName: authViewModel.userState?.user?.username ?? "username", bio: authViewModel.userState?.user?.bio ?? "Bio", email: authViewModel.userState?.user?.email ?? "Email")
+                Section ("articlesss") {
+                    if !authViewModel.isLoading {
                         VStack {
-                            HStack {
-                                ArticleRow(article: data)
-                                    .padding(.bottom)
-                                Spacer()
+                            ForEach(authViewModel.userArticle?.articles ?? [DummyData().data,DummyData().data]) { article in
+                                VStack {
+                                    HStack {
+                                        if !authViewModel.isLoading {
+                                            ArticleRow(article: article)
+                                                .padding(.bottom)
+                                        } else {
+                                            LoadingArticleItem(article: article)
+                                        }
+                                        Spacer()
+                                    }
+                                    Divider()
+                                }
+                                .onTapGesture {
+                                    if (authViewModel.isLoading){
+                                        return
+                                    }
+                                    let data = SelectedArticleScreenType(selectedArticle: article)
+                                    navStack.presentedScreen.append(data)
+                                    articleViewModel.selectedArticle = article
+                                }
                             }
-                            Divider()
+                            .animation(.easeIn)
                         }
+                    } else {
+                        LoadingForEarchListing()
                     }
-                    .animation(.easeIn)
-                    .alert(isPresented: $showLogOutAlert) {
-                        Alert(title: Text("Log out?"),
-                              message: Text("Are you sure you want to delete this article?"),
-                              primaryButton: .destructive(Text("Yes")) {
-                            authViewModel.userState = nil
-                            authViewModel.tokan = ""
-                            authViewModel.isLogedin = false
-                            isSkiped = false
-                            tokan = ""
-                        }, secondaryButton: .cancel())
-                    }
-                    .navigationBarItems(
-                        trailing:
-                            Button(action: {
-                                showLogOutAlert.toggle()
-                            }) {
-                                Text("Logout")
-                            }
-                    )
-                    .navigationBarTitle("Profile")
                 }
             }
             .refreshable {
-                authViewModel.getProfile()
+                authViewModel.getArticles(parameters: ArticleListParams(author:authViewModel.userState?.user?.username,limit: "50"))
+            }
+            .alert(isPresented: $showLogOutAlert) {
+                Alert(title: Text("Log out?"),
+                      message: Text("Are you sure you want to delete this article?"),
+                      primaryButton: .destructive(Text("Yes")) {
+                    authViewModel.userState = nil
+                    authViewModel.tokan = ""
+                    authViewModel.isLogedin = false
+                    isSkiped = false
+                    tokan = ""
+                }, secondaryButton: .cancel())
+            }
+            .navigationBarItems(
+                trailing:
+                    Button(action: {
+                        showLogOutAlert.toggle()
+                    }) {
+                        Text("Logout")
+                    }
+            )
+            .onAppear {
+                authViewModel.getArticles(parameters: ArticleListParams(author:authViewModel.userState?.user?.username,limit: "50"))
+            }
+            .navigationBarTitle("Profile")
+            .navigationDestination(for: SelectedArticleScreenType.self) { type in
+                ArticleDetailViewScreen(isFeedStack: true)
             }
         }
     }
@@ -80,7 +88,8 @@ struct ProfileScreen: View {
 struct ProfileScreen_Previews: PreviewProvider {
     static var previews: some View {
         ProfileScreen()
-            .environmentObject(AuthViewModel()
-            )
+            .environmentObject(AuthViewModel())
+            .environmentObject(ProfileNavigationStackViewModal())
+            .environmentObject(ArticleViewModel())
     }
 }

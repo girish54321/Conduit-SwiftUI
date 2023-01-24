@@ -58,8 +58,11 @@
 		F4D66352297E82040045BDDA /* CommentServers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D66351297E82040045BDDA /* CommentServers.swift */; };
 		F4D66354297E82190045BDDA /* CommentsApiEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D66353297E82190045BDDA /* CommentsApiEndpoint.swift */; };
 		F4D66357297E85720045BDDA /* CommentModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D66356297E85720045BDDA /* CommentModal.swift */; };
+		F4D66359297EB93E0045BDDA /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D66358297EB93E0045BDDA /* ProfileView.swift */; };
 		F4E0D909297C2F340084B495 /* Shimmer in Frameworks */ = {isa = PBXBuildFile; productRef = F4E0D908297C2F340084B495 /* Shimmer */; };
 		F4E0D90B297C52D80084B495 /* LoadingListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0D90A297C52D80084B495 /* LoadingListing.swift */; };
+		F4EA179E297F98F0007E7230 /* ProfileViewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EA179D297F98F0007E7230 /* ProfileViewModal.swift */; };
+		F4EA17A1297F9C20007E7230 /* SelectedUserScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EA17A0297F9C20007E7230 /* SelectedUserScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -111,7 +114,10 @@
 		F4D66351297E82040045BDDA /* CommentServers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentServers.swift; sourceTree = "<group>"; };
 		F4D66353297E82190045BDDA /* CommentsApiEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsApiEndpoint.swift; sourceTree = "<group>"; };
 		F4D66356297E85720045BDDA /* CommentModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModal.swift; sourceTree = "<group>"; };
+		F4D66358297EB93E0045BDDA /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		F4E0D90A297C52D80084B495 /* LoadingListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingListing.swift; sourceTree = "<group>"; };
+		F4EA179D297F98F0007E7230 /* ProfileViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModal.swift; sourceTree = "<group>"; };
+		F4EA17A0297F9C20007E7230 /* SelectedUserScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedUserScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,6 +271,7 @@
 				92EBBBD329755DC3006E34EE /* AppNetworkImage.swift */,
 				92EBBBD52975612E006E34EE /* ChipView.swift */,
 				F4E0D90A297C52D80084B495 /* LoadingListing.swift */,
+				F4D66358297EB93E0045BDDA /* ProfileView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -319,6 +326,7 @@
 		92EBBBD029755777006E34EE /* App */ = {
 			isa = PBXGroup;
 			children = (
+				F4EA179F297F9C06007E7230 /* SelectedUserScreen */,
 				9265794C2977D3BF00C8B4BB /* ArticleDetailView */,
 				9205B2C52976C7F9004541EA /* CreateArticle */,
 				9205B2C229769B09004541EA /* Profile */,
@@ -404,6 +412,7 @@
 				F46AAFC2297C170C00B682C4 /* ArticleViewModal.swift */,
 				F468C87B297D1E2F00DFB1BB /* FeedsArticleViewModal.swift */,
 				F4D6634E297E81100045BDDA /* CommentsViewModal.swift */,
+				F4EA179D297F98F0007E7230 /* ProfileViewModal.swift */,
 			);
 			path = GlobalState;
 			sourceTree = "<group>";
@@ -423,6 +432,14 @@
 				F4D66356297E85720045BDDA /* CommentModal.swift */,
 			);
 			path = CommentsModal;
+			sourceTree = "<group>";
+		};
+		F4EA179F297F9C06007E7230 /* SelectedUserScreen */ = {
+			isa = PBXGroup;
+			children = (
+				F4EA17A0297F9C20007E7230 /* SelectedUserScreen.swift */,
+			);
+			path = SelectedUserScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -513,11 +530,13 @@
 				92EBBBD429755DC3006E34EE /* AppNetworkImage.swift in Sources */,
 				92E417B32979713F00899FD8 /* FavoritesServers.swift in Sources */,
 				92203B0E296E8F2C00A15F60 /* Helper.swift in Sources */,
+				F4D66359297EB93E0045BDDA /* ProfileView.swift in Sources */,
 				9286E8F12977F4FF006E2987 /* ProfileModal.swift in Sources */,
 				F46AAFC3297C170C00B682C4 /* ArticleViewModal.swift in Sources */,
 				92D2D743296C1980008BA685 /* WelcomeScreen.swift in Sources */,
 				9205B2C72976C9A7004541EA /* CreateArticleScreen.swift in Sources */,
 				F4D66352297E82040045BDDA /* CommentServers.swift in Sources */,
+				F4EA179E297F98F0007E7230 /* ProfileViewModal.swift in Sources */,
 				92FD1527296EC45000C8AE0E /* AuthApiEndpoint.swift in Sources */,
 				92D2D73A296C16B2008BA685 /* AppButton.swift in Sources */,
 				92D2D72C296C15EB008BA685 /* ContentView.swift in Sources */,
@@ -532,6 +551,7 @@
 				926579502977E2F300C8B4BB /* AboutAuthorView.swift in Sources */,
 				92EBBBD62975612E006E34EE /* ChipView.swift in Sources */,
 				9286E8EE2977F40D006E2987 /* ProfileApiEndpoint.swift in Sources */,
+				F4EA17A1297F9C20007E7230 /* SelectedUserScreen.swift in Sources */,
 				92EBBBCF2975512D006E34EE /* HomeScreen.swift in Sources */,
 				92D2D73F296C1778008BA685 /* UIHelper.swift in Sources */,
 				F4D66354297E82190045BDDA /* CommentsApiEndpoint.swift in Sources */,

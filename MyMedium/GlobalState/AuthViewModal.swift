@@ -12,6 +12,7 @@ class AuthViewModel: ObservableObject {
     @Published var tokan: String? = nil
     @Published var userState: LoginScuccess? = nil
     @Published var userArticle: TrandingArticles? = nil
+    @Published var isLoading: Bool = false
     
     init() {
         getProfile()
@@ -22,11 +23,13 @@ class AuthViewModel: ObservableObject {
     }
     
     func getArticles(parameters: ArticleListParams) {
+        isLoading = true
         ArticleServices().getTrandingArticle(parameters: parameters.toDictionary()){
             result in
             switch result {
             case .success(let data):
                 self.userArticle = data
+                self.isLoading = false
             case .failure(let error):
                 switch error {
                 case .NetworkErrorAPIError(let errorMessage):

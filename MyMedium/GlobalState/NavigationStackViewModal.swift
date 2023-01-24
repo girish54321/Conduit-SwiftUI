@@ -15,3 +15,7 @@ class FeedNavigationStackViewModal: ObservableObject {
 class TrandingNavigationStackViewModal: ObservableObject {
     @Published var presentedScreen = NavigationPath()
 }
+
+class ProfileNavigationStackViewModal: ObservableObject {
+    @Published var presentedScreen = NavigationPath()
+}

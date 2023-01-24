@@ -9,9 +9,6 @@ import SwiftUI
 
 struct ArticleRow: View {
     var article: Article?
-    var isFeed: Bool?
-    @EnvironmentObject var articleViewModal: ArticleViewModel
-    @EnvironmentObject var feedViewModal: FeedArticleViewModel
     @EnvironmentObject var appViewModal: AppViewModel
     
     var body: some View {
@@ -32,11 +29,7 @@ struct ArticleRow: View {
                 Text(Helpers.formatDateFormat(dateString: article?.createdAt ?? ""))
                 Spacer()
                 Button(action: {
-                    if ((article?.favorited) != nil){
-                        articleViewModal.removeBookMarkArticle(appViewModel: appViewModal, feedViewModal: feedViewModal, isFeed: isFeed ?? false)
-                    } else {
-                        articleViewModal.bookMarkArticle(appViewModel: appViewModal, feedViewModal: feedViewModal, isFeed: isFeed ?? false)
-                    }
+
                 }) {
                     Image(systemName: article?.favorited ?? false ? AppIconsSF.bookMarkFillIcon : AppIconsSF.bookMarkIcon)
                         .frame(width: 30,height: 30)

@@ -52,6 +52,7 @@ class ArticleViewModel: ObservableObject {
     func getArticles() {
         isLoading = true
         print(filtterParameters.toDictionary())
+        print("WTF")
         ArticleServices().getTrandingArticle(parameters: filtterParameters.toDictionary()){
             result in
             self.isLoading = false
@@ -73,31 +74,20 @@ class ArticleViewModel: ObservableObject {
         }
     }
     
-    func bookMarkArticle (appViewModel: AppViewModel, feedViewModal: FeedArticleViewModel, isFeed: Bool) {
+    func bookMarkArticle (onComple: @escaping (Article?,String?) -> Void) {
         FavoritesServices().bookMarkArticle(parameters: nil, endpoint: "\(selectedArticle.slug ?? "")/favorite"){
             res in
             switch res {
             case .success(let data):
                 print("bookMarkArticle")
                 print(data.article?.favorited)
-                appViewModel.alertToast = AlertToast(displayMode: .banner(.slide), type: .complete(.green), title: "Article Bookmark!")
-                if(isFeed) {
-                    self.selectedArticle.favorited = data.article?.favorited
-                    if let row = feedViewModal.articleData?.articles!.firstIndex(where: {$0.slug == self.selectedArticle.slug}) {
-                        feedViewModal.articleData?.articles?[row] = self.selectedArticle
-                    }
-                }
-                self.selectedArticle.favorited = data.article?.favorited
-                if let row = self.articleData?.articles!.firstIndex(where: {$0.slug == self.selectedArticle.slug}) {
-                    self.articleData?.articles?[row] = self.selectedArticle
-                }
-
+                onComple(data.article!,nil)
             case .failure(let error):
                 switch error {
                 case .NetworkErrorAPIError(let errorMessage):
                     print("3")
                     print(errorMessage)
-                    appViewModel.errorMessage = errorMessage
+                    onComple(nil,errorMessage)
                 case .BadURL:
                     print("BadURL")
                 case .NoData:
@@ -109,29 +99,28 @@ class ArticleViewModel: ObservableObject {
         }
     }
     
+    func updateSelectedArticle (article: Article)  {
+        self.selectedArticle = article
+        if let row = articleData?.articles!.firstIndex(where: {$0.slug == self.selectedArticle.slug}) {
+            articleData?.articles?[row] = self.selectedArticle
+        }
+    }
     
-    func removeBookMarkArticle (appViewModel: AppViewModel, feedViewModal: FeedArticleViewModel, isFeed: Bool) {
+    
+    func removeBookMarkArticle (onComple: @escaping (Article?,String?) -> Void) {
         FavoritesServices().removeBookMarkArticle(parameters: nil, endpoint: "\(selectedArticle.slug ?? "")/favorite"){
             res in
             switch res {
             case .success(let data):
                 print("removeBookMarkArticle")
-                //                print(data.article?.favorited)
-                appViewModel.alertToast = AlertToast(displayMode: .banner(.slide), type: .complete(.green), title: "Article Bookmark removed!")
-                if(isFeed) {
-                    self.selectedArticle.favorited = data.article?.favorited
-                    if let row = feedViewModal.articleData?.articles!.firstIndex(where: {$0.slug == self.selectedArticle.slug}) {
-                        feedViewModal.articleData?.articles?[row] = self.selectedArticle
-                    }
-                }
-                self.selectedArticle.favorited = data.article?.favorited
                 print(data)
+                onComple(data.article!,nil)
             case .failure(let error):
                 switch error {
                 case .NetworkErrorAPIError(let errorMessage):
                     print("3")
                     print(errorMessage)
-                    appViewModel.errorMessage = errorMessage
+                    onComple(nil,errorMessage)
                 case .BadURL:
                     print("BadURL")
                 case .NoData:

@@ -24,6 +24,8 @@ struct MyMediumApp: App {
                     .environmentObject(ArticleViewModel())
                     .environmentObject(FeedArticleViewModel())
                     .environmentObject(CommentsViewModel())
+                    .environmentObject(ProfileViewModel())
+                    .environmentObject(ProfileNavigationStackViewModal())
             } else {
                 WelcomeScreen()
                     .environmentObject(AppViewModel())
