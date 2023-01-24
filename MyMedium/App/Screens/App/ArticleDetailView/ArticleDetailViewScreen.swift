@@ -9,19 +9,18 @@ import SwiftUI
 import AlertToast
 
 struct ArticleDetailViewScreen: View {
-    
-//    @State var article: Article
+
     @EnvironmentObject var articleViewModal: ArticleViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
-    @EnvironmentObject var navStack: FeedNavigationStackViewModal
-    @EnvironmentObject var navStack2: TrandingNavigationStackViewModal
+    @EnvironmentObject var feedStack: FeedNavigationStackViewModal
+    @EnvironmentObject var articleStack: TrandingNavigationStackViewModal
+    @EnvironmentObject var profileStack: ProfileNavigationStackViewModal
     @EnvironmentObject var feedViewModal: FeedArticleViewModel
-    @State var isTheOwner : Bool = false
-    @State var isFeedStack: Bool = false
     @State private var showDeleteAlert = false
     @EnvironmentObject var appViewModel: AppViewModel
-    
+    @State var isTheOwner : Bool = false
     @State var comments: CommentListResponse?
+    @State var activeStack: AppNavStackType
     
     var body: some View {
         ScrollView {
@@ -65,10 +64,8 @@ struct ArticleDetailViewScreen: View {
                                     appViewModel.errorMessage = error!
                                     return
                                 }
-                                if(isFeedStack){
-                                    feedViewModal.updateSelectedFeedArticle(article: data!)
-                                }
                                 articleViewModal.updateSelectedArticle(article: data!)
+                                feedViewModal.updateSelectedFeedArticle(article: data!)
                             })
                         } else {
                             articleViewModal.bookMarkArticle(onComple: {data, error in
@@ -77,10 +74,8 @@ struct ArticleDetailViewScreen: View {
                                     appViewModel.errorMessage = error!
                                     return
                                 }
-                                if(isFeedStack){
-                                    feedViewModal.updateSelectedFeedArticle(article: data!)
-                                }
                                 articleViewModal.updateSelectedArticle(article: data!)
+                                feedViewModal.updateSelectedFeedArticle(article: data!)
                             })
                         }
                     }) {
@@ -90,6 +85,17 @@ struct ArticleDetailViewScreen: View {
                     .frame(width: 30,height: 30)
                 }
                 AboutAuthorView(author: articleViewModal.selectedArticle.author)
+                    .onTapGesture {
+                        let data = SelectedProfileScreenType(auther: articleViewModal.selectedArticle.author!)
+                        if (activeStack == .feed){
+                            feedStack.presentedScreen.append(data)
+                            return
+                        }
+                        if (activeStack == .article){
+                            articleStack.presentedScreen.append(data)
+                            return
+                        }
+                    }
             }
             .padding()
         }
@@ -105,11 +111,18 @@ struct ArticleDetailViewScreen: View {
                         HStack {
                             Button(action: {
                                 let data = CreateArticleScreenType(selectedArticle: articleViewModal.selectedArticle)
-                                if (!isFeedStack){
-                                    navStack2.presentedScreen.append(data)
+                                if(activeStack == .feed){
+                                    feedStack.presentedScreen.append(data)
                                     return
                                 }
-                                navStack.presentedScreen.append(data)
+                                if (activeStack == .article){
+                                    articleStack.presentedScreen.append(data)
+                                    return
+                                }
+                                if (activeStack == .profile) {
+                                    profileStack.presentedScreen.append(data)
+                                    return
+                                }
                             }) {
                                 Image(systemName: AppIconsSF.editIcon)
                             }
@@ -135,7 +148,10 @@ struct ArticleDetailViewScreen: View {
         }
         .navigationDestination(for: CreateArticleScreenType.self) { type in
             let data = type.selectedArticle
-            CreateArticleScreen(article: ArticleParams(title: data?.title ?? "", description: data?.description ?? "", body: data?.body ?? "", tagList: data?.tagList ?? []),slug: articleViewModal.selectedArticle.slug)
+            CreateArticleScreen(article: ArticleParams(title: data?.title ?? "", description: data?.description ?? "", body: data?.body ?? "", tagList: data?.tagList ?? []), activeStack: activeStack,slug: articleViewModal.selectedArticle.slug)
+        }
+        .navigationDestination(for: SelectedProfileScreenType.self){ type in
+            SelectedUserScreen(auther: type.auther, activeStack: activeStack)
         }
         .navigationBarTitle(Text(articleViewModal.selectedArticle.title ?? "NA"), displayMode: .inline)
     }
@@ -147,11 +163,17 @@ struct ArticleDetailViewScreen: View {
             case .success(let data):
                 print("remove bookmar")
                 appViewModel.alertToast = AlertToast(displayMode: .banner(.slide), type: .complete(.green), title: "Article Delete!")
-                if (!isFeedStack){
-                    navStack2.presentedScreen.removeLast()
+                if(activeStack == .feed){
+                    feedStack.presentedScreen.removeLast()
                     return
                 }
-                navStack.presentedScreen.removeLast()
+                if (activeStack == .article){
+                    articleStack.presentedScreen.removeLast()
+                    return
+                }
+                if (activeStack == .profile){
+                    profileStack.presentedScreen.removeLast()
+                }
                 print(data)
             case .failure(let error):
                 switch error {
@@ -177,7 +199,7 @@ struct ArticleDetailViewScreen_Previews: PreviewProvider {
     
     static var previews: some View {
         NavigationView {
-            ArticleDetailViewScreen()
+            ArticleDetailViewScreen(activeStack: .article)
         }
         .environmentObject(FeedNavigationStackViewModal())
         .environmentObject(AuthViewModel())

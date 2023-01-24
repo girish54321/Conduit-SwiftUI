@@ -13,6 +13,9 @@ struct SelectedUserScreen: View {
     @EnvironmentObject var profileViewModal: ProfileViewModel
     @State private var page: String? = nil
     @EnvironmentObject var articleViewModel: ArticleViewModel
+    @State var activeStack: AppNavStackType
+    @EnvironmentObject var feedStack: FeedNavigationStackViewModal
+    @EnvironmentObject var articleStack: TrandingNavigationStackViewModal 
     
     var body: some View {
         List {
@@ -33,6 +36,14 @@ struct SelectedUserScreen: View {
                         }
                         .onTapGesture {
                             articleViewModel.selectedArticle = article
+                            if (activeStack == .feed){
+                                feedStack.presentedScreen.removeLast()
+                                return
+                            }
+                            if (activeStack == .article) {
+                                articleStack.presentedScreen.removeLast()
+                                return
+                            }
                         }
                     }
                     .animation(.easeIn)
@@ -47,7 +58,7 @@ struct SelectedUserScreen: View {
         }
         .navigationBarTitle(profileViewModal.selectedAuther.username ?? "Na")
         .navigationDestination(for: SelectedArticleScreenType.self) { type in
-            ArticleDetailViewScreen(isFeedStack: true)
+            //            ArticleDetailViewScreen(isFeedStack: true)
         }
         
     }
@@ -56,7 +67,7 @@ struct SelectedUserScreen: View {
 struct SelectedUserScreen_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            SelectedUserScreen(auther:DummyData().autherData)
+            SelectedUserScreen(auther:DummyData().autherData, activeStack: .article)
                 .environmentObject(ProfileViewModel())
         }
     }

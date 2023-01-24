@@ -10,7 +10,7 @@ import SwiftUI
 struct FiltterScreen: View {
     @State private var selectedOption = -1
     let options = ["Option 1", "Option 2", "Option 3"]
-    @State private var someBool : Bool = true
+    @State private var someBool : Bool = false
     @State private var searchText = ""
     
     @EnvironmentObject var articleViewModel: ArticleViewModel

@@ -58,8 +58,8 @@ class ArticleServices {
     func updateArticle (
         parameters: Parameters?,
         endpoint: String,
-        completion: @escaping(Result<Article,NetworkError>) -> Void){
-            return RestAPIClient.request(type: Article.self,
+        completion: @escaping(Result<updateArticleResponse,NetworkError>) -> Void){
+            return RestAPIClient.request(type: updateArticleResponse.self,
                                          endPoint: "\(ArticleApiEndpoint().createEndPoint(endPoint: .updateArticle))\(endpoint)",
                                          method:.put,
                                          parameters:parameters,

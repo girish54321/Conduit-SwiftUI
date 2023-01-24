@@ -35,7 +35,7 @@ struct FeedScreen: View {
                         feedViewModel.getArticles()
                     }
                     .navigationDestination(for: SelectedArticleScreenType.self) { type in
-                        ArticleDetailViewScreen(isFeedStack: true)
+                        ArticleDetailViewScreen(activeStack:.feed)
                     }
                 } else {
                     LoadingListing()

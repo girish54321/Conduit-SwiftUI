@@ -30,6 +30,10 @@ struct FavArticleRes: Codable {
     var article: Article?
 }
 
+struct updateArticleResponse: Codable {
+    var article: Article?
+}
+
 // MARK: - Author
 struct Author: Codable {
     let username: String?

@@ -47,6 +47,7 @@ class FeedArticleViewModel: ObservableObject {
     
     func updateSelectedFeedArticle (article: Article)  {
         if let row = articleData?.articles!.firstIndex(where: {$0.slug == article.slug}) {
+            print("index at feed")
             articleData?.articles?[row] = article
         }
     }

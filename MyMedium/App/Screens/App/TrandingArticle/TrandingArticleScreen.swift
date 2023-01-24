@@ -32,7 +32,7 @@ struct TrandingArticleScreen: View {
                         articleViewModel.getArticles()
                     }
                     .navigationDestination(for: SelectedArticleScreenType.self) { type in
-                        ArticleDetailViewScreen()
+                        ArticleDetailViewScreen(activeStack: .article)
                     }
                 } else {
                     LoadingListing()

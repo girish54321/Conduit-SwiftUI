@@ -25,7 +25,7 @@ struct HomeScreen: View {
                     Text("Tranding")
                 }
             NavigationView {
-                CreateArticleScreen()
+                CreateArticleScreen(activeStack: .profile)
             }
             .tabItem {
                 Image(systemName: AppIconsSF.profileIcon)
@@ -43,7 +43,10 @@ struct HomeScreen: View {
         .toast(isPresenting: $appViewModel.show){
             appViewModel.alertToast
         }
-        
+        .onAppear{
+            appViewModel.alertToast = AppMessage.loadindView
+            appViewModel.show.toggle()
+        }
     }
 }
 

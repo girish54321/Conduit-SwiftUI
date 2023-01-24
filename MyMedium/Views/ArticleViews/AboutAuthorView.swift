@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AboutAuthorView: View {
     @State var author: Author?
-    
+    @EnvironmentObject var feedViewModal: FeedArticleViewModel
     var body: some View {
         VStack(alignment: .center) {
             AppNetworkImage(imageUrl: author?.image ?? "")
@@ -21,7 +21,7 @@ struct AboutAuthorView: View {
                 .shadow(radius: 2)
             Text(author?.username ?? "Name")
                 .font(.title2)
-                .padding(2)
+                .padding(2) 
             Text(author?.bio ?? "Bio")
                 .font(.headline)
                 .foregroundColor(.gray)
@@ -52,6 +52,7 @@ struct AboutAuthorView: View {
                 withAnimation {
                     author?.following = false
                 }
+                feedViewModal.getArticles()
             case .failure(let error):
                 switch error {
                 case .NetworkErrorAPIError(let errorMessage):
@@ -77,6 +78,7 @@ struct AboutAuthorView: View {
                 withAnimation {
                     author?.following = true
                 }
+                feedViewModal.getArticles()
             case .failure(let error):
                 switch error {
                 case .NetworkErrorAPIError(let errorMessage):
@@ -97,5 +99,6 @@ struct AboutAuthorView: View {
 struct AboutAuthorView_Previews: PreviewProvider {
     static var previews: some View {
         AboutAuthorView(author: nil)
+            .environmentObject(FeedArticleViewModel())
     }
 }

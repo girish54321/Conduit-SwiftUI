@@ -13,11 +13,14 @@ let placHoder = ArticleParams(title: "", description: "", body: "", tagList: [])
 struct CreateArticleScreen: View {
     
     @State var article = placHoder
-    @State var isFeedStack : Bool = false
+    @State var activeStack: AppNavStackType
     @State var slug: String?
     @EnvironmentObject var appViewModel: AppViewModel
-    @EnvironmentObject var navStack: FeedNavigationStackViewModal
-    @EnvironmentObject var navStack2: TrandingNavigationStackViewModal
+    @EnvironmentObject var articleViewModal: ArticleViewModel
+    @EnvironmentObject var feedNavStack: FeedNavigationStackViewModal
+    @EnvironmentObject var articleStack: TrandingNavigationStackViewModal
+    @EnvironmentObject var profileStack: ProfileNavigationStackViewModal
+    @EnvironmentObject var feedViewModal: FeedArticleViewModel
     
     var body: some View {
         VStack {
@@ -68,17 +71,21 @@ struct CreateArticleScreen: View {
         ArticleServices().updateArticle(parameters: parameters.toDictionary(), endpoint: slug!){
             result in
             switch result {
-            case .success(_):
+            case .success(let resData):
                 print("Done")
-                appViewModel.alertToast = AlertToast(displayMode: .banner(.slide), type: .complete(.green), title: "Your article has been successfully uploaded. Thank you for your submission!")
-                if(navStack.presentedScreen.isEmpty || navStack2.presentedScreen.isEmpty){
-                    return
+//                appViewModel.alertToast = AlertToast(displayMode: .banner(.slide), type: .complete(.green), title: "Your article has been successfully uploaded. Thank you for your submission!")
+                print(resData.article?.author)
+                articleViewModal.selectedArticle = resData.article!
+                articleViewModal.updateSelectedArticle(article: resData.article!)
+                feedViewModal.updateSelectedFeedArticle(article: resData.article!)
+                switch activeStack {
+                case .feed:
+                    feedNavStack.presentedScreen.removeLast()
+                case .article:
+                    articleStack.presentedScreen.removeLast()
+                case .profile:
+                    profileStack.presentedScreen.removeLast()
                 }
-                if (!isFeedStack){
-                    navStack2.presentedScreen.removeLast()
-                    return
-                }
-                navStack.presentedScreen.removeLast()
             case .failure(let error):
                 switch error {
                 case .NetworkErrorAPIError(let errorMessage):
@@ -131,7 +138,7 @@ struct CreateArticleScreen: View {
 struct CreateArticleScreen_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            CreateArticleScreen()
+            CreateArticleScreen(activeStack: .feed)
                 .environmentObject(AppViewModel())
                 .environmentObject(FeedNavigationStackViewModal())
                 .environmentObject(TrandingNavigationStackViewModal())

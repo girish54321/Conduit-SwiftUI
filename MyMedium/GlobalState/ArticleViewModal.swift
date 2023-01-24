@@ -100,9 +100,10 @@ class ArticleViewModel: ObservableObject {
     }
     
     func updateSelectedArticle (article: Article)  {
-        self.selectedArticle = article
+         self.selectedArticle = article
         if let row = articleData?.articles!.firstIndex(where: {$0.slug == self.selectedArticle.slug}) {
-            articleData?.articles?[row] = self.selectedArticle
+            print("index at news")
+            articleData?.articles?[row] = article
         }
     }
     

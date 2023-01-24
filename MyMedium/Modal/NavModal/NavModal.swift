@@ -18,6 +18,23 @@ struct LoginScreenType: Identifiable, Hashable {
     var isCreateAccount: Bool?
 }
 
+struct SelectedProfileScreenType: Identifiable, Hashable {
+    var identifier: String {
+        return UUID().uuidString
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        return hasher.combine(identifier)
+    }
+    
+    public static func == (lhs: SelectedProfileScreenType, rhs: SelectedProfileScreenType) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
+    
+    let id = UUID()
+    var auther: Author
+}
+
 struct SelectedArticleScreenType: Identifiable, Hashable {
     var identifier: String {
         return UUID().uuidString
@@ -50,3 +67,8 @@ struct CreateArticleScreenType: Identifiable, Hashable {
     var selectedArticle : Article?
 }
 
+enum AppNavStackType {
+    case feed
+    case article
+    case profile
+}
