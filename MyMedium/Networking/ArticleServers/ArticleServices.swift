@@ -21,6 +21,18 @@ class ArticleServices {
             )
         }
     
+    func getSignalArticle (
+        parameters: Parameters?,
+        endpoint: String,
+        completion: @escaping(Result<updateArticleResponse,NetworkError>) -> Void){
+            return RestAPIClient.request(type: updateArticleResponse.self,
+                                         endPoint: "\(ArticleApiEndpoint().createEndPoint(endPoint: .getSigaleArticle))\(endpoint)",
+                                         method:.get,
+                                         parameters:parameters,
+                                         completion: completion
+            )
+        }
+    
     func getTags (
         parameters: Parameters?,
         completion: @escaping(Result<ArticleTag,NetworkError>) -> Void){

@@ -19,7 +19,6 @@ struct ArticleDetailViewScreen: View {
     @State private var showDeleteAlert = false
     @EnvironmentObject var appViewModel: AppViewModel
     @State var isTheOwner : Bool = false
-    @State var comments: CommentListResponse?
     @State var activeStack: AppNavStackType
     
     @State private var comment: String = ""
@@ -27,66 +26,48 @@ struct ArticleDetailViewScreen: View {
     var body: some View {
         ScrollView {
             VStack {
-                //                AppNetworkImage(imageUrl: "https://picsum.photos/300")
-                //                    .frame(minWidth: 0, maxWidth: .infinity)
-                //                    .aspectRatio(contentMode: .fill)
-                //                    .clipped()
-                //                    .cornerRadius(10)
-                //                    .shadow(radius: 10)
-                //                    .transition(.move(edge: .bottom))
-                //                    .animation(.spring(), value: articleViewModal.selectedArticle.title)
-                //                    .padding(.bottom)
-                //                Text(articleViewModal.selectedArticle.title ?? "NA")
-                //                    .foregroundColor(.white)
-                //                    .padding()
-                //                    .background(Color.black.opacity(0.5))
-                //                    .cornerRadius(10)
-                //                    .shadow(radius: 10)
-                //                    .transition(.move(edge: .bottom))
-                //                    .animation(.spring(), value: articleViewModal.selectedArticle.title)
-                //                Text(articleViewModal.selectedArticle.body ?? "NA")
-                //                    .padding(.vertical)
-                //                ScrollView(.horizontal, showsIndicators: false) {
-                //                    HStack {
-                //                        ForEach(articleViewModal.selectedArticle.tagList ?? [], id: \.self) { data in
-                //                            ChipView(title: data)
-                //                        }
-                //                    }
-                //                }
-                //                .padding(.bottom)
+                AppNetworkImage(imageUrl: "https://picsum.photos/300")
+                    .frame(minWidth: 0, maxWidth: .infinity)
+                    .aspectRatio(contentMode: .fill)
+                    .clipped()
+                    .cornerRadius(10)
+                    .shadow(radius: 10)
+                    .transition(.move(edge: .bottom))
+                    .animation(.spring(), value: articleViewModal.selectedArticle.title)
+                    .padding()
+                Text(articleViewModal.selectedArticle.title ?? "NA")
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.black.opacity(0.5))
+                    .cornerRadius(10)
+                    .shadow(radius: 10)
+                    .transition(.move(edge: .bottom))
+                    .animation(.spring(), value: articleViewModal.selectedArticle.title)
+                    .padding()
+                Text(articleViewModal.selectedArticle.body ?? "NA")
+                    .padding()
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(articleViewModal.selectedArticle.tagList ?? [], id: \.self) { data in
+                            ChipView(title: data)
+                        }
+                    }
+                }
+                .padding(.horizontal)
                 HStack {
                     Text(Helpers.formatDateFormat(dateString: articleViewModal.selectedArticle.createdAt ?? ""))
                     Spacer()
                     Button(action: {
-                        appViewModel.alertToast = AppMessage.loadindView
-                        if (articleViewModal.selectedArticle.favorited == true) {
-                            articleViewModal.removeBookMarkArticle(onComple: {data, error in
-                                appViewModel.toggle()
-                                if ((error) != nil) {
-                                    appViewModel.errorMessage = error!
-                                    return
-                                }
-                                articleViewModal.updateSelectedArticle(article: data!)
-                                feedViewModal.updateSelectedFeedArticle(article: data!)
-                            })
-                        } else {
-                            articleViewModal.bookMarkArticle(onComple: {data, error in
-                                appViewModel.toggle()
-                                if ((error) != nil) {
-                                    appViewModel.errorMessage = error!
-                                    return
-                                }
-                                articleViewModal.updateSelectedArticle(article: data!)
-                                feedViewModal.updateSelectedFeedArticle(article: data!)
-                            })
-                        }
+                        bookMarkArtie()
                     }) {
                         Image(systemName: articleViewModal.selectedArticle.favorited ?? false ? AppIconsSF.bookMarkFillIcon : AppIconsSF.bookMarkIcon)
                             .frame(width: 30,height: 30)
                     }
                     .frame(width: 30,height: 30)
                 }
+                .padding()
                 AboutAuthorView(author: articleViewModal.selectedArticle.author)
+                    .padding()
                     .onTapGesture {
                         let data = SelectedProfileScreenType(auther: articleViewModal.selectedArticle.author!)
                         if (activeStack == .feed){
@@ -103,7 +84,7 @@ struct ArticleDetailViewScreen: View {
                 AppInputBox(placeHoldr: "Add You Coments",
                             keyboard: AppKeyBoardType.default, value: $comment)
                 Button(action: {
-                    
+                    addComment()
                 }) {
                     VStack {
                         Spacer()
@@ -113,10 +94,24 @@ struct ArticleDetailViewScreen: View {
                 }
             }
             .padding()
+            VStack {
+                ForEach(articleViewModal.comments?.comments ?? [Commetdata().data23,Commetdata().data23]) { data in
+                    CommentsView(coment: data)
+                    Divider()
+                }
+            }
+            .padding()
+        }
+        .refreshable {
+            articleViewModal.getSigaleArtile()
+            articleViewModal.getComments()
         }
         .onAppear {
             withAnimation {
-                isTheOwner = Helpers.isTheOwner(user: authViewModel.userState?.user, author: articleViewModal.selectedArticle.author)
+                isTheOwner = Helpers.isTheOwner(
+                    user: authViewModel.userState?.user,
+                    author: articleViewModal.selectedArticle.author
+                )
             }
         }
         .navigationBarItems(
@@ -169,6 +164,65 @@ struct ArticleDetailViewScreen: View {
             SelectedUserScreen(auther: type.auther, activeStack: activeStack)
         }
         .navigationBarTitle(Text(articleViewModal.selectedArticle.title ?? "NA"), displayMode: .inline)
+    }
+    
+    func addComment () {
+        let postData: [String: Any] = [
+            "body": comment
+        ]
+        let user: [String:Any] = [
+            "comment": postData
+        ]
+        CommentsServices().addComment(
+            parameters: user,
+            endpoint: articleViewModal.selectedArticle.slug! + "/comments", completion: {
+                res in
+                switch res {
+                case .success(let data):
+                    print("Commet added")
+                    print(data)
+                    articleViewModal.getComments()
+                    comment = ""
+                case .failure(let error):
+                    switch error {
+                    case .NetworkErrorAPIError(let errorMessage):
+                        print("3")
+                        print(errorMessage)
+                        appViewModel.errorMessage = errorMessage
+                    case .BadURL:
+                        print("BadURL")
+                    case .NoData:
+                        print("NoData")
+                    case .DecodingErrpr:
+                        print("DecodingErrpr")
+                    }
+                }
+            })
+    }
+    
+    func bookMarkArtie () {
+        appViewModel.alertToast = AppMessage.loadindView
+        if (articleViewModal.selectedArticle.favorited == true) {
+            articleViewModal.removeBookMarkArticle(onComple: {data, error in
+                appViewModel.toggle()
+                if ((error) != nil) {
+                    appViewModel.errorMessage = error!
+                    return
+                }
+                articleViewModal.updateSelectedArticle(article: data!)
+                feedViewModal.updateSelectedFeedArticle(article: data!)
+            })
+        } else {
+            articleViewModal.bookMarkArticle(onComple: {data, error in
+                appViewModel.toggle()
+                if ((error) != nil) {
+                    appViewModel.errorMessage = error!
+                    return
+                }
+                articleViewModal.updateSelectedArticle(article: data!)
+                feedViewModal.updateSelectedFeedArticle(article: data!)
+            })
+        }
     }
     
     func deleteArticle () {

@@ -16,10 +16,34 @@ class ArticleViewModel: ObservableObject {
     @Published var filtterParameters: ArticleListParams = ArticleListParams(limit: "50", offset: "0")
     
     @Published var selectedArticle: Article = DummyData().data
-    
+    @Published var comments: CommentListResponse?
     init() {
         getArticles()
         getTags()
+    }
+    
+    
+    func getComments () {
+        CommentsServices().getComments(parameters: nil,
+                                       endpoint:
+                selectedArticle.slug! + "/comments", completion: {
+            res in
+            switch res {
+            case .success(let data):
+                self.comments = data
+            case .failure(let error):
+                switch error {
+                case .NetworkErrorAPIError(let errorMessage):
+                    print(errorMessage)
+                case .BadURL:
+                    print("BadURL")
+                case .NoData:
+                    print("NoData")
+                case .DecodingErrpr:
+                    print("DecodingErrpr")
+                }
+            }
+        })
     }
     
     func createFiltter () {
@@ -130,6 +154,28 @@ class ArticleViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    func getSigaleArtile()  {
+        ArticleServices().getSignalArticle(parameters: nil, endpoint: selectedArticle.slug!, completion: { res in
+            switch res {
+            case .success(let data):
+                print("getSigaleArtile")
+                self.selectedArticle = data.article!
+            case .failure(let error):
+                switch error {
+                case .NetworkErrorAPIError(let errorMessage):
+                    print("3")
+                    print(errorMessage)
+                case .BadURL:
+                    print("BadURL")
+                case .NoData:
+                    print("NoData")
+                case .DecodingErrpr:
+                    print("DecodingErrpr")
+                }
+            }
+        })
     }
     
 }

@@ -37,7 +37,15 @@ class RestAPIClient {
                 DispatchQueue.main.async {
                     print(response)
                     let statusCode = response.response?.statusCode
+                    print("Give me jsone")
                     print(statusCode)
+                    print(response.data)
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: response.data!) as? [String: Any]
+                        print(json)
+                    }catch{
+                        print(error)
+                    }
                     if(statusCode == 204){
                         completion(.success("Done" as! T))
                         return

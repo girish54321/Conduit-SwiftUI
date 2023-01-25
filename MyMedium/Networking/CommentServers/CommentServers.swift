@@ -16,19 +16,20 @@ class CommentsServices {
         completion: @escaping(Result<CommentListResponse,NetworkError>) -> Void){
             return RestAPIClient.request(type: CommentListResponse.self,
                                          endPoint: CommentsApiEndpoint().createEndPoint(endPoint: .getComments) + endpoint,
-                                         method:.post,
+                                         method:.get,
                                          parameters:parameters,
                                          completion: completion
             )
         }
     
-    func removeBookMarkArticle (
+    func addComment (
         parameters: Parameters?,
         endpoint: String,
-        completion: @escaping(Result<FavArticleRes,NetworkError>) -> Void){
-            return RestAPIClient.request(type: FavArticleRes.self,
-                                         endPoint: FavoritesApiEndpoint().createEndPoint(endPoint: .addBookmark) + endpoint,
-                                         method:.delete,
+        completion: @escaping(Result<CommentResponse,NetworkError>) -> Void){
+            return RestAPIClient.request(type: CommentResponse.self,
+//                                         endPoint: "https://api.realworld.io/api/articles/12-2-127899/comments",
+                                         endPoint: CommentsApiEndpoint().createEndPoint(endPoint: .postComments) + endpoint,
+                                         method:.post,
                                          parameters:parameters,
                                          completion: completion
             )
