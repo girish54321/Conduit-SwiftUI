@@ -36,31 +36,6 @@ struct ProfileView: View {
                 }
                 Text(bio)
             }
-            //            VStack(alignment: .leading) {
-            //                AppNetworkImage(imageUrl: profileImage)
-            //                            .frame(width: 100, height: 100)
-            //                            .clipShape(Circle())
-            //                            .overlay(Circle().stroke(Color.white, lineWidth: 4))
-            //                            .shadow(radius: 10)
-            //                        Text(userName)
-            //                            .font(.title)
-            //                            .padding(.bottom, 10)
-            //                        Text(email)
-            //                            .font(.subheadline)
-            //                            .foregroundColor(.gray)
-            ////                        Spacer()
-            //                        Button(action: {
-            //                            print("Edit profile tapped!")
-            //                        }) {
-            //                            Text("Edit Profile")
-            //                                .foregroundColor(.white)
-            //                                .padding(.vertical, 10)
-            //                                .padding(.horizontal, 20)
-            //                                .background(Color.blue)
-            //                                .cornerRadius(10)
-            //                        }
-            //                    }.padding()
-            //                }
         }
     }
 }

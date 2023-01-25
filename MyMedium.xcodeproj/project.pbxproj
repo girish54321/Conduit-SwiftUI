@@ -63,6 +63,7 @@
 		F4E0D90B297C52D80084B495 /* LoadingListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0D90A297C52D80084B495 /* LoadingListing.swift */; };
 		F4EA179E297F98F0007E7230 /* ProfileViewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EA179D297F98F0007E7230 /* ProfileViewModal.swift */; };
 		F4EA17A1297F9C20007E7230 /* SelectedUserScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EA17A0297F9C20007E7230 /* SelectedUserScreen.swift */; };
+		F4EA17A329802589007E7230 /* LoginPlacHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EA17A229802589007E7230 /* LoginPlacHolder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -118,6 +119,7 @@
 		F4E0D90A297C52D80084B495 /* LoadingListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingListing.swift; sourceTree = "<group>"; };
 		F4EA179D297F98F0007E7230 /* ProfileViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModal.swift; sourceTree = "<group>"; };
 		F4EA17A0297F9C20007E7230 /* SelectedUserScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedUserScreen.swift; sourceTree = "<group>"; };
+		F4EA17A229802589007E7230 /* LoginPlacHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPlacHolder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -272,6 +274,7 @@
 				92EBBBD52975612E006E34EE /* ChipView.swift */,
 				F4E0D90A297C52D80084B495 /* LoadingListing.swift */,
 				F4D66358297EB93E0045BDDA /* ProfileView.swift */,
+				F4EA17A229802589007E7230 /* LoginPlacHolder.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -553,6 +556,7 @@
 				9286E8EE2977F40D006E2987 /* ProfileApiEndpoint.swift in Sources */,
 				F4EA17A1297F9C20007E7230 /* SelectedUserScreen.swift in Sources */,
 				92EBBBCF2975512D006E34EE /* HomeScreen.swift in Sources */,
+				F4EA17A329802589007E7230 /* LoginPlacHolder.swift in Sources */,
 				92D2D73F296C1778008BA685 /* UIHelper.swift in Sources */,
 				F4D66354297E82190045BDDA /* CommentsApiEndpoint.swift in Sources */,
 				92EBBBDE29756D32006E34EE /* ArticleServices.swift in Sources */,

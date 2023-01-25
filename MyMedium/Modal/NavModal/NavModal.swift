@@ -71,4 +71,5 @@ enum AppNavStackType {
     case feed
     case article
     case profile
+    case root
 }

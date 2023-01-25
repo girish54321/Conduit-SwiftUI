@@ -21,60 +21,63 @@ struct CreateArticleScreen: View {
     @EnvironmentObject var articleStack: TrandingNavigationStackViewModal
     @EnvironmentObject var profileStack: ProfileNavigationStackViewModal
     @EnvironmentObject var feedViewModal: FeedArticleViewModel
+    @EnvironmentObject var authViewModel: AuthViewModel
     
     var body: some View {
         VStack {
-            ScrollView {
-                VStack(alignment: .leading) {
-                    AppInputBox(
-                        placeHoldr: "Enter title here",
-                        keyboard: AppKeyBoardType.default,
-                        title:"Title", value: $article.title
-                    )
-                    AppInputBox(
-                        placeHoldr: "Enter description here",
-                        keyboard: AppKeyBoardType.default,
-                        title:"Description", value: $article.description
-                    )
-                    Text("Body").font(.headline)
-                    VStack {
-                        TextEditor(text: $article.body)
-                            .border(Color.gray)
-                    }
-                    .inputTextStyle()
-                    .frame(height:240)
-                    HStack {
-                        ForEach(article.tagList , id: \.self) { data in
-                            ChipView(title: data)
+            if authViewModel.isLogedin {
+                VStack {
+                    ScrollView {
+                        VStack(alignment: .leading) {
+                            AppInputBox(
+                                placeHoldr: "Enter title here",
+                                keyboard: AppKeyBoardType.default,
+                                title:"Title", value: $article.title
+                            )
+                            AppInputBox(
+                                placeHoldr: "Enter description here",
+                                keyboard: AppKeyBoardType.default,
+                                title:"Description", value: $article.description
+                            )
+                            Text("Body").font(.headline)
+                            VStack {
+                                TextEditor(text: $article.body)
+                                    .border(Color.gray)
+                            }
+                            .inputTextStyle()
+                            .frame(height:240)
+                            HStack {
+                                ForEach(article.tagList , id: \.self) { data in
+                                    ChipView(title: data)
+                                }
+                            }
+                            Spacer()
                         }
+                        .padding()
                     }
-                    Spacer()
+                    AppButton(text: "Save", clicked: {
+                        if (slug == nil){
+                            uploadAricle()
+                        } else {
+                            updateArticle()
+                        }
+                    })
+                    .padding()
                 }
-                .padding()
+            } else {
+                LoginPlacHolder(title: "Create \nArticle")
+//                    .padding(.horizontal,1)
             }
-            AppButton(text: "Save", clicked: {
-                if (slug == nil){
-                    uploadAricle()
-                } else {
-                    updateArticle()
-                }
-            })
-            .padding()
-            .navigationTitle("Create Article")
         }
-        
+        .navigationTitle("Create Article")
     }
     
     func updateArticle () {
-        print("Update article")
         let parameters = RequestParams(article: article)
         ArticleServices().updateArticle(parameters: parameters.toDictionary(), endpoint: slug!){
             result in
             switch result {
             case .success(let resData):
-                print("Done")
-//                appViewModel.alertToast = AlertToast(displayMode: .banner(.slide), type: .complete(.green), title: "Your article has been successfully uploaded. Thank you for your submission!")
-                print(resData.article?.author)
                 articleViewModal.selectedArticle = resData.article!
                 articleViewModal.updateSelectedArticle(article: resData.article!)
                 feedViewModal.updateSelectedFeedArticle(article: resData.article!)
@@ -85,6 +88,8 @@ struct CreateArticleScreen: View {
                     articleStack.presentedScreen.removeLast()
                 case .profile:
                     profileStack.presentedScreen.removeLast()
+                case .root:
+                    break
                 }
             case .failure(let error):
                 switch error {
@@ -110,7 +115,6 @@ struct CreateArticleScreen: View {
             switch result {
             case .success(_):
                 print("Done")
-                appViewModel.alertToast = AlertToast(displayMode: .banner(.slide), type: .complete(.green), title: "Your article has been successfully uploaded. Thank you for your submission!")
             case .failure(let error):
                 switch error {
                 case .NetworkErrorAPIError(let errorMessage):
@@ -141,6 +145,7 @@ struct CreateArticleScreen_Previews: PreviewProvider {
             CreateArticleScreen(activeStack: .feed)
                 .environmentObject(AppViewModel())
                 .environmentObject(FeedNavigationStackViewModal())
+                .environmentObject(AuthViewModel())
                 .environmentObject(TrandingNavigationStackViewModal())
         }
     }

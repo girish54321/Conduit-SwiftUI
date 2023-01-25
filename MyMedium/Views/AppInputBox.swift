@@ -23,8 +23,7 @@ struct AppInputBox: View {
     
     var body: some View {
         VStack (alignment: .leading, spacing: 4) {
-            Text(title ?? "NA Title")
-//                .font(.subheadline)
+            Text(title ?? "")
                 .font(.headline)
             VStack {
                 HStack (spacing:8) {

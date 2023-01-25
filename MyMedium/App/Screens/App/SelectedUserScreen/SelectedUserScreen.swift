@@ -15,7 +15,7 @@ struct SelectedUserScreen: View {
     @EnvironmentObject var articleViewModel: ArticleViewModel
     @State var activeStack: AppNavStackType
     @EnvironmentObject var feedStack: FeedNavigationStackViewModal
-    @EnvironmentObject var articleStack: TrandingNavigationStackViewModal 
+    @EnvironmentObject var articleStack: TrandingNavigationStackViewModal
     
     var body: some View {
         List {

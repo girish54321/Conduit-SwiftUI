@@ -90,9 +90,9 @@ struct CreateAccountScreen: View {
     func crateUserApi(email : String,password : String) {
         appViewModel.alertToast = AppMessage.loadindView
         let postData: [String: Any] = [
-            "username": "test",
-            "email" : "test",
-            "password":"23"
+            "username": username,
+            "email" : email,
+            "password": password
         ]
         let user: [String:Any] = [
             "user": postData
@@ -101,18 +101,15 @@ struct CreateAccountScreen: View {
             result in
             switch result {
             case .success(_):
-                print("Done")
+                UserLoginApi(email: email, password: password)
             case .failure(let error):
                 switch error {
                 case .NetworkErrorAPIError(let errorMessage):
-                    print("3")
-                    print(errorMessage)
-                case .BadURL:
-                    print("BadURL")
-                case .NoData:
-                    print("NoData")
-                case .DecodingErrpr:
-                    print("DecodingErrpr")
+                    appViewModel.toggle()
+                    appViewModel.errorMessage = errorMessage
+                case .BadURL: break
+                case .NoData: break
+                case .DecodingErrpr: break
                 }
             }
         }
@@ -120,10 +117,9 @@ struct CreateAccountScreen: View {
     
     func UserLoginApi(email : String,password : String) {
         appViewModel.alertToast = AppMessage.loadindView
-        print("login")
         let postData: [String: Any] = [
-            "email" : "samsungceo@mail.com",
-            "password": "djffdk23!23"
+            "email" : email,
+            "password": password
         ]
         let user: [String:Any] = [
             "user": postData
@@ -141,14 +137,9 @@ struct CreateAccountScreen: View {
                 case .NetworkErrorAPIError(let errorMessage):
                     appViewModel.toggle()
                     appViewModel.errorMessage = errorMessage
-                    print("3")
-                    print(errorMessage)
-                case .BadURL:
-                    print("BadURL")
-                case .NoData:
-                    print("NoData")
-                case .DecodingErrpr:
-                    print("DecodingErrpr")
+                case .BadURL: break
+                case .NoData: break
+                case .DecodingErrpr: break
                 }
             }
         }

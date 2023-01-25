@@ -17,40 +17,44 @@ struct ProfileScreen: View {
     
     var body: some View {
         NavigationStack (path: $profileStack.presentedScreen) {
-            List {
-                ProfileView(profileImage: authViewModel.userState?.user?.image ?? "https://media5.bollywoodhungama.in/wp-content/uploads/2021/03/WhatsApp-Image-2021-03-26-at-5.08.26-PM.jpeg", userName: authViewModel.userState?.user?.username ?? "username", bio: authViewModel.userState?.user?.bio ?? "Bio", email: authViewModel.userState?.user?.email ?? "Email")
-                Section ("articlesss") {
-                    if !authViewModel.isLoading {
-                        VStack {
-                            ForEach(authViewModel.userArticle?.articles ?? [DummyData().data,DummyData().data]) { article in
+            VStack {
+                if authViewModel.isLogedin {
+                    List {
+                        ProfileView(profileImage: authViewModel.userState?.user?.image ?? "https://media5.bollywoodhungama.in/wp-content/uploads/2021/03/WhatsApp-Image-2021-03-26-at-5.08.26-PM.jpeg", userName: authViewModel.userState?.user?.username ?? "username", bio: authViewModel.userState?.user?.bio ?? "Bio", email: authViewModel.userState?.user?.email ?? "Email")
+                        Section ("articlesss") {
+                            if !authViewModel.isLoading {
                                 VStack {
-                                    HStack {
-                                     
-                                            ArticleRow(article: article)
-                                                .padding(.bottom)
-                                     
-                                        Spacer()
+                                    ForEach(authViewModel.userArticle?.articles ?? [DummyData().data,DummyData().data]) { article in
+                                        VStack {
+                                            HStack {
+                                                ArticleRow(article: article)
+                                                    .padding(.bottom)
+                                                Spacer()
+                                            }
+                                            Divider()
+                                        }
+                                        .onTapGesture {
+                                            if (authViewModel.isLoading){
+                                                return
+                                            }
+                                            let data = SelectedArticleScreenType(selectedArticle: article)
+                                            profileStack.presentedScreen.append(data)
+                                            articleViewModel.selectedArticle = article
+                                        }
                                     }
-                                    Divider()
                                 }
-                                .onTapGesture {
-                                    if (authViewModel.isLoading){
-                                        return
-                                    }
-                                    let data = SelectedArticleScreenType(selectedArticle: article)
-                                    profileStack.presentedScreen.append(data)
-                                    articleViewModel.selectedArticle = article
-                                }
+                            } else {
+                                LoadingForEarchListing()
                             }
-                            .animation(.easeIn)
                         }
-                    } else {
-                        LoadingForEarchListing()
                     }
+                    .refreshable {
+                        authViewModel.getArticles(parameters: ArticleListParams(author:authViewModel.userState?.user?.username,limit: "50"))
+                    }
+                } else {
+                    LoginPlacHolder(title: "see Profile")
                 }
-            }
-            .refreshable {
-                authViewModel.getArticles(parameters: ArticleListParams(author:authViewModel.userState?.user?.username,limit: "50"))
+                
             }
             .alert(isPresented: $showLogOutAlert) {
                 Alert(title: Text("Log out?"),
@@ -65,13 +69,22 @@ struct ProfileScreen: View {
             }
             .navigationBarItems(
                 trailing:
-                    Button(action: {
-                        showLogOutAlert.toggle()
-                    }) {
-                        Text("Logout")
+                    VStack{
+                        if authViewModel.isLogedin {
+                            Button(action: {
+                                showLogOutAlert.toggle()
+                            }) {
+                                Text("Logout")
+                            }
+                        } else {
+                            /*@START_MENU_TOKEN@*/EmptyView()/*@END_MENU_TOKEN@*/
+                        }
                     }
             )
             .onAppear {
+                if (!authViewModel.isLogedin) {
+                    return
+                }
                 authViewModel.getArticles(
                     parameters: ArticleListParams(author:authViewModel.userState?.user?.username,limit: "50")
                 )
@@ -81,6 +94,7 @@ struct ProfileScreen: View {
                 ArticleDetailViewScreen(activeStack: .profile)
             }
         }
+        
     }
 }
 

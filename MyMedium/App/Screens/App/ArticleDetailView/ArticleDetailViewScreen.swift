@@ -9,7 +9,7 @@ import SwiftUI
 import AlertToast
 
 struct ArticleDetailViewScreen: View {
-
+    
     @EnvironmentObject var articleViewModal: ArticleViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var feedStack: FeedNavigationStackViewModal
@@ -22,36 +22,38 @@ struct ArticleDetailViewScreen: View {
     @State var comments: CommentListResponse?
     @State var activeStack: AppNavStackType
     
+    @State private var comment: String = ""
+    
     var body: some View {
         ScrollView {
             VStack {
-                AppNetworkImage(imageUrl: "https://picsum.photos/300")
-                    .frame(minWidth: 0, maxWidth: .infinity)
-                    .aspectRatio(contentMode: .fill)
-                    .clipped()
-                    .cornerRadius(10)
-                    .shadow(radius: 10)
-                    .transition(.move(edge: .bottom))
-                    .animation(.spring(), value: articleViewModal.selectedArticle.title)
-                    .padding(.bottom)
-                Text(articleViewModal.selectedArticle.title ?? "NA")
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.black.opacity(0.5))
-                    .cornerRadius(10)
-                    .shadow(radius: 10)
-                    .transition(.move(edge: .bottom))
-                    .animation(.spring(), value: articleViewModal.selectedArticle.title)
-                Text(articleViewModal.selectedArticle.body ?? "NA")
-                    .padding(.vertical)
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                        ForEach(articleViewModal.selectedArticle.tagList ?? [], id: \.self) { data in
-                            ChipView(title: data)
-                        }
-                    }
-                }
-                .padding(.bottom)
+                //                AppNetworkImage(imageUrl: "https://picsum.photos/300")
+                //                    .frame(minWidth: 0, maxWidth: .infinity)
+                //                    .aspectRatio(contentMode: .fill)
+                //                    .clipped()
+                //                    .cornerRadius(10)
+                //                    .shadow(radius: 10)
+                //                    .transition(.move(edge: .bottom))
+                //                    .animation(.spring(), value: articleViewModal.selectedArticle.title)
+                //                    .padding(.bottom)
+                //                Text(articleViewModal.selectedArticle.title ?? "NA")
+                //                    .foregroundColor(.white)
+                //                    .padding()
+                //                    .background(Color.black.opacity(0.5))
+                //                    .cornerRadius(10)
+                //                    .shadow(radius: 10)
+                //                    .transition(.move(edge: .bottom))
+                //                    .animation(.spring(), value: articleViewModal.selectedArticle.title)
+                //                Text(articleViewModal.selectedArticle.body ?? "NA")
+                //                    .padding(.vertical)
+                //                ScrollView(.horizontal, showsIndicators: false) {
+                //                    HStack {
+                //                        ForEach(articleViewModal.selectedArticle.tagList ?? [], id: \.self) { data in
+                //                            ChipView(title: data)
+                //                        }
+                //                    }
+                //                }
+                //                .padding(.bottom)
                 HStack {
                     Text(Helpers.formatDateFormat(dateString: articleViewModal.selectedArticle.createdAt ?? ""))
                     Spacer()
@@ -96,6 +98,19 @@ struct ArticleDetailViewScreen: View {
                             return
                         }
                     }
+            }
+            HStack {
+                AppInputBox(placeHoldr: "Add You Coments",
+                            keyboard: AppKeyBoardType.default, value: $comment)
+                Button(action: {
+                    
+                }) {
+                    VStack {
+                        Spacer()
+                        Text("Post")
+                            .padding()
+                    }
+                }
             }
             .padding()
         }
@@ -162,7 +177,6 @@ struct ArticleDetailViewScreen: View {
             switch res {
             case .success(let data):
                 print("remove bookmar")
-                appViewModel.alertToast = AlertToast(displayMode: .banner(.slide), type: .complete(.green), title: "Article Delete!")
                 if(activeStack == .feed){
                     feedStack.presentedScreen.removeLast()
                     return
@@ -191,7 +205,7 @@ struct ArticleDetailViewScreen: View {
             }
         }
     }
-
+    
 }
 
 
@@ -201,8 +215,11 @@ struct ArticleDetailViewScreen_Previews: PreviewProvider {
         NavigationView {
             ArticleDetailViewScreen(activeStack: .article)
         }
-        .environmentObject(FeedNavigationStackViewModal())
+        .environmentObject(ArticleViewModel())
         .environmentObject(AuthViewModel())
-        .environmentObject(AppViewModel())
+        .environmentObject(FeedNavigationStackViewModal())
+        .environmentObject(TrandingNavigationStackViewModal())
+        .environmentObject(ProfileNavigationStackViewModal())
+        .environmentObject(FeedArticleViewModel())
     }
 }

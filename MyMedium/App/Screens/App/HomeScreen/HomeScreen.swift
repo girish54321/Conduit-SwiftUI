@@ -25,7 +25,7 @@ struct HomeScreen: View {
                     Text("Tranding")
                 }
             NavigationView {
-                CreateArticleScreen(activeStack: .profile)
+                CreateArticleScreen(activeStack: .root)
             }
             .tabItem {
                 Image(systemName: AppIconsSF.profileIcon)
