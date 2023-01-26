@@ -17,7 +17,8 @@ class RestAPIClient {
                                     endPoint: String,
                                     method: HTTPMethod = .get,
                                     parameters: Parameters? = nil,
-                                    completion: @escaping(Result<T,NetworkError>) -> Void) {
+                                    completion: @escaping(Result<T,NetworkError>) -> Void,
+                                    costumCompletion: ((HTTPURLResponse?) -> Void)? = nil) {
         
         @AppStorage(AppConst.tokan) var tokan: String = ""
         print(endPoint)
@@ -35,17 +36,24 @@ class RestAPIClient {
         AF.request(encodedURL,method: method,parameters: parameters,headers: headers)
             .response { response in
                 DispatchQueue.main.async {
+                    
+                    if (costumCompletion != nil) {
+                        costumCompletion!(response.response)
+                        return
+                    }
+                    
+                    //for no data
                     print(response)
                     let statusCode = response.response?.statusCode
                     print("Give me jsone")
                     print(statusCode)
                     print(response.data)
-                    do {
-                        let json = try JSONSerialization.jsonObject(with: response.data!) as? [String: Any]
-                        print(json)
-                    }catch{
-                        print(error)
-                    }
+//                    do {
+//                        let json = try JSONSerialization.jsonObject(with: response.data!) as? [String: Any]
+//                        print(json)
+//                    }catch{
+//                        print(error)
+//                    }
                     if(statusCode == 204){
                         completion(.success("Done" as! T))
                         return

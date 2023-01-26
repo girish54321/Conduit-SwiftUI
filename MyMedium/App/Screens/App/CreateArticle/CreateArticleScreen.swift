@@ -81,6 +81,8 @@ struct CreateArticleScreen: View {
                 articleViewModal.selectedArticle = resData.article!
                 articleViewModal.updateSelectedArticle(article: resData.article!)
                 feedViewModal.updateSelectedFeedArticle(article: resData.article!)
+                feedViewModal.getArticles()
+                articleViewModal.getArticles()
                 switch activeStack {
                 case .feed:
                     feedNavStack.presentedScreen.removeLast()
@@ -115,6 +117,9 @@ struct CreateArticleScreen: View {
             switch result {
             case .success(_):
                 print("Done")
+                article = placHoder
+                feedViewModal.getArticles()
+                articleViewModal.getArticles()
             case .failure(let error):
                 switch error {
                 case .NetworkErrorAPIError(let errorMessage):

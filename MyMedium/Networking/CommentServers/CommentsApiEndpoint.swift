@@ -11,6 +11,7 @@ class CommentsApiEndpoint {
     enum CommentsApiType {
         case getComments
         case postComments
+        case deleteComment
     }
     
     func createEndPoint(endPoint: CommentsApiType) -> String {
@@ -18,6 +19,8 @@ class CommentsApiEndpoint {
         case .getComments:
             return createApi(endPoint: "articles/")
         case .postComments:
+            return createApi(endPoint: "articles/")
+        case .deleteComment:
             return createApi(endPoint: "articles/")
         }
     }

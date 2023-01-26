@@ -40,6 +40,7 @@ struct AppIconsSF {
     static let bookMarkIcon = "bookmark"
     static let bookMarkFillIcon = "bookmark.fill"
     static let closeIcon = "xmark"
+    static let removeIcon = "trash"
 }
 
 struct AppKeyBoardType {

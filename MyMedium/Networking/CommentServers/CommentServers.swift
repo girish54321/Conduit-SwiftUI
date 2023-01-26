@@ -27,11 +27,24 @@ class CommentsServices {
         endpoint: String,
         completion: @escaping(Result<CommentResponse,NetworkError>) -> Void){
             return RestAPIClient.request(type: CommentResponse.self,
-//                                         endPoint: "https://api.realworld.io/api/articles/12-2-127899/comments",
                                          endPoint: CommentsApiEndpoint().createEndPoint(endPoint: .postComments) + endpoint,
                                          method:.post,
                                          parameters:parameters,
                                          completion: completion
+            )
+        }
+    
+    func deleteComment (
+        parameters: Parameters?,
+        endpoint: String,
+        costumCompletion: ((HTTPURLResponse?) -> Void)? = nil,
+        completion: @escaping(Result<String,NetworkError>) -> Void) {
+            return RestAPIClient.request(type: String.self,
+                                         endPoint: CommentsApiEndpoint().createEndPoint(endPoint: .deleteComment) + endpoint,
+                                         method:.delete,
+                                         parameters:parameters,
+                                         completion: completion,
+                                         costumCompletion: costumCompletion
             )
         }
 }

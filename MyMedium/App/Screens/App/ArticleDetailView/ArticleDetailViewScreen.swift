@@ -94,9 +94,14 @@ struct ArticleDetailViewScreen: View {
                 }
             }
             .padding()
+            .onAppear {
+                articleViewModal.getComments()
+            }
             VStack {
-                ForEach(articleViewModal.comments?.comments ?? [Commetdata().data23,Commetdata().data23]) { data in
-                    CommentsView(coment: data)
+                ForEach(articleViewModal.comments?.comments ?? [Commetdata().data23,Commetdata().data23])
+                { data in
+                    CommentsView(coment: data, clicked: deleteComment)
+                        .animation(.easeIn, value: articleViewModal.comments?.comments?.count)
                     Divider()
                 }
             }
@@ -166,6 +171,21 @@ struct ArticleDetailViewScreen: View {
         .navigationBarTitle(Text(articleViewModal.selectedArticle.title ?? "NA"), displayMode: .inline)
     }
     
+    func deleteComment (data: Comment) {
+        CommentsServices().deleteComment(
+            parameters: nil, endpoint: articleViewModal.selectedArticle.slug! + "/comments/" + "\(data.id!)",
+            costumCompletion: {
+                res in
+                print("whar arew tou do")
+                let statusCode = res?.statusCode
+                if (statusCode == 200) {
+                    articleViewModal.getComments()
+                }
+            },completion: {res in
+                
+            })
+    }
+    
     func addComment () {
         let postData: [String: Any] = [
             "body": comment
@@ -233,10 +253,12 @@ struct ArticleDetailViewScreen: View {
                 print("remove bookmar")
                 if(activeStack == .feed){
                     feedStack.presentedScreen.removeLast()
+                    feedViewModal.getArticles()
                     return
                 }
                 if (activeStack == .article){
                     articleStack.presentedScreen.removeLast()
+                    articleViewModal.getArticles()
                     return
                 }
                 if (activeStack == .profile){
