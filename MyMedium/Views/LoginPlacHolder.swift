@@ -17,7 +17,7 @@ struct LoginPlacHolder: View {
         VStack {
             Image(systemName: AppIconsSF.userIcon)
                 .imageModifier()
-                .foregroundColor(.blue)
+                .foregroundColor(Color.accentColor)
                 .frame(width: 170,height: 170)
             
             Text("Login to " + title + ".")

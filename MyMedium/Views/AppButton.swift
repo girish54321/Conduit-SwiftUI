@@ -12,7 +12,6 @@ struct AppButton: View {
     var text: String
     var leftIcon: Image?
     var rightIcon: Image?
-    var whiteButton: Bool?
     var clicked: (() -> Void)
     
     var body: some View {
@@ -21,16 +20,16 @@ struct AppButton: View {
                 leftIcon ?? leftIcon
                 Spacer()
                 Text(text).fontWeight(.semibold)
+                    .foregroundColor(Color("ButtonText"))
                 rightIcon ?? rightIcon
                 Spacer()
             }
             .frame(height:25)
             .padding(12)
-            .background(whiteButton != nil ? Color.white: Color.accentColor)
-            .foregroundColor(  whiteButton != nil ? .black: .white)
+            .background(Color("ButtonColor"))
             .overlay(
                 RoundedRectangle(cornerRadius: 6)
-                    .stroke(Color.blue, lineWidth: 3)
+                    .stroke(Color.accentColor, lineWidth: 3)
             )
             .cornerRadius(6)
         }
@@ -41,7 +40,7 @@ struct AppButton: View {
             AppButton(text: "Login", rightIcon: Image(systemName: "plus"), clicked: {
                 print("Clicked!")
             }).previewLayout(.sizeThatFits).padding()
-            AppButton(text: "Login",rightIcon: Image(systemName: "plus"), whiteButton: true,  clicked: {
+            AppButton(text: "Login",rightIcon: Image(systemName: "plus"), clicked: {
                 print("Clicked!")
             }).previewLayout(.sizeThatFits).padding()
         }
@@ -52,7 +51,7 @@ struct SkipButton: View {
     var clicked: (() -> Void)
     var body: some View {
         Button(action: clicked){
-            Text("Skip").foregroundColor(.blue).underline()
+            Text("Skip").foregroundColor(Color.accentColor).underline()
         }
     }
 }

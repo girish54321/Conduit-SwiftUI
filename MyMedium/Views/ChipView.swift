@@ -13,10 +13,11 @@ struct ChipView: View {
         HStack {
             Text(title)
                 .font(.caption)
-                .foregroundColor(.white)
+                .foregroundColor(Color("ButtonText"))
+                .fontWeight(.semibold)
                 .padding(6)
         }
-        .background(Color.blue)
+        .background(Color.accentColor)
         .cornerRadius(20)
         .padding(.top,4)
     }

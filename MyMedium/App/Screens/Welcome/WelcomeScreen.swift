@@ -28,7 +28,7 @@ struct WelcomeScreen: View {
                     .padding()
                     .overlay(
                         Circle()
-                            .stroke(.blue)
+                            .stroke(Color.accentColor)
                             .scaleEffect(animationAmount)
                             .opacity(2 - animationAmount)
                             .animation(
@@ -48,7 +48,7 @@ struct WelcomeScreen: View {
                             Text("Medium Clone")
                                 .font(.largeTitle)
                                 .fontWeight(.heavy)
-                                .foregroundColor(Color.blue)
+                                .foregroundColor(Color.accentColor)
                             Spacer()
                         }
                         Text("Medium Clone \nMother of all demo App")
@@ -58,12 +58,11 @@ struct WelcomeScreen: View {
                     .padding(.horizontal)
                     Capsule()
                         .frame(height: 2)
-                        .foregroundColor(Color.blue.opacity(0.5))
+                        .foregroundColor(Color.accentColor.opacity(0.5))
                         .padding(.horizontal)
                     VStack (alignment: .center,spacing: 16) {
                         AppButton(
                             text: "Login",
-                            whiteButton: true,
                             clicked: {
                                 let data = LoginScreenType(title: "Welcome Back", isCreateAccount: false)
                                 presentedScreen.append(data)
