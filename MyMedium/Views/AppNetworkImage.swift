@@ -2,7 +2,7 @@
 //  AppNetworkImage.swift
 //  MyMedium
 //
-//  Created by neosoft on 16/01/23.
+//  Created by na on 16/01/23.
 //
 
 import SwiftUI

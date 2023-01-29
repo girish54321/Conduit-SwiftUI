@@ -2,14 +2,14 @@
 //  ArticleApiEndpoint.swift
 //  MyMedium
 //
-//  Created by neosoft on 16/01/23.
+//  Created by na on 16/01/23.
 //
 
 import Foundation
 class ArticleApiEndpoint {
     
     enum ArticleApiType {
-        case getTranding
+        case getTrending
         case feed
         case uploadArticle
         case deleteArticle
@@ -20,7 +20,7 @@ class ArticleApiEndpoint {
     
     func createEndPoint(endPoint: ArticleApiType) -> String {
         switch endPoint {
-        case .getTranding:
+        case .getTrending:
             return createApi(endPoint: "articles")
         case .feed:
             return createApi(endPoint: "articles/feed")

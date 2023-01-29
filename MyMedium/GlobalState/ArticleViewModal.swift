@@ -10,10 +10,10 @@ import SwiftUI
 
 class ArticleViewModel: ObservableObject {
     @Published var tagList: ArticleTag? = nil
-    @Published var articleData: TrandingArticles? = nil
-    @Published var showFiltterScreen: Bool = false
+    @Published var articleData: TrendingArticles? = nil
+    @Published var showFlitterScreen: Bool = false
     @Published var isLoading = true
-    @Published var filtterParameters: ArticleListParams = ArticleListParams(limit: "50", offset: "0")
+    @Published var flitterParameters: ArticleListParams = ArticleListParams(limit: "50", offset: "0")
     
     @Published var selectedArticle: Article = DummyData().data
     @Published var comments: CommentListResponse?
@@ -39,15 +39,15 @@ class ArticleViewModel: ObservableObject {
                     print("BadURL")
                 case .NoData:
                     print("NoData")
-                case .DecodingErrpr:
-                    print("DecodingErrpr")
+                case .DecodingError:
+                    print("DecodingError")
                 }
             }
         })
     }
     
-    func createFiltter () {
-        filtterParameters = ArticleListParams(limit: "50", offset: "0")
+    func createFlitter () {
+        flitterParameters = ArticleListParams(limit: "50", offset: "0")
         getArticles()
     }
     
@@ -65,8 +65,8 @@ class ArticleViewModel: ObservableObject {
                     print("BadURL")
                 case .NoData:
                     print("NoData")
-                case .DecodingErrpr:
-                    print("DecodingErrpr")
+                case .DecodingError:
+                    print("DecodingError")
                 }
             }
         }
@@ -74,9 +74,9 @@ class ArticleViewModel: ObservableObject {
     
     func getArticles() {
         isLoading = true
-        print(filtterParameters.toDictionary())
+        print(flitterParameters.toDictionary())
         print("WTF")
-        ArticleServices().getTrandingArticle(parameters: filtterParameters.toDictionary()){
+        ArticleServices().getTrendingArticle(parameters: flitterParameters.toDictionary()){
             result in
             self.isLoading = false
             switch result {
@@ -90,32 +90,32 @@ class ArticleViewModel: ObservableObject {
                     print("BadURL")
                 case .NoData:
                     print("NoData")
-                case .DecodingErrpr:
-                    print("DecodingErrpr")
+                case .DecodingError:
+                    print("DecodingError")
                 }
             }
         }
     }
     
-    func bookMarkArticle (onComple: @escaping (Article?,String?) -> Void) {
+    func bookMarkArticle (onComplete: @escaping (Article?,String?) -> Void) {
         FavoritesServices().bookMarkArticle(parameters: nil, endpoint: "\(selectedArticle.slug ?? "")/favorite"){
             res in
             switch res {
             case .success(let data):
                 print("bookMarkArticle")
-                onComple(data.article!,nil)
+                onComplete(data.article!,nil)
             case .failure(let error):
                 switch error {
                 case .NetworkErrorAPIError(let errorMessage):
                     print("3")
                     print(errorMessage)
-                    onComple(nil,errorMessage)
+                    onComplete(nil,errorMessage)
                 case .BadURL:
                     print("BadURL")
                 case .NoData:
                     print("NoData")
-                case .DecodingErrpr:
-                    print("DecodingErrpr")
+                case .DecodingError:
+                    print("DecodingError")
                 }
             }
         }
@@ -130,36 +130,36 @@ class ArticleViewModel: ObservableObject {
     }
     
     
-    func removeBookMarkArticle (onComple: @escaping (Article?,String?) -> Void) {
+    func removeBookMarkArticle (onComplete: @escaping (Article?,String?) -> Void) {
         FavoritesServices().removeBookMarkArticle(parameters: nil, endpoint: "\(selectedArticle.slug ?? "")/favorite"){
             res in
             switch res {
             case .success(let data):
                 print("removeBookMarkArticle")
                 print(data)
-                onComple(data.article!,nil)
+                onComplete(data.article!,nil)
             case .failure(let error):
                 switch error {
                 case .NetworkErrorAPIError(let errorMessage):
                     print("3")
                     print(errorMessage)
-                    onComple(nil,errorMessage)
+                    onComplete(nil,errorMessage)
                 case .BadURL:
                     print("BadURL")
                 case .NoData:
                     print("NoData")
-                case .DecodingErrpr:
-                    print("DecodingErrpr")
+                case .DecodingError:
+                    print("DecodingError")
                 }
             }
         }
     }
     
-    func getSigaleArtile()  {
+    func getSignalArticle()  {
         ArticleServices().getSignalArticle(parameters: nil, endpoint: selectedArticle.slug!, completion: { res in
             switch res {
             case .success(let data):
-                print("getSigaleArtile")
+                print("getSignalArticle")
                 self.selectedArticle = data.article!
             case .failure(let error):
                 switch error {
@@ -170,8 +170,8 @@ class ArticleViewModel: ObservableObject {
                     print("BadURL")
                 case .NoData:
                     print("NoData")
-                case .DecodingErrpr:
-                    print("DecodingErrpr")
+                case .DecodingError:
+                    print("DecodingError")
                 }
             }
         })

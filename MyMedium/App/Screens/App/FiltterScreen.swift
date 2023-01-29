@@ -1,13 +1,13 @@
 //
-//  Filtter.swift
+//  Flitter.swift
 //  MyMedium
 //
-//  Created by neosoft on 20/01/23.
+//  Created by NA on 20/01/23.
 //
 
 import SwiftUI
 
-struct FiltterScreen: View {
+struct FlitterScreen: View {
     @State private var selectedOption = -1
     let options = ["Option 1", "Option 2", "Option 3"]
     @State private var searchText = ""
@@ -21,7 +21,7 @@ struct FiltterScreen: View {
             Form {
                 Section(header: Text("Search By User")) {
                     TextField("Search for a user...",
-                              text: $articleViewModel.filtterParameters.author.toUnwrapped(defaultValue: "")
+                              text: $articleViewModel.flitterParameters.author.toUnwrapped(defaultValue: "")
                     )
                 }
                 Section(header: Text("Search by tag")) {
@@ -33,20 +33,20 @@ struct FiltterScreen: View {
                             }
                         })
                         .onChange(of: selectedOption, perform: { newValue in
-                            articleViewModel.filtterParameters.tag = self.articleViewModel.tagList?.tags![selectedOption]
+                            articleViewModel.flitterParameters.tag = self.articleViewModel.tagList?.tags![selectedOption]
                         })
                     } else {
                         /*@START_MENU_TOKEN@*/EmptyView()/*@END_MENU_TOKEN@*/
                     }
                 }
-                if authViewModel.isLogedin {
-                    Section(header: Text("my booksmarks only")) {
+                if authViewModel.isLoggedIn {
+                    Section(header: Text("my bookmarks only")) {
                         Toggle(isOn: $someBool) {
                             Text("Saved")
                         }
                         .onChange(of: someBool, perform: {newValue in
                             if (someBool) {
-                                articleViewModel.filtterParameters.favorited = authViewModel.isLogedin ? authViewModel.userState?.user?.username : ""
+                                articleViewModel.flitterParameters.favorite = authViewModel.isLoggedIn ? authViewModel.userState?.user?.username : ""
                             }
                         })
                     }
@@ -55,12 +55,12 @@ struct FiltterScreen: View {
                 }
                 Section {
                     Button("Apply") {
-                        articleViewModel.showFiltterScreen.toggle()
+                        articleViewModel.showFlitterScreen.toggle()
                         articleViewModel.getArticles()
                     }
                     Button("Clear",role: .destructive) {
-                        articleViewModel.createFiltter()
-                        articleViewModel.showFiltterScreen.toggle()
+                        articleViewModel.createFlitter()
+                        articleViewModel.showFlitterScreen.toggle()
                     }
                 }
                 Section {
@@ -68,16 +68,16 @@ struct FiltterScreen: View {
                 }
             }
             .onAppear {
-                if(articleViewModel.filtterParameters.favorited == nil) {
+                if(articleViewModel.flitterParameters.favorite == nil) {
                     return
                 }
-                someBool = (articleViewModel.filtterParameters.favorited != nil)
+                someBool = (articleViewModel.flitterParameters.favorite != nil)
             }
             .navigationBarTitle("Filter")
             .navigationBarItems(
                 trailing:
                     Button(action: {
-                        articleViewModel.showFiltterScreen.toggle()
+                        articleViewModel.showFlitterScreen.toggle()
                     }) {
                         Image(systemName: AppIconsSF.closeIcon)
                     }            )
@@ -87,9 +87,9 @@ struct FiltterScreen: View {
     
 }
 
-struct Filtter_Previews: PreviewProvider {
+struct Flitter_Previews: PreviewProvider {
     static var previews: some View {
-        FiltterScreen()
+        FlitterScreen()
             .environmentObject(ArticleViewModel())
             .environmentObject(AuthViewModel())
     }

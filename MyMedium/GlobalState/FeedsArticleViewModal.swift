@@ -37,8 +37,8 @@ class FeedArticleViewModel: ObservableObject {
                     print("BadURL")
                 case .NoData:
                     print("NoData")
-                case .DecodingErrpr:
-                    print("DecodingErrpr")
+                case .DecodingError:
+                    print("DecodingError")
                 }
             }
         }

@@ -2,7 +2,7 @@
 //  FavoritesServers.swift
 //  MyMedium
 //
-//  Created by neosoft on 19/01/23.
+//  Created by na on 19/01/23.
 //
 
 import Foundation

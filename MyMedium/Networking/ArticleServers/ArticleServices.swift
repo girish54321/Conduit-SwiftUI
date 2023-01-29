@@ -2,7 +2,7 @@
 //  ArticleServices.swift
 //  MyMedium
 //
-//  Created by neosoft on 16/01/23.
+//  Created by na on 16/01/23.
 //
 
 import Foundation
@@ -10,11 +10,11 @@ import Alamofire
 
 class ArticleServices {
     
-    func getTrandingArticle (
+    func getTrendingArticle (
         parameters: Parameters?,
-        completion: @escaping(Result<TrandingArticles,NetworkError>) -> Void){
-            return RestAPIClient.request(type: TrandingArticles.self,
-                                         endPoint: ArticleApiEndpoint().createEndPoint(endPoint: .getTranding),
+        completion: @escaping(Result<TrendingArticles,NetworkError>) -> Void){
+            return RestAPIClient.request(type: TrendingArticles.self,
+                                         endPoint: ArticleApiEndpoint().createEndPoint(endPoint: .getTrending),
                                          method:.get,
                                          parameters:parameters,
                                          completion: completion

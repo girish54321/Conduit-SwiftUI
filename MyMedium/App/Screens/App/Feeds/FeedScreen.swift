@@ -2,7 +2,7 @@
 //  FeedScreen.swift
 //  MyMedium
 //
-//  Created by neosoft on 17/01/23.
+//  Created by na on 17/01/23.
 //
 
 import SwiftUI 
@@ -18,7 +18,7 @@ struct FeedScreen: View {
     var body: some View {
         NavigationStack (path: $navStack.presentedScreen) {
             VStack {
-                if authViewModel.isLogedin {
+                if authViewModel.isLoggedIn {
                     VStack {
                         if !feedViewModel.isLoading {
                             List(feedViewModel.articleData?.articles ?? []) { article in
@@ -45,7 +45,7 @@ struct FeedScreen: View {
                     }
                     .animation(.spring(), value: feedViewModel.isLoading)
                 } else {
-                    LoginPlacHolder(title: "see Feeds")
+                    LoginPlaceHolder(title: "see Feeds")
                 }
             }
             .navigationBarTitle("For You")

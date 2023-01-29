@@ -2,7 +2,7 @@
 //  AppConst.swift
 //  MyMedium
 //
-//  Created by neosoft on 10/01/23.
+//  Created by na on 10/01/23.
 //
 
 import Foundation
@@ -13,9 +13,9 @@ struct AppConst {
     static let baseurl = "https://reqres.in/api/"
     static let LoginUrl = "login"
     static let usersListUrl = "users"
-    static let isLogedIn = "isLogedIn"
-    static let tokan = "JWT_TOKAN"
-    static let isSkiped = "SIKPED"
+    static let isLoggedIn = "isLoggedIn"
+    static let token = "JWT_token"
+    static let isSkipped = "SIKPED"
     static let emailPattern = #"^\S+@\S+\.\S+$"#
     
     struct ApiConst {

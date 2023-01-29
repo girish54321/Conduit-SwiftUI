@@ -2,7 +2,7 @@
 //  NavModal.swift
 //  MyMedium
 //
-//  Created by neosoft on 10/01/23.
+//  Created by na on 10/01/23.
 //
 
 import Foundation
@@ -32,7 +32,7 @@ struct SelectedProfileScreenType: Identifiable, Hashable {
     }
     
     let id = UUID()
-    var auther: Author
+    var author: Author
 }
 
 struct SelectedArticleScreenType: Identifiable, Hashable {

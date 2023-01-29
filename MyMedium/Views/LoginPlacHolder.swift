@@ -1,5 +1,5 @@
 //
-//  LoginPlacHolder.swift
+//  LoginPlaceHolder.swift
 //  MyMedium
 //
 //  Created by Girish Parate on 24/01/23.
@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct LoginPlacHolder: View {
+struct LoginPlaceHolder: View {
     
     @State var title: String = ""
-    @AppStorage(AppConst.isSkiped) var isSkiped: Bool = false
-    @AppStorage(AppConst.tokan) var tokan: String = ""
+    @AppStorage(AppConst.isSkipped) var isSkipped: Bool = false
+    @AppStorage(AppConst.token) var token: String = ""
     
     var body: some View {
         VStack {
@@ -24,8 +24,8 @@ struct LoginPlacHolder: View {
                 .font(.largeTitle)
             
             AppButton(text: "Login", clicked: {
-                isSkiped = false
-                tokan = ""
+                isSkipped = false
+                token = ""
             })
             .padding(.vertical)
             .frame(width: 120)
@@ -34,8 +34,8 @@ struct LoginPlacHolder: View {
     }
 }
 
-struct LoginPlacHolder_Previews: PreviewProvider {
+struct LoginPlaceHolder_Previews: PreviewProvider {
     static var previews: some View {
-        LoginPlacHolder(title: "Login")
+        LoginPlaceHolder(title: "Login")
     }
 }

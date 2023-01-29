@@ -8,14 +8,14 @@
 import Foundation
 class ProfileViewModel: ObservableObject {
     
-    @Published var selectedAuther: Author = DummyData().autherData
-    @Published var selectedUserArticle: TrandingArticles? = nil
+    @Published var selectedAuthor: Author = DummyData().authorData
+    @Published var selectedUserArticle: TrendingArticles? = nil
     @Published var isLoading: Bool = false
     
     
-    func getSelectedAutherArticle(parameters: ArticleListParams) {
+    func selectedAuthorArticle(parameters: ArticleListParams) {
         isLoading = true
-        ArticleServices().getTrandingArticle(parameters: parameters.toDictionary()){
+        ArticleServices().getTrendingArticle(parameters: parameters.toDictionary()){
             result in
             switch result {
             case .success(let data):
@@ -30,8 +30,8 @@ class ProfileViewModel: ObservableObject {
                     print("BadURL")
                 case .NoData:
                     print("NoData")
-                case .DecodingErrpr:
-                    print("DecodingErrpr")
+                case .DecodingError:
+                    print("DecodingError")
                 }
             }
         }

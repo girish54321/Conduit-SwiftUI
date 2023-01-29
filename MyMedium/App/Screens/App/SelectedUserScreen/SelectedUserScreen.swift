@@ -8,21 +8,21 @@
 import SwiftUI 
 
 struct SelectedUserScreen: View {
-    @State var auther: Author
+    @State var author: Author
     @State private var selection: String? = nil
     @EnvironmentObject var profileViewModal: ProfileViewModel
     @State private var page: String? = nil
     @EnvironmentObject var articleViewModel: ArticleViewModel
     @State var activeStack: AppNavStackType
     @EnvironmentObject var feedStack: FeedNavigationStackViewModal
-    @EnvironmentObject var articleStack: TrandingNavigationStackViewModal
+    @EnvironmentObject var articleStack: TradingNavigationStackViewModal
     
     var body: some View {
         List {
-            ProfileView(profileImage: profileViewModal.selectedAuther.image ?? "https://media5.bollywoodhungama.in/wp-content/uploads/2021/03/WhatsApp-Image-2021-03-26-at-5.08.26-PM.jpeg",
-                        userName: profileViewModal.selectedAuther.username ?? "username",
-                        bio: profileViewModal.selectedAuther.username ?? "Bio",
-                        email: profileViewModal.selectedAuther.username ?? "Email"
+            ProfileView(profileImage: profileViewModal.selectedAuthor.image ?? "https://media5.bollywoodhungama.in/wp-content/uploads/2021/03/WhatsApp-Image-2021-03-26-at-5.08.26-PM.jpeg",
+                        userName: profileViewModal.selectedAuthor.username ?? "username",
+                        bio: profileViewModal.selectedAuthor.username ?? "Bio",
+                        email: profileViewModal.selectedAuthor.username ?? "Email"
             )
             Section ("articles") {
                 if !profileViewModal.isLoading {
@@ -48,15 +48,15 @@ struct SelectedUserScreen: View {
                     }
                     .animation(.easeIn)
                 } else {
-                    LoadingForEarchListing()
+                    LoadingForEachListing()
                 }
             }
         }
         .onAppear {
-            profileViewModal.selectedAuther = auther
-            profileViewModal.getSelectedAutherArticle(parameters: ArticleListParams(author:profileViewModal.selectedAuther.username))
+            profileViewModal.selectedAuthor = author
+            profileViewModal.selectedAuthorArticle(parameters: ArticleListParams(author:profileViewModal.selectedAuthor.username))
         }
-        .navigationBarTitle(profileViewModal.selectedAuther.username ?? "Na")
+        .navigationBarTitle(profileViewModal.selectedAuthor.username ?? "Na")
         .navigationDestination(for: SelectedArticleScreenType.self) { type in
             //            ArticleDetailViewScreen(isFeedStack: true)
         }
@@ -67,7 +67,7 @@ struct SelectedUserScreen: View {
 struct SelectedUserScreen_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            SelectedUserScreen(auther:DummyData().autherData, activeStack: .article)
+            SelectedUserScreen(author:DummyData().authorData, activeStack: .article)
                 .environmentObject(ProfileViewModel())
         }
     }

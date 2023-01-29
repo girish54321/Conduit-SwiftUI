@@ -2,7 +2,7 @@
 //  AppInputBox.swift
 //  MyMedium
 //
-//  Created by neosoft on 09/01/23.
+//  Created by na on 09/01/23.
 //
 
 import SwiftUI
@@ -11,7 +11,7 @@ struct AppInputBox: View {
     
     var leftIcon: String?
     var rightIcon: String?
-    var placeHoldr: String
+    var placeHolder: String
     
     var passwordView: SecureField<Text>?
     var keyboard: Int?
@@ -38,7 +38,7 @@ struct AppInputBox: View {
                     }
                     VStack {
                         if keyboard != nil{
-                            TextField(placeHoldr, text: $value)
+                            TextField(placeHolder, text: $value)
                                 .keyboardType(UIKeyboardType(rawValue: keyboard!) ?? .default)
                         } else {
                             passwordView
@@ -67,19 +67,19 @@ struct AppInputBox_Previews: PreviewProvider {
         Group {
             AppInputBox(leftIcon: "heart.text.square",
                         rightIcon: "checkmark.circle.fill",
-                        placeHoldr: "Placeholder",
+                        placeHolder: "Placeholder",
                         value: $emailText)
             .previewLayout(.sizeThatFits)
             .padding()
             AppInputBox(leftIcon: "heart.text.square",
-                        placeHoldr: "Placeholder", value: $emailText)
+                        placeHolder: "Placeholder", value: $emailText)
             .previewLayout(.sizeThatFits)
             .padding()
             AppInputBox(rightIcon: "checkmark.circle.fill",
-                        placeHoldr: "Placeholder",value: $emailText)
+                        placeHolder: "Placeholder",value: $emailText)
             .previewLayout(.sizeThatFits)
             .padding()
-            AppInputBox(placeHoldr: "Placeholder",value: $emailText)
+            AppInputBox(placeHolder: "Placeholder",value: $emailText)
                 .previewLayout(.sizeThatFits)
                 .padding()
         }

@@ -2,7 +2,7 @@
 //  NavigationStackViewModal.swift
 //  MyMedium
 //
-//  Created by neosoft on 19/01/23.
+//  Created by na on 19/01/23.
 //
 
 import Foundation
@@ -12,7 +12,7 @@ class FeedNavigationStackViewModal: ObservableObject {
     @Published var presentedScreen = NavigationPath()
 }
 
-class TrandingNavigationStackViewModal: ObservableObject {
+class TradingNavigationStackViewModal: ObservableObject {
     @Published var presentedScreen = NavigationPath()
 }
 

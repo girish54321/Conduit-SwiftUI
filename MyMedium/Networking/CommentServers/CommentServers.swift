@@ -37,14 +37,14 @@ class CommentsServices {
     func deleteComment (
         parameters: Parameters?,
         endpoint: String,
-        costumCompletion: ((HTTPURLResponse?) -> Void)? = nil,
+        costumeCompletion: ((HTTPURLResponse?) -> Void)? = nil,
         completion: @escaping(Result<String,NetworkError>) -> Void) {
             return RestAPIClient.request(type: String.self,
                                          endPoint: CommentsApiEndpoint().createEndPoint(endPoint: .deleteComment) + endpoint,
                                          method:.delete,
                                          parameters:parameters,
                                          completion: completion,
-                                         costumCompletion: costumCompletion
+                                         costumeCompletion: costumeCompletion
             )
         }
 }

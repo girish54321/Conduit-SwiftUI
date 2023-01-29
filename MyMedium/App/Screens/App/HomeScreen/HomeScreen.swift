@@ -2,7 +2,7 @@
 //  HomeScreen.swift
 //  MyMedium
 //
-//  Created by neosoft on 16/01/23.
+//  Created by na on 16/01/23.
 //
 
 import SwiftUI
@@ -19,7 +19,7 @@ struct HomeScreen: View {
                     Image(systemName: AppIconsSF.homeIcon)
                     Text("For You")
                 }
-            TrandingArticleScreen()
+            TradingArticleScreen()
                 .tabItem {
                     Image(systemName: AppIconsSF.trandingIcon)
                     Text("Tranding")
@@ -44,7 +44,7 @@ struct HomeScreen: View {
             appViewModel.alertToast
         }
         .onAppear{
-            appViewModel.alertToast = AppMessage.loadindView
+            appViewModel.alertToast = AppMessage.loadingView
             appViewModel.show.toggle()
         }
     }

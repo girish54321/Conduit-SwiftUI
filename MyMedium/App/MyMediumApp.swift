@@ -2,7 +2,7 @@
 //  MyMediumApp.swift
 //  MyMedium
 //
-//  Created by neosoft on 09/01/23.
+//  Created by na on 09/01/23.
 //
 
 import SwiftUI
@@ -10,17 +10,17 @@ import SwiftUI
 @main
 struct MyMediumApp: App {
     
-    @AppStorage(AppConst.isSkiped) var isSkiped: Bool = false
-    @AppStorage(AppConst.tokan) var tokan: String = ""
+    @AppStorage(AppConst.isSkipped) var isSkipped: Bool = false
+    @AppStorage(AppConst.token) var token: String = ""
     
     var body: some Scene {
         WindowGroup {
-            if isSkiped == true || tokan != "" {
+            if isSkipped == true || token != "" {
                 HomeScreen()
                     .environmentObject(AppViewModel())
                     .environmentObject(AuthViewModel())
                     .environmentObject(FeedNavigationStackViewModal())
-                    .environmentObject(TrandingNavigationStackViewModal())
+                    .environmentObject(TradingNavigationStackViewModal())
                     .environmentObject(ArticleViewModel())
                     .environmentObject(FeedArticleViewModel())
                     .environmentObject(CommentsViewModel())

@@ -2,7 +2,7 @@
 //  WelcomeScreen.swift
 //  MyMedium
 //
-//  Created by neosoft on 09/01/23.
+//  Created by na on 09/01/23.
 //
 
 import SwiftUI
@@ -16,8 +16,8 @@ struct WelcomeScreen: View {
     @State private var presentedScreen = NavigationPath()
     @EnvironmentObject var appViewModel: AppViewModel
     
-    @AppStorage(AppConst.isSkiped) var isSkiped: Bool = false
-    @AppStorage(AppConst.tokan) var tokan: String = ""
+    @AppStorage(AppConst.isSkipped) var isSkipped: Bool = false
+    @AppStorage(AppConst.token) var token: String = ""
     
     var body: some View {
         NavigationStack (path: $presentedScreen) {
@@ -81,12 +81,12 @@ struct WelcomeScreen: View {
             }
             .opacity(isAnimating ? 1 : 0)
             .navigationDestination(for: LoginScreenType.self) { type in
-                CreateAccountScreen(screnType: type)
+                CreateAccountScreen(screenType: type)
             }
             .navigationBarItems(
                 trailing:
                     SkipButton(clicked: {
-                        isSkiped = true
+                        isSkipped = true
                     })
             )
             .navigationBarTitleDisplayMode(.large)

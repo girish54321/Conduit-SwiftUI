@@ -2,7 +2,7 @@
 //  RestAPIClient.swift
 //  MyMedium
 //
-//  Created by neosoft on 11/01/23.
+//  Created by na on 11/01/23.
 //
 
 import Foundation
@@ -18,16 +18,16 @@ class RestAPIClient {
                                     method: HTTPMethod = .get,
                                     parameters: Parameters? = nil,
                                     completion: @escaping(Result<T,NetworkError>) -> Void,
-                                    costumCompletion: ((HTTPURLResponse?) -> Void)? = nil) {
+                                    costumeCompletion: ((HTTPURLResponse?) -> Void)? = nil) {
         
-        @AppStorage(AppConst.tokan) var tokan: String = ""
+        @AppStorage(AppConst.token) var token: String = ""
         print(endPoint)
         let encodedURL = endPoint.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         print(encodedURL)
         var headers: HTTPHeaders? = nil
-        if(tokan != ""){
+        if(token != ""){
             headers = [
-                "Authorization": "Bearer \(tokan)",
+                "Authorization": "Bearer \(token)",
                 "Accept": "application/json"
             ]
         } else {
@@ -37,8 +37,8 @@ class RestAPIClient {
             .response { response in
                 DispatchQueue.main.async {
                     
-                    if (costumCompletion != nil) {
-                        costumCompletion!(response.response)
+                    if (costumeCompletion != nil) {
+                        costumeCompletion!(response.response)
                         return
                     }
                     
@@ -75,7 +75,7 @@ class RestAPIClient {
                             }
 //                             JSON TO Types
                             guard let obj = try? JSONDecoder().decode(T.self, from: data) else {
-                                completion(.failure(.DecodingErrpr))
+                                completion(.failure(.DecodingError))
                                 return
                             }
 //
@@ -141,7 +141,7 @@ class RestAPIClient {
 enum NetworkError: Error {
     case BadURL
     case NoData
-    case DecodingErrpr
+    case DecodingError
     case NetworkErrorAPIError(String)
 }
 

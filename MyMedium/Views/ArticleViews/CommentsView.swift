@@ -8,30 +8,30 @@
 import SwiftUI
 
 struct CommentsView: View {
-    @State var coment: Comment?
+    @State var comment: Comment?
     @EnvironmentObject var authViewModel: AuthViewModel
     var clicked: ((Comment) -> Void)
     var body: some View {
         HStack(alignment: .center) {
-            AppNetworkImage(imageUrl: coment?.author?.image ?? DummyData().autherData.image!)
+            AppNetworkImage(imageUrl: comment?.author?.image ?? DummyData().authorData.image!)
                 .frame(width: 44, height: 44)
                 .clipShape(
                     RoundedRectangle(cornerRadius: 12)
                 )
                 .shadow(radius: 2)
             VStack (alignment:.leading,spacing: 7) {
-                Text(coment?.author?.username ?? "Name")
+                Text(comment?.author?.username ?? "Name")
                     .font(.headline)
                     .padding(.top)
-                Text(coment?.body ?? "Bio")
+                Text(comment?.body ?? "Bio")
                     .font(.headline)
                     .foregroundColor(.gray)
                     .padding(.bottom)
             }
             Spacer()
-            if authViewModel.isLogedin && authViewModel.userState?.user?.username == coment?.author?.username {
+            if authViewModel.isLoggedIn && authViewModel.userState?.user?.username == comment?.author?.username {
                 Button(action: {
-                    clicked(coment!)
+                    clicked(comment!)
                 }, label: {
                     Image(systemName: AppIconsSF.removeIcon)
                         .foregroundColor(.red)
@@ -52,6 +52,6 @@ struct CommentsView_Previews: PreviewProvider {
         CommentsView(clicked: {_ in
             
         })
-            .environmentObject(AuthViewModel())
+        .environmentObject(AuthViewModel())
     }
 }

@@ -2,7 +2,7 @@
 //  ProfileApiEndpoint.swift
 //  MyMedium
 //
-//  Created by neosoft on 18/01/23.
+//  Created by na on 18/01/23.
 //
 
 import Foundation

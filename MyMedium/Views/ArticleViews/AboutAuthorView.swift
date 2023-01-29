@@ -2,7 +2,7 @@
 //  AboutAuthorView.swift
 //  MyMedium
 //
-//  Created by neosoft on 18/01/23.
+//  Created by na on 18/01/23.
 //
 
 import SwiftUI
@@ -33,7 +33,7 @@ struct AboutAuthorView: View {
                     followUser()
                 }
             }) {
-                Text(articleViewModal.selectedArticle.author?.following == true ? "Unfollow" : "Follow")
+                Text(articleViewModal.selectedArticle.author?.following == true ? "UnFollow" : "Follow")
                     .foregroundColor(.white)
                     .padding(8)
                     .background(articleViewModal.selectedArticle.author?.following == true ? Color.red : Color.green)
@@ -63,8 +63,8 @@ struct AboutAuthorView: View {
                     print("BadURL")
                 case .NoData:
                     print("NoData")
-                case .DecodingErrpr:
-                    print("DecodingErrpr")
+                case .DecodingError:
+                    print("DecodingError")
                 }
             }
         }
@@ -89,8 +89,8 @@ struct AboutAuthorView: View {
                     print("BadURL")
                 case .NoData:
                     print("NoData")
-                case .DecodingErrpr:
-                    print("DecodingErrpr")
+                case .DecodingError:
+                    print("DecodingError")
                 }
             }
         }

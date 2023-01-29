@@ -2,7 +2,7 @@
 //  ArticleDetailViewScreen.swift
 //  MyMedium
 //
-//  Created by neosoft on 18/01/23.
+//  Created by na on 18/01/23.
 //
 
 import SwiftUI
@@ -13,7 +13,7 @@ struct ArticleDetailViewScreen: View {
     @EnvironmentObject var articleViewModal: ArticleViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var feedStack: FeedNavigationStackViewModal
-    @EnvironmentObject var articleStack: TrandingNavigationStackViewModal
+    @EnvironmentObject var articleStack: TradingNavigationStackViewModal
     @EnvironmentObject var profileStack: ProfileNavigationStackViewModal
     @EnvironmentObject var feedViewModal: FeedArticleViewModel
     @State private var showDeleteAlert = false
@@ -60,7 +60,7 @@ struct ArticleDetailViewScreen: View {
                     Button(action: {
                         bookMarkArtie()
                     }) {
-                        Image(systemName: articleViewModal.selectedArticle.favorited ?? false ? AppIconsSF.bookMarkFillIcon : AppIconsSF.bookMarkIcon)
+                        Image(systemName: articleViewModal.selectedArticle.favorite ?? false ? AppIconsSF.bookMarkFillIcon : AppIconsSF.bookMarkIcon)
                             .frame(width: 30,height: 30)
                     }
                     .frame(width: 30,height: 30)
@@ -69,7 +69,7 @@ struct ArticleDetailViewScreen: View {
                 AboutAuthorView()
                     .padding()
                     .onTapGesture {
-                        let data = SelectedProfileScreenType(auther: articleViewModal.selectedArticle.author!)
+                        let data = SelectedProfileScreenType(author: articleViewModal.selectedArticle.author!)
                         if (activeStack == .feed){
                             feedStack.presentedScreen.append(data)
                             return
@@ -81,7 +81,7 @@ struct ArticleDetailViewScreen: View {
                     }
             }
             HStack {
-                AppInputBox(placeHoldr: "Add You Coments",
+                AppInputBox(placeHolder: "Add You Comments",
                             keyboard: AppKeyBoardType.default, value: $comment)
                 Button(action: {
                     addComment()
@@ -100,7 +100,7 @@ struct ArticleDetailViewScreen: View {
             VStack {
                 ForEach(articleViewModal.comments?.comments ?? [Commetdata().data23,Commetdata().data23])
                 { data in
-                    CommentsView(coment: data, clicked: deleteComment)
+                    CommentsView(comment: data, clicked: deleteComment)
                         .animation(.easeIn, value: articleViewModal.comments?.comments?.count)
                     Divider()
                 }
@@ -108,7 +108,7 @@ struct ArticleDetailViewScreen: View {
             .padding()
         }
         .refreshable {
-            articleViewModal.getSigaleArtile()
+            articleViewModal.getSignalArticle()
             articleViewModal.getComments()
         }
         .onAppear {
@@ -166,7 +166,7 @@ struct ArticleDetailViewScreen: View {
             CreateArticleScreen(article: ArticleParams(title: data?.title ?? "", description: data?.description ?? "", body: data?.body ?? "", tagList: data?.tagList ?? []), activeStack: activeStack,slug: articleViewModal.selectedArticle.slug)
         }
         .navigationDestination(for: SelectedProfileScreenType.self){ type in
-            SelectedUserScreen(auther: type.auther, activeStack: activeStack)
+            SelectedUserScreen(author: type.author, activeStack: activeStack)
         }
         .navigationBarTitle(Text(articleViewModal.selectedArticle.title ?? "NA"), displayMode: .inline)
     }
@@ -174,9 +174,8 @@ struct ArticleDetailViewScreen: View {
     func deleteComment (data: Comment) {
         CommentsServices().deleteComment(
             parameters: nil, endpoint: articleViewModal.selectedArticle.slug! + "/comments/" + "\(data.id!)",
-            costumCompletion: {
+            costumeCompletion: {
                 res in
-                print("whar arew tou do")
                 let statusCode = res?.statusCode
                 if (statusCode == 200) {
                     articleViewModal.getComments()
@@ -199,8 +198,6 @@ struct ArticleDetailViewScreen: View {
                 res in
                 switch res {
                 case .success(let data):
-                    print("Commet added")
-                    print(data)
                     articleViewModal.getComments()
                     comment = ""
                 case .failure(let error):
@@ -213,17 +210,17 @@ struct ArticleDetailViewScreen: View {
                         print("BadURL")
                     case .NoData:
                         print("NoData")
-                    case .DecodingErrpr:
-                        print("DecodingErrpr")
+                    case .DecodingError:
+                        print("DecodingError")
                     }
                 }
             })
     }
     
     func bookMarkArtie () {
-        appViewModel.alertToast = AppMessage.loadindView
-        if (articleViewModal.selectedArticle.favorited == true) {
-            articleViewModal.removeBookMarkArticle(onComple: {data, error in
+        appViewModel.alertToast = AppMessage.loadingView
+        if (articleViewModal.selectedArticle.favorite == true) {
+            articleViewModal.removeBookMarkArticle(onComplete: {data, error in
                 appViewModel.toggle()
                 if ((error) != nil) {
                     appViewModel.errorMessage = error!
@@ -233,7 +230,7 @@ struct ArticleDetailViewScreen: View {
                 feedViewModal.updateSelectedFeedArticle(article: data!)
             })
         } else {
-            articleViewModal.bookMarkArticle(onComple: {data, error in
+            articleViewModal.bookMarkArticle(onComplete: {data, error in
                 appViewModel.toggle()
                 if ((error) != nil) {
                     appViewModel.errorMessage = error!
@@ -250,7 +247,6 @@ struct ArticleDetailViewScreen: View {
             res in
             switch res {
             case .success(let data):
-                print("remove bookmar")
                 if(activeStack == .feed){
                     feedStack.presentedScreen.removeLast()
                     feedViewModal.getArticles()
@@ -275,8 +271,8 @@ struct ArticleDetailViewScreen: View {
                     print("BadURL")
                 case .NoData:
                     print("NoData")
-                case .DecodingErrpr:
-                    print("DecodingErrpr")
+                case .DecodingError:
+                    print("DecodingError")
                 }
             }
         }
@@ -294,7 +290,7 @@ struct ArticleDetailViewScreen_Previews: PreviewProvider {
         .environmentObject(ArticleViewModel())
         .environmentObject(AuthViewModel())
         .environmentObject(FeedNavigationStackViewModal())
-        .environmentObject(TrandingNavigationStackViewModal())
+        .environmentObject(TradingNavigationStackViewModal())
         .environmentObject(ProfileNavigationStackViewModal())
         .environmentObject(FeedArticleViewModel())
     }

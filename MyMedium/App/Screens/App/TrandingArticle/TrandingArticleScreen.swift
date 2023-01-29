@@ -1,16 +1,16 @@
 //
-//  TrandingArticleScreen.swift
+//  TradingArticleScreen.swift
 //  MyMedium
 //
-//  Created by neosoft on 16/01/23.
+//  Created by na on 16/01/23.
 //
 
 import SwiftUI
 
-struct TrandingArticleScreen: View {
+struct TradingArticleScreen: View {
     
     @EnvironmentObject var articleViewModel: ArticleViewModel
-    @EnvironmentObject var navStack: TrandingNavigationStackViewModal
+    @EnvironmentObject var navStack: TradingNavigationStackViewModal
     
     var body: some View {
         NavigationStack (path: $navStack.presentedScreen) {
@@ -39,14 +39,14 @@ struct TrandingArticleScreen: View {
                 }
             }
             .animation(.spring(), value: articleViewModel.isLoading)
-            .sheet(isPresented: $articleViewModel.showFiltterScreen, content: {
-                FiltterScreen()
+            .sheet(isPresented: $articleViewModel.showFlitterScreen, content: {
+                FlitterScreen()
             })
             .navigationBarTitle("Articles")
             .navigationBarItems(
                 trailing:
                     Button(action: {
-                        articleViewModel.showFiltterScreen.toggle()
+                        articleViewModel.showFlitterScreen.toggle()
                     }) {
                         Image(systemName: AppIconsSF.editIcon)
                     }            )
@@ -54,10 +54,10 @@ struct TrandingArticleScreen: View {
     }
     
     
-    struct TrandingArticleScreen_Previews: PreviewProvider {
+    struct TradingArticleScreen_Previews: PreviewProvider {
         static var previews: some View {
-            TrandingArticleScreen()
-                .environmentObject(TrandingNavigationStackViewModal())
+            TradingArticleScreen()
+                .environmentObject(TradingNavigationStackViewModal())
                 .environmentObject(ArticleViewModel())
         }
     }

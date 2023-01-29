@@ -2,40 +2,40 @@
 //  CreateArticleScreen.swift
 //  MyMedium
 //
-//  Created by neosoft on 17/01/23.
+//  Created by na on 17/01/23.
 //
 
 import SwiftUI
 import AlertToast
 
-let placHoder = ArticleParams(title: "", description: "", body: "", tagList: [])
+let PlaceHolder = ArticleParams(title: "", description: "", body: "", tagList: [])
 
 struct CreateArticleScreen: View {
     
-    @State var article = placHoder
+    @State var article = PlaceHolder
     @State var activeStack: AppNavStackType
     @State var slug: String?
     @EnvironmentObject var appViewModel: AppViewModel
     @EnvironmentObject var articleViewModal: ArticleViewModel
     @EnvironmentObject var feedNavStack: FeedNavigationStackViewModal
-    @EnvironmentObject var articleStack: TrandingNavigationStackViewModal
+    @EnvironmentObject var articleStack: TradingNavigationStackViewModal
     @EnvironmentObject var profileStack: ProfileNavigationStackViewModal
     @EnvironmentObject var feedViewModal: FeedArticleViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
     
     var body: some View {
         VStack {
-            if authViewModel.isLogedin {
+            if authViewModel.isLoggedIn {
                 VStack {
                     ScrollView {
                         VStack(alignment: .leading) {
                             AppInputBox(
-                                placeHoldr: "Enter title here",
+                                placeHolder: "Enter title here",
                                 keyboard: AppKeyBoardType.default,
                                 title:"Title", value: $article.title
                             )
                             AppInputBox(
-                                placeHoldr: "Enter description here",
+                                placeHolder: "Enter description here",
                                 keyboard: AppKeyBoardType.default,
                                 title:"Description", value: $article.description
                             )
@@ -57,7 +57,7 @@ struct CreateArticleScreen: View {
                     }
                     AppButton(text: "Save", clicked: {
                         if (slug == nil){
-                            uploadAricle()
+                            uploadArticle()
                         } else {
                             updateArticle()
                         }
@@ -65,7 +65,7 @@ struct CreateArticleScreen: View {
                     .padding()
                 }
             } else {
-                LoginPlacHolder(title: "Create \nArticle")
+                LoginPlaceHolder(title: "Create \nArticle")
 //                    .padding(.horizontal,1)
             }
         }
@@ -103,21 +103,21 @@ struct CreateArticleScreen: View {
                     print("BadURL")
                 case .NoData:
                     print("NoData")
-                case .DecodingErrpr:
-                    print("DecodingErrpr")
+                case .DecodingError:
+                    print("DecodingError")
                 }
             }
         }
     }
     
-    func uploadAricle () {
+    func uploadArticle () {
         let parameters = RequestParams(article: article)
         ArticleServices().uploadArticle(parameters: parameters.toDictionary()){
             result in
             switch result {
             case .success(_):
                 print("Done")
-                article = placHoder
+                article = PlaceHolder
                 feedViewModal.getArticles()
                 articleViewModal.getArticles()
             case .failure(let error):
@@ -130,8 +130,8 @@ struct CreateArticleScreen: View {
                     print("BadURL")
                 case .NoData:
                     print("NoData")
-                case .DecodingErrpr:
-                    print("DecodingErrpr")
+                case .DecodingError:
+                    print("DecodingError")
                 }
             }
         }
@@ -139,7 +139,7 @@ struct CreateArticleScreen: View {
     
     func clearInputs () {
         withAnimation {
-            article = placHoder
+            article = PlaceHolder
         }
     }
 }
@@ -151,7 +151,7 @@ struct CreateArticleScreen_Previews: PreviewProvider {
                 .environmentObject(AppViewModel())
                 .environmentObject(FeedNavigationStackViewModal())
                 .environmentObject(AuthViewModel())
-                .environmentObject(TrandingNavigationStackViewModal())
+                .environmentObject(TradingNavigationStackViewModal())
         }
     }
 }

@@ -2,7 +2,7 @@
 //  ArticleRow.swift
 //  MyMedium
 //
-//  Created by neosoft on 16/01/23.
+//  Created by na on 16/01/23.
 //
 
 import SwiftUI
@@ -31,9 +31,9 @@ struct ArticleRow: View {
                 Button(action: {
 
                 }) {
-                    Image(systemName: article?.favorited ?? false ? AppIconsSF.bookMarkFillIcon : AppIconsSF.bookMarkIcon)
+                    Image(systemName: article?.favorite ?? false ? AppIconsSF.bookMarkFillIcon : AppIconsSF.bookMarkIcon)
                         .frame(width: 30,height: 30)
-                        .animation(.spring(), value: article?.favorited ?? false)
+                        .animation(.spring(), value: article?.favorite ?? false)
                 }
                 .frame(width: 30,height: 30)
             }

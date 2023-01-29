@@ -2,7 +2,7 @@
 //  PulsateCircle.swift
 //  MyMedium
 //
-//  Created by neosoft on 10/01/23.
+//  Created by na on 10/01/23.
 //
 
 import SwiftUI

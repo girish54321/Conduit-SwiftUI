@@ -2,13 +2,13 @@
 //  CreateAccountScreen.swift
 //  MyMedium
 //
-//  Created by neosoft on 10/01/23.
+//  Created by na on 10/01/23.
 //
 
 import SwiftUI
 
 struct CreateAccountScreen: View {
-    @State var screnType: LoginScreenType = LoginScreenType(title: "Login", isCreateAccount: false)
+    @State var screenType: LoginScreenType = LoginScreenType(title: "Login", isCreateAccount: false)
     
     @State private var emailText: String = ""
     @State private var passwordText: String = ""
@@ -16,21 +16,21 @@ struct CreateAccountScreen: View {
     
     @EnvironmentObject var appViewModel: AppViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
-    @AppStorage(AppConst.isSkiped) var isSkiped: Bool = false
-    @AppStorage(AppConst.tokan) var tokan: String = ""
+    @AppStorage(AppConst.isSkipped) var isSkipped: Bool = false
+    @AppStorage(AppConst.token) var token: String = ""
     
     var body: some View {
         VStack (spacing: 14) {
             VStack(alignment: .center,spacing: 8) {
                 Text("My Medium")
                     .appTextStyle()
-                Text(screnType.isCreateAccount ?? true ? "Create account to join us." : "Login using Email And Password")
+                Text(screenType.isCreateAccount ?? true ? "Create account to join us." : "Login using Email And Password")
                     .font(.footnote)
             }
-            if screnType.isCreateAccount ?? true {
+            if screenType.isCreateAccount ?? true {
                 AppInputBox(
                     leftIcon: AppIconsSF.userIcon,
-                    placeHoldr: "User Name",
+                    placeHolder: "User Name",
                     keyboard: AppKeyBoardType.default,
                     title:"User Name", value: $username
                 )
@@ -39,13 +39,13 @@ struct CreateAccountScreen: View {
             }
             AppInputBox(
                 leftIcon: AppIconsSF.emailIcon,
-                placeHoldr: "Email",
+                placeHolder: "Email",
                 keyboard: AppKeyBoardType.emailAddress,
                 title:"Email", value: $emailText
             )
             AppInputBox(
                 leftIcon: AppIconsSF.passwordIcon,
-                placeHoldr: "Password",
+                placeHolder: "Password",
                 keyboard: AppKeyBoardType.default,
                 title:"Password", value: $passwordText
             )
@@ -62,8 +62,8 @@ struct CreateAccountScreen: View {
                         )
                 }
             }
-            AppButton(text: screnType.isCreateAccount ?? true ? "Sign Up": "Login", clicked: {
-                if screnType.isCreateAccount == false {
+            AppButton(text: screenType.isCreateAccount ?? true ? "Sign Up": "Login", clicked: {
+                if screenType.isCreateAccount == false {
                     UserLoginApi(email: emailText, password: passwordText)
                     return
                 }else {
@@ -73,22 +73,22 @@ struct CreateAccountScreen: View {
             .padding(.top)
             Spacer()
             Button(action: toggleLoginState) {
-                Text(screnType.isCreateAccount ?? true ? "all rady have an account?\nLogin here" : "Dont have an account?\n Create here")
+                Text(screenType.isCreateAccount ?? true ? "all ready have an account?\nLogin here" : "Don't have an account?\n Create here")
                     .font(.headline)
             }
         }
         .padding()
-        .navigationTitle(screnType.isCreateAccount ?? true ? "Create Account":"Login")
+        .navigationTitle(screenType.isCreateAccount ?? true ? "Create Account":"Login")
     }
     
     func toggleLoginState()  {
         withAnimation {
-            screnType.isCreateAccount = !(screnType.isCreateAccount ?? false)
+            screenType.isCreateAccount = !(screenType.isCreateAccount ?? false)
         }
     }
     
     func crateUserApi(email : String,password : String) {
-        appViewModel.alertToast = AppMessage.loadindView
+        appViewModel.alertToast = AppMessage.loadingView
         let postData: [String: Any] = [
             "username": username,
             "email" : email,
@@ -109,14 +109,14 @@ struct CreateAccountScreen: View {
                     appViewModel.errorMessage = errorMessage
                 case .BadURL: break
                 case .NoData: break
-                case .DecodingErrpr: break
+                case .DecodingError: break
                 }
             }
         }
     }
     
     func UserLoginApi(email : String,password : String) {
-        appViewModel.alertToast = AppMessage.loadindView
+        appViewModel.alertToast = AppMessage.loadingView
         let postData: [String: Any] = [
             "email" : email,
             "password": password
@@ -129,7 +129,7 @@ struct CreateAccountScreen: View {
             switch result {
             case .success(let data):
                 withAnimation {
-                    tokan = data.user?.token ?? ""
+                    token = data.user?.token ?? ""
                 }
                 authViewModel.saveUser(data: data)
             case .failure(let error):
@@ -139,7 +139,7 @@ struct CreateAccountScreen: View {
                     appViewModel.errorMessage = errorMessage
                 case .BadURL: break
                 case .NoData: break
-                case .DecodingErrpr: break
+                case .DecodingError: break
                 }
             }
         }

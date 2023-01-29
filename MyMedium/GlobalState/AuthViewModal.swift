@@ -2,16 +2,16 @@
 //  AuthViewModal.swift
 //  MyMedium
 //
-//  Created by neosoft on 11/01/23.
+//  Created by na on 11/01/23.
 //
 
 import Foundation
 class AuthViewModel: ObservableObject {
     
-    @Published var isLogedin = false
-    @Published var tokan: String? = nil
+    @Published var isLoggedIn = false
+    @Published var token: String? = nil
     @Published var userState: LoginScuccess? = nil
-    @Published var userArticle: TrandingArticles? = nil
+    @Published var userArticle: TrendingArticles? = nil
     @Published var isLoading: Bool = false
     
     init() {
@@ -24,7 +24,7 @@ class AuthViewModel: ObservableObject {
     
     func getArticles(parameters: ArticleListParams) {
         isLoading = true
-        ArticleServices().getTrandingArticle(parameters: parameters.toDictionary()){
+        ArticleServices().getTrendingArticle(parameters: parameters.toDictionary()){
             result in
             switch result {
             case .success(let data):
@@ -38,8 +38,8 @@ class AuthViewModel: ObservableObject {
                     print("BadURL")
                 case .NoData:
                     print("NoData")
-                case .DecodingErrpr:
-                    print("DecodingErrpr")
+                case .DecodingError:
+                    print("DecodingError")
                 }
             }
         }
@@ -51,7 +51,7 @@ class AuthViewModel: ObservableObject {
             switch result {
             case .success(let data):
                 self.userState = data
-                self.isLogedin = true
+                self.isLoggedIn = true
             case .failure(let error):
                 switch error {
                 case .NetworkErrorAPIError(let errorMessage):
@@ -60,8 +60,8 @@ class AuthViewModel: ObservableObject {
                     print("BadURL")
                 case .NoData:
                     print("NoData")
-                case .DecodingErrpr:
-                    print("DecodingErrpr")
+                case .DecodingError:
+                    print("DecodingError")
                 }
             }
         }

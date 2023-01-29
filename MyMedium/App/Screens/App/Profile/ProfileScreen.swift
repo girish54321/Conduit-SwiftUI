@@ -2,7 +2,7 @@
 //  ProfileScreen.swift
 //  MyMedium
 //
-//  Created by neosoft on 17/01/23.
+//  Created by na on 17/01/23.
 //
 
 import SwiftUI
@@ -11,17 +11,17 @@ struct ProfileScreen: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var profileStack: ProfileNavigationStackViewModal
     @EnvironmentObject var articleViewModel: ArticleViewModel
-    @AppStorage(AppConst.isSkiped) var isSkiped: Bool = false
-    @AppStorage(AppConst.tokan) var tokan: String = ""
+    @AppStorage(AppConst.isSkipped) var isSkipped: Bool = false
+    @AppStorage(AppConst.token) var token: String = ""
     @State private var showLogOutAlert = false
     
     var body: some View {
         NavigationStack (path: $profileStack.presentedScreen) {
             VStack {
-                if authViewModel.isLogedin {
+                if authViewModel.isLoggedIn {
                     List {
                         ProfileView(profileImage: authViewModel.userState?.user?.image ?? "https://media5.bollywoodhungama.in/wp-content/uploads/2021/03/WhatsApp-Image-2021-03-26-at-5.08.26-PM.jpeg", userName: authViewModel.userState?.user?.username ?? "username", bio: authViewModel.userState?.user?.bio ?? "Bio", email: authViewModel.userState?.user?.email ?? "Email")
-                        Section ("articlesss") {
+                        Section ("Article") {
                             if !authViewModel.isLoading {
                                 VStack {
                                     ForEach(authViewModel.userArticle?.articles ?? [DummyData().data,DummyData().data]) { article in
@@ -44,7 +44,7 @@ struct ProfileScreen: View {
                                     }
                                 }
                             } else {
-                                LoadingForEarchListing()
+                                LoadingForEachListing()
                             }
                         }
                     }
@@ -52,7 +52,7 @@ struct ProfileScreen: View {
                         authViewModel.getArticles(parameters: ArticleListParams(author:authViewModel.userState?.user?.username,limit: "50"))
                     }
                 } else {
-                    LoginPlacHolder(title: "see Profile")
+                    LoginPlaceHolder(title: "see Profile")
                 }
                 
             }
@@ -61,16 +61,16 @@ struct ProfileScreen: View {
                       message: Text("Are you sure you want to delete this article?"),
                       primaryButton: .destructive(Text("Yes")) {
                     authViewModel.userState = nil
-                    authViewModel.tokan = ""
-                    authViewModel.isLogedin = false
-                    isSkiped = false
-                    tokan = ""
+                    authViewModel.token = ""
+                    authViewModel.isLoggedIn = false
+                    isSkipped = false
+                    token = ""
                 }, secondaryButton: .cancel())
             }
             .navigationBarItems(
                 trailing:
                     VStack{
-                        if authViewModel.isLogedin {
+                        if authViewModel.isLoggedIn {
                             Button(action: {
                                 showLogOutAlert.toggle()
                             }) {
@@ -82,7 +82,7 @@ struct ProfileScreen: View {
                     }
             )
             .onAppear {
-                if (!authViewModel.isLogedin) {
+                if (!authViewModel.isLoggedIn) {
                     return
                 }
                 authViewModel.getArticles(

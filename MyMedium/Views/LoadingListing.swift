@@ -32,7 +32,7 @@ struct LoadingListing: View {
     }
 }
 
-struct LoadingForEarchListing: View {
+struct LoadingForEachListing: View {
     var body: some View {
         ForEach([DummyData().data,DummyData().data]) { article in
             VStack {
