@@ -44,7 +44,8 @@ struct ArticleDetailViewScreen: View {
                     .transition(.move(edge: .bottom))
                     .animation(.spring(), value: articleViewModal.selectedArticle.title)
                     .padding()
-                Text(articleViewModal.selectedArticle.body ?? "NA")
+                Text(UIHelper().formateHelptext(text: articleViewModal.selectedArticle.body ?? ""))
+                    .lineLimit(nil)
                     .padding()
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {

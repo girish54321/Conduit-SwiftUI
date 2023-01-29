@@ -58,7 +58,7 @@ struct ProfileScreen: View {
             }
             .alert(isPresented: $showLogOutAlert) {
                 Alert(title: Text("Log out?"),
-                      message: Text("Are you sure you want to delete this article?"),
+                      message: Text("Are you sure you want to logout out? Press 'OK' to confirm or 'Cancel' to stay Logged in."),
                       primaryButton: .destructive(Text("Yes")) {
                     authViewModel.userState = nil
                     authViewModel.token = ""

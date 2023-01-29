@@ -48,7 +48,7 @@ struct TradingArticleScreen: View {
                     Button(action: {
                         articleViewModel.showFlitterScreen.toggle()
                     }) {
-                        Image(systemName: AppIconsSF.editIcon)
+                        Image(systemName: "slider.below.rectangle")
                     }            )
         }
     }

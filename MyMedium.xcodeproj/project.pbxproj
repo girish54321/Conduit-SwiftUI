@@ -54,6 +54,7 @@
 		F46AAFBE297BFC3300B682C4 /* AppHTMLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46AAFBD297BFC3300B682C4 /* AppHTMLView.swift */; };
 		F46AAFC1297BFE0900B682C4 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = F46AAFC0297BFE0900B682C4 /* SwiftSoup */; };
 		F46AAFC3297C170C00B682C4 /* ArticleViewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46AAFC2297C170C00B682C4 /* ArticleViewModal.swift */; };
+		F48EA75F2986BEA60010591A /* HTMLEntities in Frameworks */ = {isa = PBXBuildFile; productRef = F48EA75E2986BEA60010591A /* HTMLEntities */; };
 		F49BFBCE2981575D00827288 /* CommentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49BFBCD2981575D00827288 /* CommentsView.swift */; };
 		F4D6634F297E81100045BDDA /* CommentsViewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D6634E297E81100045BDDA /* CommentsViewModal.swift */; };
 		F4D66352297E82040045BDDA /* CommentServers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D66351297E82040045BDDA /* CommentServers.swift */; };
@@ -131,6 +132,7 @@
 			files = (
 				92611DA5297166F5009D8AA9 /* SwiftyJSON in Frameworks */,
 				F4E0D909297C2F340084B495 /* Shimmer in Frameworks */,
+				F48EA75F2986BEA60010591A /* HTMLEntities in Frameworks */,
 				F46AAFC1297BFE0900B682C4 /* SwiftSoup in Frameworks */,
 				92FD151F296EC1B400C8AE0E /* Alamofire in Frameworks */,
 				92FD1535296ED1EC00C8AE0E /* AlertToast in Frameworks */,
@@ -470,6 +472,7 @@
 				92611DA4297166F5009D8AA9 /* SwiftyJSON */,
 				F46AAFC0297BFE0900B682C4 /* SwiftSoup */,
 				F4E0D908297C2F340084B495 /* Shimmer */,
+				F48EA75E2986BEA60010591A /* HTMLEntities */,
 			);
 			productName = MyMedium;
 			productReference = 92D2D726296C15EB008BA685 /* MyMedium.app */;
@@ -505,6 +508,7 @@
 				92611DA3297166F5009D8AA9 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				F46AAFBF297BFE0800B682C4 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 				F4E0D907297C2F340084B495 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */,
+				F48EA75D2986BEA60010591A /* XCRemoteSwiftPackageReference "swift-html-entities" */,
 			);
 			productRefGroup = 92D2D727296C15EB008BA685 /* Products */;
 			projectDirPath = "";
@@ -815,6 +819,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		F48EA75D2986BEA60010591A /* XCRemoteSwiftPackageReference "swift-html-entities" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Kitura/swift-html-entities.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		F4E0D907297C2F340084B495 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/markiv/SwiftUI-Shimmer";
@@ -845,6 +857,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F46AAFBF297BFE0800B682C4 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
 			productName = SwiftSoup;
+		};
+		F48EA75E2986BEA60010591A /* HTMLEntities */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F48EA75D2986BEA60010591A /* XCRemoteSwiftPackageReference "swift-html-entities" */;
+			productName = HTMLEntities;
 		};
 		F4E0D908297C2F340084B495 /* Shimmer */ = {
 			isa = XCSwiftPackageProductDependency;

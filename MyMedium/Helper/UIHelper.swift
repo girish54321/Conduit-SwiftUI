@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import AlertToast
+import HTMLEntities
 
 struct TitleModifier: ViewModifier {
     func body(content: Content) -> some View {
@@ -72,3 +73,10 @@ struct AppMessage {
     static let loadingView = AlertToast(type: .loading, title: "Loading")
 }
 
+struct UIHelper {
+    
+    func formateHelptext(text: String) -> String {
+        return text.htmlUnescape()
+    }
+    
+}

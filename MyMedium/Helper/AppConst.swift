@@ -33,7 +33,7 @@ struct AppIconsSF {
     static let userIcon = "person.crop.circle.badge.checkmark"
     static let homeIcon = "message"
     static let trandingIcon = "flame.fill"
-    static let profileIcon = "person"
+    static let profileIcon = "book.fill"
     static let settingsIcon = "gear"
     static let editIcon = "pencil"
     static let deleteIcon = "trash"
@@ -41,6 +41,7 @@ struct AppIconsSF {
     static let bookMarkFillIcon = "bookmark.fill"
     static let closeIcon = "xmark"
     static let removeIcon = "trash"
+    static let filtterIcon = "slider.below.rectangle"
 }
 
 struct AppKeyBoardType {
