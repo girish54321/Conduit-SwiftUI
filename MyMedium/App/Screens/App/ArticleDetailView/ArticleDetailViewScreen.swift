@@ -66,7 +66,7 @@ struct ArticleDetailViewScreen: View {
                     .frame(width: 30,height: 30)
                 }
                 .padding()
-                AboutAuthorView(author: articleViewModal.selectedArticle.author)
+                AboutAuthorView()
                     .padding()
                     .onTapGesture {
                         let data = SelectedProfileScreenType(auther: articleViewModal.selectedArticle.author!)

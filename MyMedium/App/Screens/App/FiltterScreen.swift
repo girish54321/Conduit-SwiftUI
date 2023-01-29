@@ -10,11 +10,11 @@ import SwiftUI
 struct FiltterScreen: View {
     @State private var selectedOption = -1
     let options = ["Option 1", "Option 2", "Option 3"]
-    @State private var someBool : Bool = false
     @State private var searchText = ""
     
     @EnvironmentObject var articleViewModel: ArticleViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
+    @State private var someBool : Bool = false
     
     var body: some View {
         NavigationView {
@@ -66,6 +66,12 @@ struct FiltterScreen: View {
                 Section {
                     
                 }
+            }
+            .onAppear {
+                if(articleViewModel.filtterParameters.favorited == nil) {
+                    return
+                }
+                someBool = (articleViewModel.filtterParameters.favorited != nil)
             }
             .navigationBarTitle("Filter")
             .navigationBarItems(

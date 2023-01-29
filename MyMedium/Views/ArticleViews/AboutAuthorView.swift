@@ -8,51 +8,52 @@
 import SwiftUI
 
 struct AboutAuthorView: View {
-    @State var author: Author?
+    @EnvironmentObject var articleViewModal: ArticleViewModel
     @EnvironmentObject var feedViewModal: FeedArticleViewModel
+    
     var body: some View {
         VStack(alignment: .center) {
-            AppNetworkImage(imageUrl: author?.image ?? "")
+            AppNetworkImage(imageUrl: articleViewModal.selectedArticle.author?.image ?? "")
                 .frame(width: 50, height: 50)
                 .clipShape(
                     RoundedRectangle(cornerRadius: 12)
                 )
-//                .overlay(Circle().stroke(Color.white, lineWidth: 2))
                 .shadow(radius: 2)
-            Text(author?.username ?? "Name")
+            Text(articleViewModal.selectedArticle.author?.username ?? "Name")
                 .font(.title2)
                 .padding(2) 
-            Text(author?.bio ?? "Bio")
+            Text(articleViewModal.selectedArticle.author?.bio ?? "Bio")
                 .font(.headline)
                 .foregroundColor(.gray)
                 .lineLimit(nil)
             Button(action: {
-                if(author?.following == true){
+                if(articleViewModal.selectedArticle.author?.following == true){
                     deleteFollow()
                 } else {
                     followUser()
                 }
             }) {
-                Text(author?.following == true ? "Unfollow" : "Follow")
+                Text(articleViewModal.selectedArticle.author?.following == true ? "Unfollow" : "Follow")
                     .foregroundColor(.white)
                     .padding(8)
-                    .background(author?.following == true ? Color.red : Color.green)
+                    .background(articleViewModal.selectedArticle.author?.following == true ? Color.red : Color.green)
                     .cornerRadius(5)
+                    .animation(.easeIn, value: articleViewModal.selectedArticle.author?.following)
             }
             
         }
     }
     
     func deleteFollow() {
-        ProfileServices().removeFollow(parameters: nil, endpoint: "\(author?.username ?? "")/follow"){
+        ProfileServices().removeFollow(parameters: nil, endpoint: "\(articleViewModal.selectedArticle.author?.username ?? "")/follow"){
             res in
             switch res {
             case .success(let data):
                 print("Done deleteFollow")
-                withAnimation {
-                    author?.following = false
-                }
+                articleViewModal.selectedArticle.author?.following = data.profile?.following
+                articleViewModal.getArticles()
                 feedViewModal.getArticles()
+                print(data)
             case .failure(let error):
                 switch error {
                 case .NetworkErrorAPIError(let errorMessage):
@@ -70,14 +71,14 @@ struct AboutAuthorView: View {
     }
     
     func followUser() {
-        ProfileServices().requestFollow(parameters: nil, endpoint: "\(author?.username ?? "")/follow"){
+        ProfileServices().requestFollow(parameters: nil, endpoint: "\(articleViewModal.selectedArticle.author?.username ?? "")/follow"){
             res in
             switch res {
             case .success(let data):
+                print(data)
                 print("Done followUser")
-                withAnimation {
-                    author?.following = true
-                }
+                articleViewModal.selectedArticle.author?.following = data.profile?.following
+                articleViewModal.getArticles()
                 feedViewModal.getArticles()
             case .failure(let error):
                 switch error {
@@ -98,7 +99,9 @@ struct AboutAuthorView: View {
 
 struct AboutAuthorView_Previews: PreviewProvider {
     static var previews: some View {
-        AboutAuthorView(author: nil)
+        AboutAuthorView()
+            .environmentObject(ArticleViewModel())
             .environmentObject(FeedArticleViewModel())
+        
     }
 }

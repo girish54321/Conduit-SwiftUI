@@ -22,7 +22,7 @@ struct Article: Codable, Identifiable {
     let createdAt, updatedAt: String?
     var favorited: Bool?
     let favoritesCount: Int?
-    let author: Author?
+    var author: Author?
 }
 
 // MARK: - FollowArticle

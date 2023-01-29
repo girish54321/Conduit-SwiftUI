@@ -103,7 +103,6 @@ class ArticleViewModel: ObservableObject {
             switch res {
             case .success(let data):
                 print("bookMarkArticle")
-                print(data.article?.favorited)
                 onComple(data.article!,nil)
             case .failure(let error):
                 switch error {
