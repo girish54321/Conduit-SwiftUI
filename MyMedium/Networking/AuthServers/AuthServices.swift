@@ -12,8 +12,8 @@ class AuthServices {
     
     func userLogin (
         parameters: Parameters?,
-        completion: @escaping(Result<LoginScuccess,NetworkError>) -> Void){
-            return RestAPIClient.request(type: LoginScuccess.self,
+        completion: @escaping(Result<LoginSuccess,NetworkError>) -> Void){
+            return RestAPIClient.request(type: LoginSuccess.self,
                                          endPoint: AuthApiEndpoint().createEndPoint(endPoint: .login),
                                          method:.post,
                                          parameters:parameters,
@@ -23,8 +23,8 @@ class AuthServices {
     
     func createAccount (
         parameters: Parameters?,
-        completion: @escaping(Result<CreateAccoutResponse,NetworkError>) -> Void){
-            return RestAPIClient.request(type: CreateAccoutResponse.self,
+        completion: @escaping(Result<CreateAccountResponse,NetworkError>) -> Void){
+            return RestAPIClient.request(type: CreateAccountResponse.self,
                                          endPoint: AuthApiEndpoint().createEndPoint(endPoint: .register),
                                          method:.post,
                                          parameters:parameters,
@@ -34,8 +34,8 @@ class AuthServices {
     
     func getUser (
         parameters: Parameters?,
-        completion: @escaping(Result<LoginScuccess,NetworkError>) -> Void){
-            return RestAPIClient.request(type: LoginScuccess.self,
+        completion: @escaping(Result<LoginSuccess,NetworkError>) -> Void){
+            return RestAPIClient.request(type: LoginSuccess.self,
                                          endPoint: AuthApiEndpoint().createEndPoint(endPoint: .profile),
                                          method:.get,
                                          parameters:parameters,

@@ -31,9 +31,6 @@ struct TradingArticleScreen: View {
                     .refreshable {
                         articleViewModel.getArticles()
                     }
-                    .navigationDestination(for: SelectedArticleScreenType.self) { type in
-                        ArticleDetailViewScreen(activeStack: .article)
-                    }
                 } else {
                     LoadingListing()
                 }
@@ -43,6 +40,9 @@ struct TradingArticleScreen: View {
                 FlitterScreen()
             })
             .navigationBarTitle("Articles")
+            .navigationDestination(for: SelectedArticleScreenType.self) { type in
+                ArticleDetailViewScreen(activeStack: .article)
+            }
             .navigationBarItems(
                 trailing:
                     Button(action: {

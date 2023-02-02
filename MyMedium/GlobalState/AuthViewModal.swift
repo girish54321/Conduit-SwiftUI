@@ -10,15 +10,15 @@ class AuthViewModel: ObservableObject {
     
     @Published var isLoggedIn = false
     @Published var token: String? = nil
-    @Published var userState: LoginScuccess? = nil
+    @Published var userState: LoginSuccess? = nil
     @Published var userArticle: TrendingArticles? = nil
-    @Published var isLoading: Bool = false
+    @Published var isLoading: Bool = true
     
     init() {
         getProfile()
     }
     
-    func saveUser(data:LoginScuccess)  {
+    func saveUser(data:LoginSuccess)  {
         userState = data
     }
     
@@ -52,6 +52,7 @@ class AuthViewModel: ObservableObject {
             case .success(let data):
                 self.userState = data
                 self.isLoggedIn = true
+                self.isLoading = false
             case .failure(let error):
                 switch error {
                 case .NetworkErrorAPIError(let errorMessage):

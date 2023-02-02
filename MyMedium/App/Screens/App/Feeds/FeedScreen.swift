@@ -20,7 +20,7 @@ struct FeedScreen: View {
             VStack {
                 if authViewModel.isLoggedIn {
                     VStack {
-                        if !feedViewModel.isLoading {
+                        if !feedViewModel.isLoading  {
                             List(feedViewModel.articleData?.articles ?? []) { article in
                                 Button (action: {
                                     let data = SelectedArticleScreenType(selectedArticle: article)
@@ -36,17 +36,17 @@ struct FeedScreen: View {
                             .refreshable {
                                 feedViewModel.getArticles()
                             }
-                            .navigationDestination(for: SelectedArticleScreenType.self) { type in
-                                ArticleDetailViewScreen(activeStack:.feed)
-                            }
                         } else {
                             LoadingListing()
                         }
                     }
                     .animation(.spring(), value: feedViewModel.isLoading)
                 } else {
-                    LoginPlaceHolder(title: "see Feeds")
+                    LoginPlaceHolder(title: "see Feeds") 
                 }
+            }
+            .navigationDestination(for: SelectedArticleScreenType.self) { type in
+                ArticleDetailViewScreen(activeStack:.feed)
             }
             .navigationBarTitle("For You")
         }

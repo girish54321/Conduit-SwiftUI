@@ -26,7 +26,7 @@ class ArticleServices {
         endpoint: String,
         completion: @escaping(Result<updateArticleResponse,NetworkError>) -> Void){
             return RestAPIClient.request(type: updateArticleResponse.self,
-                                         endPoint: "\(ArticleApiEndpoint().createEndPoint(endPoint: .getSigaleArticle))\(endpoint)",
+                                         endPoint: "\(ArticleApiEndpoint().createEndPoint(endPoint: .getSignalArticle))\(endpoint)",
                                          method:.get,
                                          parameters:parameters,
                                          completion: completion

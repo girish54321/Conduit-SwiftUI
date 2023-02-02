@@ -6,8 +6,8 @@
 //
 
 import Foundation
-// MARK: - LoginScuccess
-struct LoginScuccess: Codable {
+// MARK: - LoginSuccess
+struct LoginSuccess: Codable {
     let user: User?
 }
 
@@ -21,8 +21,8 @@ struct LoginFail: Codable {
     let error: String?
 }
 
-// MARK: - CreateAccoutResponse
-struct CreateAccoutResponse: Codable {
+// MARK: - CreateAccountResponse
+struct CreateAccountResponse: Codable {
     let id: Int?
     let token: String?
 }

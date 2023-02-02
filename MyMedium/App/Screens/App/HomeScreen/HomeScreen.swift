@@ -22,7 +22,7 @@ struct HomeScreen: View {
             TradingArticleScreen()
                 .tabItem {
                     Image(systemName: AppIconsSF.trandingIcon)
-                    Text("Tranding")
+                    Text("Trading")
                 }
             NavigationView {
                 CreateArticleScreen(activeStack: .root)

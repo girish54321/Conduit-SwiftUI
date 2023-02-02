@@ -46,22 +46,9 @@ struct CreateAccountScreen: View {
             AppInputBox(
                 leftIcon: AppIconsSF.passwordIcon,
                 placeHolder: "Password",
-                keyboard: AppKeyBoardType.default,
+                passwordView:  SecureField("Password", text: $passwordText),
                 title:"Password", value: $passwordText
             )
-            HStack {
-                Spacer()
-                Button(action: {}) {
-                    Text("Forgot Password")
-                        .background(
-                            Rectangle()
-                                .fill(Color.accentColor)
-                                .frame(height:4)
-                                .cornerRadius(22)
-                                .offset(x: 0, y:14)
-                        )
-                }
-            }
             AppButton(text: screenType.isCreateAccount ?? true ? "Sign Up": "Login", clicked: {
                 if screenType.isCreateAccount == false {
                     UserLoginApi(email: emailText, password: passwordText)
