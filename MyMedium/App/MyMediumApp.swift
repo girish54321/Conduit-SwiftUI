@@ -1,6 +1,6 @@
 //
-//  MyMediumApp.swift
-//  MyMedium
+//  ConduitApp.swift
+//  Conduit
 //
 //  Created by na on 09/01/23.
 //
@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct MyMediumApp: App {
+struct ConduitApp: App {
     
     @AppStorage(AppConst.isSkipped) var isSkipped: Bool = false
     @AppStorage(AppConst.token) var token: String = ""

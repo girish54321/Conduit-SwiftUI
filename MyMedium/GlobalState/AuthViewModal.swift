@@ -1,6 +1,6 @@
 //
 //  AuthViewModal.swift
-//  MyMedium
+//  Conduit
 //
 //  Created by na on 11/01/23.
 //
@@ -54,6 +54,9 @@ class AuthViewModel: ObservableObject {
                 self.isLoggedIn = true
                 self.isLoading = false
             case .failure(let error):
+                self.userState = nil
+                self.isLoggedIn = false
+                self.isLoading = false
                 switch error {
                 case .NetworkErrorAPIError(let errorMessage):
                     print(errorMessage)

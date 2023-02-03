@@ -1,6 +1,6 @@
 //
 //  ArticleRow.swift
-//  MyMedium
+//  Conduit
 //
 //  Created by na on 16/01/23.
 //
@@ -31,9 +31,9 @@ struct ArticleRow: View {
                 Button(action: {
 
                 }) {
-                    Image(systemName: article?.favorite ?? false ? AppIconsSF.bookMarkFillIcon : AppIconsSF.bookMarkIcon)
+                    Image(systemName: article?.favorited ?? false ? AppIconsSF.bookMarkFillIcon : AppIconsSF.bookMarkIcon)
                         .frame(width: 30,height: 30)
-                        .animation(.spring(), value: article?.favorite ?? false)
+                        .animation(.spring(), value: article?.favorited ?? false)
                 }
                 .frame(width: 30,height: 30)
             }

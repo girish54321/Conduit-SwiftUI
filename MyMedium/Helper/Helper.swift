@@ -1,6 +1,6 @@
 //
 //  Helper.swift
-//  MyMedium
+//  Conduit
 //
 //  Created by na on 11/01/23.
 //

@@ -50,6 +50,7 @@
 		92FD1532296ECBAE00C8AE0E /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FD1531296ECBAE00C8AE0E /* AppViewModel.swift */; };
 		92FD1535296ED1EC00C8AE0E /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 92FD1534296ED1EC00C8AE0E /* AlertToast */; };
 		92FD1537296ED6E000C8AE0E /* AuthViewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FD1536296ED6E000C8AE0E /* AuthViewModal.swift */; };
+		F4407828298CF4830003F52A /* EditProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4407827298CF4830003F52A /* EditProfileScreen.swift */; };
 		F468C87C297D1E2F00DFB1BB /* FeedsArticleViewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468C87B297D1E2F00DFB1BB /* FeedsArticleViewModal.swift */; };
 		F46AAFBE297BFC3300B682C4 /* AppHTMLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46AAFBD297BFC3300B682C4 /* AppHTMLView.swift */; };
 		F46AAFC1297BFE0900B682C4 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = F46AAFC0297BFE0900B682C4 /* SwiftSoup */; };
@@ -110,6 +111,7 @@
 		92FD152E296EC71C00C8AE0E /* AuthModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModal.swift; sourceTree = "<group>"; };
 		92FD1531296ECBAE00C8AE0E /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
 		92FD1536296ED6E000C8AE0E /* AuthViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModal.swift; sourceTree = "<group>"; };
+		F4407827298CF4830003F52A /* EditProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileScreen.swift; sourceTree = "<group>"; };
 		F468C87B297D1E2F00DFB1BB /* FeedsArticleViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedsArticleViewModal.swift; sourceTree = "<group>"; };
 		F46AAFBD297BFC3300B682C4 /* AppHTMLView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHTMLView.swift; sourceTree = "<group>"; };
 		F46AAFC2297C170C00B682C4 /* ArticleViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewModal.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				9205B2C329769B2A004541EA /* ProfileScreen.swift */,
+				F4407827298CF4830003F52A /* EditProfileScreen.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -541,6 +544,7 @@
 				F49BFBCE2981575D00827288 /* CommentsView.swift in Sources */,
 				92E417B32979713F00899FD8 /* FavoritesServers.swift in Sources */,
 				92203B0E296E8F2C00A15F60 /* Helper.swift in Sources */,
+				F4407828298CF4830003F52A /* EditProfileScreen.swift in Sources */,
 				F4D66359297EB93E0045BDDA /* ProfileView.swift in Sources */,
 				9286E8F12977F4FF006E2987 /* ProfileModal.swift in Sources */,
 				F46AAFC3297C170C00B682C4 /* ArticleViewModal.swift in Sources */,

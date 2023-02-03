@@ -1,6 +1,6 @@
 //
 //  AppConst.swift
-//  MyMedium
+//  Conduit
 //
 //  Created by na on 10/01/23.
 //

@@ -1,6 +1,6 @@
 //
 //  CreateAccountScreen.swift
-//  MyMedium
+//  Conduit
 //
 //  Created by na on 10/01/23.
 //
@@ -22,7 +22,7 @@ struct CreateAccountScreen: View {
     var body: some View {
         VStack (spacing: 14) {
             VStack(alignment: .center,spacing: 8) {
-                Text("My Medium")
+                Text("Conduit")
                     .appTextStyle()
                 Text(screenType.isCreateAccount ?? true ? "Create account to join us." : "Login using Email And Password")
                     .font(.footnote)
@@ -76,15 +76,8 @@ struct CreateAccountScreen: View {
     
     func crateUserApi(email : String,password : String) {
         appViewModel.alertToast = AppMessage.loadingView
-        let postData: [String: Any] = [
-            "username": username,
-            "email" : email,
-            "password": password
-        ]
-        let user: [String:Any] = [
-            "user": postData
-        ]
-        AuthServices().createAccount(parameters: user){
+        let authParams = UserAuthParams(username: username, email: email, password: password)
+        AuthServices().createAccount(parameters: authParams.toDictionary()){
             result in
             switch result {
             case .success(_):
@@ -104,14 +97,10 @@ struct CreateAccountScreen: View {
     
     func UserLoginApi(email : String,password : String) {
         appViewModel.alertToast = AppMessage.loadingView
-        let postData: [String: Any] = [
-            "email" : email,
-            "password": password
-        ]
-        let user: [String:Any] = [
-            "user": postData
-        ]
-        AuthServices().userLogin(parameters: user){
+        let authParams = UserAuthParams(email: "girish54321@gmail.com", password: "girish54321")
+        print(authParams.toDictionary())
+        print("data")
+        AuthServices().userLogin(parameters: authParams.toDictionary()) {
             result in
             switch result {
             case .success(let data):

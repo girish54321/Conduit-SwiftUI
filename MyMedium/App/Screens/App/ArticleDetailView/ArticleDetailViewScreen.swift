@@ -1,6 +1,6 @@
 //
 //  ArticleDetailViewScreen.swift
-//  MyMedium
+//  Conduit
 //
 //  Created by na on 18/01/23.
 //
@@ -59,9 +59,10 @@ struct ArticleDetailViewScreen: View {
                     Text(Helpers.formatDateFormat(dateString: articleViewModal.selectedArticle.createdAt ?? ""))
                     Spacer()
                     Button(action: {
+                        print(articleViewModal.selectedArticle)
                         bookMarkArtie()
                     }) {
-                        Image(systemName: articleViewModal.selectedArticle.favorite ?? false ? AppIconsSF.bookMarkFillIcon : AppIconsSF.bookMarkIcon)
+                        Image(systemName: articleViewModal.selectedArticle.favorited ?? false ? AppIconsSF.bookMarkFillIcon : AppIconsSF.bookMarkIcon)
                             .frame(width: 30,height: 30)
                     }
                     .frame(width: 30,height: 30)
@@ -220,13 +221,14 @@ struct ArticleDetailViewScreen: View {
     
     func bookMarkArtie () {
         appViewModel.alertToast = AppMessage.loadingView
-        if (articleViewModal.selectedArticle.favorite == true) {
+        if (articleViewModal.selectedArticle.favorited == true) {
             articleViewModal.removeBookMarkArticle(onComplete: {data, error in
                 appViewModel.toggle()
                 if ((error) != nil) {
                     appViewModel.errorMessage = error!
                     return
                 }
+                print("1")
                 articleViewModal.updateSelectedArticle(article: data!)
                 feedViewModal.updateSelectedFeedArticle(article: data!)
             })
@@ -237,6 +239,7 @@ struct ArticleDetailViewScreen: View {
                     appViewModel.errorMessage = error!
                     return
                 }
+                print("12")
                 articleViewModal.updateSelectedArticle(article: data!)
                 feedViewModal.updateSelectedFeedArticle(article: data!)
             })

@@ -1,6 +1,6 @@
 //
 //  FeedScreen.swift
-//  MyMedium
+//  Conduit
 //
 //  Created by na on 17/01/23.
 //

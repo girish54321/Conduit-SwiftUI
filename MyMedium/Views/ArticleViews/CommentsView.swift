@@ -1,6 +1,6 @@
 //
 //  CommentsView.swift
-//  MyMedium
+//  Conduit
 //
 //  Created by Girish Parate on 25/01/23.
 //

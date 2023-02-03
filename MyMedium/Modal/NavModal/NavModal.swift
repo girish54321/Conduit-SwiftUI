@@ -1,6 +1,6 @@
 //
 //  NavModal.swift
-//  MyMedium
+//  Conduit
 //
 //  Created by na on 10/01/23.
 //
@@ -16,6 +16,23 @@ struct LoginScreenType: Identifiable, Hashable {
     let id = UUID()
     let title: String
     var isCreateAccount: Bool?
+}
+
+struct EditProfileScreenType: Identifiable, Hashable {
+    var identifier: String {
+        return UUID().uuidString
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        return hasher.combine(identifier)
+    }
+    
+    public static func == (lhs: EditProfileScreenType, rhs: EditProfileScreenType) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
+    
+    let id = UUID()
+    var data: UserUpdateParms
 }
 
 struct SelectedProfileScreenType: Identifiable, Hashable {

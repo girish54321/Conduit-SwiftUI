@@ -1,6 +1,6 @@
 //
 //  FavoritesServers.swift
-//  MyMedium
+//  Conduit
 //
 //  Created by na on 19/01/23.
 //

@@ -1,6 +1,6 @@
 //
 //  ArticleViewModal.swift
-//  MyMedium
+//  Conduit
 //
 //  Created by Girish Parate on 21/01/23.
 //
@@ -102,7 +102,7 @@ class ArticleViewModel: ObservableObject {
             res in
             switch res {
             case .success(let data):
-                print("bookMarkArticle")
+                print("bookMarkArticle Done")
                 onComplete(data.article!,nil)
             case .failure(let error):
                 switch error {

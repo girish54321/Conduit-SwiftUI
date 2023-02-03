@@ -1,6 +1,6 @@
 //
 //  Flitter.swift
-//  MyMedium
+//  Conduit
 //
 //  Created by NA on 20/01/23.
 //

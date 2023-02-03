@@ -1,6 +1,6 @@
 //
 //  WelcomeScreen.swift
-//  MyMedium
+//  Conduit
 //
 //  Created by na on 09/01/23.
 //
@@ -22,9 +22,9 @@ struct WelcomeScreen: View {
     var body: some View {
         NavigationStack (path: $presentedScreen) {
             VStack {
-                Image(systemName: "keyboard")
+                Image(uiImage: UIImage(imageLiteralResourceName: "AppIcon"))
                     .imageModifier()
-                    .frame(width: 120,height: 120)
+                    .frame(width: 150,height: 150)
                     .padding()
                     .overlay(
                         Circle()
@@ -45,13 +45,13 @@ struct WelcomeScreen: View {
                 VStack(alignment: .center,spacing: 19)  {
                     VStack(alignment: .leading,spacing: 10) {
                         HStack {
-                            Text("Medium Clone")
+                            Text("Conduit")
                                 .font(.largeTitle)
                                 .fontWeight(.heavy)
                                 .foregroundColor(Color.accentColor)
                             Spacer()
                         }
-                        Text("Medium Clone \nMother of all demo App")
+                        Text("Conduit \nMother of all demo App")
                             .foregroundColor(Color.gray)
                             .font(.footnote)
                     }

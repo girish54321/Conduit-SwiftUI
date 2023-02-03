@@ -1,6 +1,6 @@
 //
 //  ProfileScreen.swift
-//  MyMedium
+//  Conduit
 //
 //  Created by na on 17/01/23.
 //
@@ -20,7 +20,9 @@ struct ProfileScreen: View {
             VStack {
                 if authViewModel.isLoggedIn {
                     List {
-                        ProfileView(profileImage: authViewModel.userState?.user?.image ?? "https://media5.bollywoodhungama.in/wp-content/uploads/2021/03/WhatsApp-Image-2021-03-26-at-5.08.26-PM.jpeg", userName: authViewModel.userState?.user?.username ?? "username", bio: authViewModel.userState?.user?.bio ?? "Bio", email: authViewModel.userState?.user?.email ?? "Email")
+                        ProfileView(profileImage: authViewModel.userState?.user?.image ?? "https://media5.bollywoodhungama.in/wp-content/uploads/2021/03/WhatsApp-Image-2021-03-26-at-5.08.26-PM.jpeg", userName: authViewModel.userState?.user?.username ?? "username", bio: authViewModel.userState?.user?.bio ?? "Bio", email: authViewModel.userState?.user?.email ?? "Email", clicked: {
+                            goToEditProfileScreen()
+                        })
                         Section ("Article") {
                             if !authViewModel.isLoading {
                                 VStack {
@@ -93,8 +95,17 @@ struct ProfileScreen: View {
             .navigationDestination(for: SelectedArticleScreenType.self) { type in
                 ArticleDetailViewScreen(activeStack: .profile)
             }
+            .navigationDestination(for: EditProfileScreenType.self) { type in
+                EditProfileScreen(userparms: type.data)
+            }
         }
         
+    }
+    
+    func goToEditProfileScreen () {
+        let data = UserUpdateParms(email: authViewModel.userState?.user?.email ?? "", password: "", username: authViewModel.userState?.user?.username ?? "", bio: authViewModel.userState?.user?.bio ?? "", image: authViewModel.userState?.user?.image ?? "")
+        let screen = EditProfileScreenType(data: data)
+        profileStack.presentedScreen.append(screen)
     }
 }
 

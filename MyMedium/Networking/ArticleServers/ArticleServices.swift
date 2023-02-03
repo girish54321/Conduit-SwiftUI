@@ -1,6 +1,6 @@
 //
 //  ArticleServices.swift
-//  MyMedium
+//  Conduit
 //
 //  Created by na on 16/01/23.
 //

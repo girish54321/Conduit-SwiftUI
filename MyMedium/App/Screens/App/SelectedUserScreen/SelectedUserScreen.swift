@@ -1,6 +1,6 @@
 //
 //  SelectedUserScreen.swift
-//  MyMedium
+//  Conduit
 //
 //  Created by Girish Parate on 24/01/23.
 //
@@ -22,7 +22,7 @@ struct SelectedUserScreen: View {
             ProfileView(profileImage: profileViewModal.selectedAuthor.image ?? "https://media5.bollywoodhungama.in/wp-content/uploads/2021/03/WhatsApp-Image-2021-03-26-at-5.08.26-PM.jpeg",
                         userName: profileViewModal.selectedAuthor.username ?? "username",
                         bio: profileViewModal.selectedAuthor.username ?? "Bio",
-                        email: profileViewModal.selectedAuthor.username ?? "Email"
+                        email: profileViewModal.selectedAuthor.username ?? "Email", clicked: {}
             )
             Section ("articles") {
                 if !profileViewModal.isLoading {

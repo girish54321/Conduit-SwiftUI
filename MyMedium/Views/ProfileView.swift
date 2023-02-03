@@ -1,6 +1,6 @@
 //
 //  ProfileView.swift
-//  MyMedium
+//  Conduit
 //
 //  Created by Girish Parate on 23/01/23.
 //
@@ -13,6 +13,8 @@ struct ProfileView: View {
     var userName: String
     var bio: String
     var email: String
+    
+    var clicked: (() -> Void)
     
     var body: some View {
         Section {
@@ -33,6 +35,12 @@ struct ProfileView: View {
                             .padding(.bottom)
                     }
                     .padding(.leading,3)
+                    Spacer()
+                    Button(action: {
+                      clicked()
+                    }) {
+                        Text("Edit")
+                    }
                 }
                 Text(bio)
             }
@@ -41,6 +49,8 @@ struct ProfileView: View {
 }
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView(profileImage: "https://media5.bollywoodhungama.in/wp-content/uploads/2021/03/WhatsApp-Image-2021-03-26-at-5.08.26-PM.jpeg", userName: "User Name", bio: "Bio", email: "Email")
+        ProfileView(profileImage: "https://media5.bollywoodhungama.in/wp-content/uploads/2021/03/WhatsApp-Image-2021-03-26-at-5.08.26-PM.jpeg", userName: "User Name", bio: "Bio", email: "Email", clicked: {
+            
+        })
     }
 }

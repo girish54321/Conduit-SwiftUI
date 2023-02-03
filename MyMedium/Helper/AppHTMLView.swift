@@ -1,6 +1,6 @@
 //
 //  AppHTMLView.swift
-//  MyMedium
+//  Conduit
 //
 //  Created by Girish Parate on 21/01/23.
 //
