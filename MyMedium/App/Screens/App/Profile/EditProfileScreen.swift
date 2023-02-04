@@ -11,8 +11,11 @@ let plachHolder = UserUpdateParms(email: "", password: "", username: "", bio: ""
 
 struct EditProfileScreen: View {
     @State var userparms: UserUpdateParms = plachHolder
+    @EnvironmentObject var appViewModel: AppViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
-    
+    @EnvironmentObject var profileStack: ProfileNavigationStackViewModal
+    @AppStorage(AppConst.isSkipped) var isSkipped: Bool = false
+    @AppStorage(AppConst.token) var token: String = ""
     var body: some View {
         ScrollView {
             VStack {
@@ -30,31 +33,51 @@ struct EditProfileScreen: View {
                     leftIcon: AppIconsSF.userIcon,
                     placeHolder: "User Name",
                     keyboard: AppKeyBoardType.default,
-                    title:"User Name", value: $userparms.username)
+                    title:"User Name", value: $userparms.username.toUnwrapped(defaultValue: ""))
                 AppInputBox(
                     leftIcon: AppIconsSF.emailIcon,
                     placeHolder: "Email",
                     keyboard: AppKeyBoardType.emailAddress,
-                    title:"Email", value: $userparms.email)
+                    title:"Email", value: $userparms.email.toUnwrapped(defaultValue: ""))
                 AppInputBox(
                     leftIcon: AppIconsSF.userIcon,
                     placeHolder: "Bio",
                     keyboard: AppKeyBoardType.default,
-                    title:"Bio", value: $userparms.bio)
+                    title:"Bio", value: $userparms.bio.toUnwrapped(defaultValue: ""))
                 AppInputBox(
                     leftIcon: AppIconsSF.passwordIcon,
                     placeHolder: "Password",
-                    passwordView: SecureField("Password", text: $userparms.password),
+                    passwordView: SecureField("Password", text: $userparms.password.toUnwrapped(defaultValue: "")),
                     keyboard: AppKeyBoardType.default,
-                    title:"Password", value: $userparms.password)
+                    title:"Password", value: $userparms.password.toUnwrapped(defaultValue: ""))
             }
             .padding()
             AppButton(text: "Save", clicked: {
-                
+                updateProfile()
             })
             .padding()
         }
             .navigationTitle("Profile")
+    }
+    
+    func updateProfile () {
+        AuthServices().updateAccount(parameters: userparms.toDictionary(), completion: { res in
+            switch res {
+            case .success(_):
+                profileStack.presentedScreen.removeLast()
+                isSkipped = false
+                token = ""
+            case .failure(let error):
+                switch error {
+                case .NetworkErrorAPIError(let errorMessage):
+                    appViewModel.toggle()
+                    appViewModel.errorMessage = errorMessage
+                case .BadURL: break
+                case .NoData: break
+                case .DecodingError: break
+                }
+            }
+        })
     }
 }
 
@@ -63,6 +86,8 @@ struct EditProfileScreen_Previews: PreviewProvider {
         NavigationView {
             EditProfileScreen()
                 .environmentObject(AuthViewModel())
+                .environmentObject(AppViewModel())
+                .environmentObject(ProfileNavigationStackViewModal())
         }
     }
 }

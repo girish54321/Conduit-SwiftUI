@@ -42,4 +42,15 @@ class AuthServices {
                                          completion: completion
             )
         }
+    
+    func updateAccount (
+        parameters: Parameters?,
+        completion: @escaping(Result<LoginSuccess,NetworkError>) -> Void){
+            return RestAPIClient.request(type: LoginSuccess.self,
+                                         endPoint: AuthApiEndpoint().createEndPoint(endPoint: .editProfile),
+                                         method:.put,
+                                         parameters:parameters,
+                                         completion: completion
+            )
+        }
 }

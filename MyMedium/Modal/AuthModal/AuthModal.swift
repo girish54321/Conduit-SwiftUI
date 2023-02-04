@@ -27,27 +27,6 @@ struct CreateAccountResponse: Codable {
     let token: String?
 }
 
-//struct ArticleListParams {
-//    var tag: String?
-//    var author: String?
-//    var favorite: String?
-//    var limit: String?
-//    var offset: String?
-//
-//    func toDictionary() -> [String: Any] {
-//        let params = [
-//            "tag": tag,
-//            "author": author,
-//            "favorite": favorite,
-//            "limit": limit,
-//            "offset": offset
-//        ]
-//        return params.compactMapValues { $0 }
-//    }
-//}
-//Post
-
-
 struct UserAuthParams {
     var username: String?
     var email: String
@@ -60,10 +39,10 @@ struct UserAuthParams {
 }
 
 struct UserUpdateParms: Codable {
-    var email: String
-    var password: String
-    var username: String
-    var bio: String
+    var email: String?
+    var password: String?
+    var username: String?
+    var bio: String?
     var image: String
     
     func toDictionary() -> [String: Any] {
