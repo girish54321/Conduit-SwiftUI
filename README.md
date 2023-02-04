@@ -10,7 +10,7 @@ Conduit is a fully-functional and feature-rich blogging platform that provides a
 - Customize the appearance of your posts with Markdown formatting
 - Interact with other users by leaving comments and reactions
 - Discover new content with a personalized feed and trending articles
-- Stay up-to-date with notifications for new articles, comments, and reactions
+- Stay up-to-date new articles, comments, and reactions
 
 ## Getting Started
 

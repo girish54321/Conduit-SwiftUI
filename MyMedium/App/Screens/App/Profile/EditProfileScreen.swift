@@ -48,7 +48,6 @@ struct EditProfileScreen: View {
                     leftIcon: AppIconsSF.passwordIcon,
                     placeHolder: "Password",
                     passwordView: SecureField("Password", text: $userparms.password.toUnwrapped(defaultValue: "")),
-                    keyboard: AppKeyBoardType.default,
                     title:"Password", value: $userparms.password.toUnwrapped(defaultValue: ""))
             }
             .padding()
@@ -57,7 +56,7 @@ struct EditProfileScreen: View {
             })
             .padding()
         }
-            .navigationTitle("Profile")
+            .navigationTitle("Edit Profile")
     }
     
     func updateProfile () {

@@ -39,6 +39,7 @@ struct AppInputBox: View {
                     VStack {
                         if keyboard != nil{
                             TextField(placeHolder, text: $value)
+                                .textInputAutocapitalization(.never)
                                 .keyboardType(UIKeyboardType(rawValue: keyboard!) ?? .default)
                         } else {
                             passwordView
