@@ -1,12 +1,14 @@
 //
 //  UIHelper.swift
-//  MyMedium
+//  Conduit
 //
-//  Created by neosoft on 09/01/23.
+//  Created by na on 09/01/23.
 //
 
 import Foundation
 import SwiftUI
+import AlertToast
+import HTMLEntities
 
 struct TitleModifier: ViewModifier {
     func body(content: Content) -> some View {
@@ -17,7 +19,7 @@ struct TitleModifier: ViewModifier {
 }
 
 extension Text {
-    func appTestStyle() -> some View {
+    func appTextStyle() -> some View {
         self
             .font(.title)
             .fontWeight(.heavy)
@@ -25,8 +27,27 @@ extension Text {
     }
 }
 
+extension VStack {
+    func inputTextStyle() -> some View {
+        self
+            .background(
+                Rectangle()
+                    .fill(Color.gray.opacity(0.05))
+                    .frame(height: 55)
+                    .cornerRadius(4)
+            )
+    }
+}
+
 extension Image {
     func imageModifier() -> some View {
+        self
+            .resizable()
+//            .scaledToFit()
+            .scaledToFill()
+    }
+    
+    func imageModifierCircle() -> some View {
         self
             .resizable()
             .scaledToFit()
@@ -49,6 +70,13 @@ extension Image {
 }
 
 struct AppMessage {
-//    static let loadindView = AlertToast(type: .loading, title: "Loading")
+    static let loadingView = AlertToast(type: .loading, title: "Loading")
 }
 
+struct UIHelper {
+    
+    func formateHelptext(text: String) -> String {
+        return text.htmlUnescape()
+    }
+    
+}

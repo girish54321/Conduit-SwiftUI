@@ -1,17 +1,36 @@
 //
-//  MyMediumApp.swift
-//  MyMedium
+//  ConduitApp.swift
+//  Conduit
 //
-//  Created by neosoft on 09/01/23.
+//  Created by na on 09/01/23.
 //
 
 import SwiftUI
 
 @main
-struct MyMediumApp: App {
+struct ConduitApp: App {
+    
+    @AppStorage(AppConst.isSkipped) var isSkipped: Bool = false
+    @AppStorage(AppConst.token) var token: String = ""
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if isSkipped == true || token != "" {
+                HomeScreen()
+                    .environmentObject(AppViewModel())
+                    .environmentObject(AuthViewModel())
+                    .environmentObject(FeedNavigationStackViewModal())
+                    .environmentObject(TradingNavigationStackViewModal())
+                    .environmentObject(ArticleViewModel())
+                    .environmentObject(FeedArticleViewModel())
+                    .environmentObject(CommentsViewModel())
+                    .environmentObject(ProfileViewModel())
+                    .environmentObject(ProfileNavigationStackViewModal())
+            } else {
+                WelcomeScreen()
+                    .environmentObject(AppViewModel())
+                    .environmentObject(AuthViewModel())
+            }
         }
     }
 }
