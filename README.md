@@ -19,7 +19,7 @@ To run Conduit on your local machine, follow these steps:
 1. Clone this repository to your local machine
 
 ```bash
-  npm run deploy
+  git clone https://github.com/girish54321/Conduit-SwiftUI.git
 ```
 
 ## Contributing
