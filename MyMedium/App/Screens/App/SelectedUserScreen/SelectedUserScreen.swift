@@ -19,10 +19,10 @@ struct SelectedUserScreen: View {
     
     var body: some View {
         List {
-            ProfileView(profileImage: profileViewModal.selectedAuthor.image ?? "https://media5.bollywoodhungama.in/wp-content/uploads/2021/03/WhatsApp-Image-2021-03-26-at-5.08.26-PM.jpeg",
+            ProfileView(profileImage: profileViewModal.selectedAuthor.image ?? AppConst.imagePath,
                         userName: profileViewModal.selectedAuthor.username ?? "username",
                         bio: profileViewModal.selectedAuthor.username ?? "Bio",
-                        email: profileViewModal.selectedAuthor.username ?? "Email", clicked: {}
+                        email: profileViewModal.selectedAuthor.username ?? "Email", clicked: nil
             )
             Section ("articles") {
                 if !profileViewModal.isLoading {

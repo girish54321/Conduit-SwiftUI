@@ -14,7 +14,7 @@ struct ProfileView: View {
     var bio: String
     var email: String
     
-    var clicked: (() -> Void)
+    var clicked: (() -> Void)?
     
     var body: some View {
         Section {
@@ -36,10 +36,14 @@ struct ProfileView: View {
                     }
                     .padding(.leading,3)
                     Spacer()
-                    Button(action: {
-                      clicked()
-                    }) {
-                        Text("Edit")
+                    if clicked != nil {
+                        Button(action: {
+                            clicked!()
+                        }) {
+                            Text("Edit")
+                        }
+                    } else {
+                        /*@START_MENU_TOKEN@*/EmptyView()/*@END_MENU_TOKEN@*/
                     }
                 }
                 Text(bio)
@@ -49,7 +53,7 @@ struct ProfileView: View {
 }
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView(profileImage: "https://media5.bollywoodhungama.in/wp-content/uploads/2021/03/WhatsApp-Image-2021-03-26-at-5.08.26-PM.jpeg", userName: "User Name", bio: "Bio", email: "Email", clicked: {
+        ProfileView(profileImage: AppConst.imagePath, userName: "User Name", bio: "Bio", email: "Email", clicked: {
             
         })
     }

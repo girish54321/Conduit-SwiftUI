@@ -21,7 +21,7 @@ struct EditProfileScreen: View {
             VStack {
                 HStack {
                     Spacer()
-                    AppNetworkImage(imageUrl: authViewModel.userState?.user?.image ?? "https://media5.bollywoodhungama.in/wp-content/uploads/2021/03/WhatsApp-Image-2021-03-26-at-5.08.26-PM.jpeg")
+                    AppNetworkImage(imageUrl: authViewModel.userState?.user?.image ?? AppConst.imagePath)
                         .frame(width: 110, height: 110)
                         .clipShape(
                             RoundedRectangle(cornerRadius: 12)

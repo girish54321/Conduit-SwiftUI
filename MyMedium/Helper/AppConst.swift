@@ -17,6 +17,7 @@ struct AppConst {
     static let token = "JWT_token"
     static let isSkipped = "SIKPED"
     static let emailPattern = #"^\S+@\S+\.\S+$"#
+    static let imagePath = "https://media5.bollywoodhungama.in/wp-content/uploads/2021/03/WhatsApp-Image-2021-03-26-at-5.08.26-PM.jpeg"
     
     struct ApiConst {
          let apiEndPoint = "https://api.realworld.io/api/"

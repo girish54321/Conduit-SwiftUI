@@ -20,7 +20,7 @@ struct ProfileScreen: View {
             VStack {
                 if authViewModel.isLoggedIn {
                     List {
-                        ProfileView(profileImage: authViewModel.userState?.user?.image ?? "https://media5.bollywoodhungama.in/wp-content/uploads/2021/03/WhatsApp-Image-2021-03-26-at-5.08.26-PM.jpeg", userName: authViewModel.userState?.user?.username ?? "username", bio: authViewModel.userState?.user?.bio ?? "Bio", email: authViewModel.userState?.user?.email ?? "Email", clicked: {
+                        ProfileView(profileImage: authViewModel.userState?.user?.image ?? AppConst.imagePath, userName: authViewModel.userState?.user?.username ?? "username", bio: authViewModel.userState?.user?.bio ?? "Bio", email: authViewModel.userState?.user?.email ?? "Email", clicked: {
                             goToEditProfileScreen()
                         })
                         Section ("Article") {
@@ -56,7 +56,6 @@ struct ProfileScreen: View {
                 } else {
                     LoginPlaceHolder(title: "see Profile")
                 }
-                
             }
             .alert(isPresented: $showLogOutAlert) {
                 Alert(title: Text("Log out?"),
