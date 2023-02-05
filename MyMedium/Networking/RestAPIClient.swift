@@ -21,9 +21,7 @@ class RestAPIClient {
                                     costumeCompletion: ((HTTPURLResponse?) -> Void)? = nil) {
         
         @AppStorage(AppConst.token) var token: String = ""
-        print(endPoint)
         let encodedURL = endPoint.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        print(encodedURL)
         var headers: HTTPHeaders? = nil
         if(token != ""){
             headers = [
@@ -32,102 +30,96 @@ class RestAPIClient {
             ]
         } else {
             headers = nil
-        }//encoding: URLEncoding(destination: .queryString)
+        }
         AF.request(encodedURL,method: method,parameters: parameters,headers: headers)
             .response { response in
-                DispatchQueue.main.async {
-                    
-                    if (costumeCompletion != nil) {
-                        costumeCompletion!(response.response)
-                        return
-                    }
-                    
-                    //for no data
-                    print(response)
-                    let statusCode = response.response?.statusCode
-                    print("Give me jsone")
-                    print(statusCode)
-                    print(response.data)
-//                    do {
-//                        let json = try JSONSerialization.jsonObject(with: response.data!) as? [String: Any]
-//                        print(json)
-//                    }catch{
-//                        print(error)
-//                    }
-                    if(statusCode == 204){
-                        completion(.success("Done" as! T))
-                        return
-                    }
-                    // If statusCode == 200 || 2001
-                    if(statusCode == 200 || statusCode == 201){
-                        let result = response.result
-                        switch result {
-                        case .success(let data):
-                            guard let data = data else {
-                                completion(.failure(.NoData))
-                                return //https://api.realworld.io/api/profiles/Rahul%20G/follow
-                            }
-                            do {
-                                let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
-                                print(json)
-                            }catch{
-                                print(error)
-                            }
-//                             JSON TO Types
-                            guard let obj = try? JSONDecoder().decode(T.self, from: data) else {
-                                completion(.failure(.DecodingError))
+                ApiError().handleError(response: response) { result in
+                    switch result {
+                    case .success(let value):
+                        print("Success: \(value)")
+                        //                            value.
+                        DispatchQueue.main.async {
+                            if (costumeCompletion != nil) {
+                                costumeCompletion!(response.response)
                                 return
                             }
-//
-                            completion(.success(obj))
-                        case .failure(let error):
-                            completion(.failure(.NetworkErrorAPIError(error.localizedDescription)))
-                        }
-                    } else if(statusCode == 401 || statusCode == 403 || statusCode == 404 || statusCode == 422){
-                        print("stat")
-                        guard let jsonData = response.data else {
-                            return
-                        }
-                        do {
-                            let json = try JSONSerialization.jsonObject(with: jsonData) as? [String: Any]
-                            let error = removeSpecialCharsFromString(text: "\(json!["errors"] ?? "Error")")
-                            var errorList:[String] = []
-                            let errorData = JSON(json!["errors"])
-                            errorData.dictionaryValue.forEach({
-                                print("pring in loop data2")
-                                var sunError:[String] = []
-                                var finalSubError = ""
-                                errorData[$0.key].forEach ({val in
-                                    sunError.append(val.1.rawValue as! String)
-                                })
-                                finalSubError  = sunError.joined(separator: ", ")
-                                errorList.append($0.key + " " + finalSubError)
-                            })
-                            var displayError: String = errorList.joined(separator: ", ")
-                            let dynamicKeys = json!.keys
-                            completion(.failure(.NetworkErrorAPIError(displayError.capitalized)))
-                        } catch {
-                            print("Error deserializing JSON: \(error)")
-                            completion(.failure(.NetworkErrorAPIError("Error deserializing JSON")))
-                        }
-                    } else {
-                        guard let jsonData = response.data else {
-                            return
-                        }
-                        do {
-                            let json = try JSONSerialization.jsonObject(with: jsonData) as? [String: Any]
-                            let error = removeSpecialCharsFromString(text: "\(json!["errors"] ?? "Error")")
-                            completion(.failure(.NetworkErrorAPIError(error as! String)))
-                        } catch {
-                            print("Error deserializing JSON: \(error)")
-                            if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
-                                print("Data: \(utf8Text)")
-                                completion(.failure(.NetworkErrorAPIError("Error: \(utf8Text)")))
+                            let statusCode = response.response?.statusCode
+                            if(statusCode == 204){
+                                completion(.success("Done" as! T))
+                                return
                             }
-                            
+                            if(statusCode == 200 || statusCode == 201){
+                                let result = response.result
+                                switch result {
+                                case .success(let data):
+                                    guard let data = data else {
+                                        completion(.failure(.NoData))
+                                        return
+                                    }
+                                    do {
+                                        let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+                                    } catch {
+                                        print(error)
+                                    }
+                                    // JSON TO Types
+                                    guard let obj = try? JSONDecoder().decode(T.self, from: data) else {
+                                        completion(.failure(.DecodingError))
+                                        return
+                                    }
+                                    completion(.success(obj))
+                                case .failure(let error):
+                                    completion(.failure(.NetworkErrorAPIError(error.localizedDescription)))
+                                }
+                            } else if(statusCode == 401 || statusCode == 403 || statusCode == 404 || statusCode == 422){
+                                guard let jsonData = response.data else {
+                                    return
+                                }
+                                do {
+                                    let json = try JSONSerialization.jsonObject(with: jsonData) as? [String: Any]
+                                    let error = removeSpecialCharsFromString(text: "\(json!["errors"] ?? "Error")")
+                                    var errorList:[String] = []
+                                    let errorData = JSON(json!["errors"])
+                                    errorData.dictionaryValue.forEach({
+                                        var sunError:[String] = []
+                                        var finalSubError = ""
+                                        errorData[$0.key].forEach ({val in
+                                            sunError.append(val.1.rawValue as! String)
+                                        })
+                                        finalSubError  = sunError.joined(separator: ", ")
+                                        errorList.append($0.key + " " + finalSubError)
+                                    })
+                                    let displayError: String = errorList.joined(separator: ", ")
+                                    let dynamicKeys = json!.keys
+                                    completion(.failure(.NetworkErrorAPIError(displayError.capitalized)))
+                                } catch {
+                                    print("Error deserializing JSON: \(error)")
+                                    completion(.failure(.NetworkErrorAPIError("Error deserializing JSON")))
+                                }
+                            } else {
+                                guard let jsonData = response.data else {
+                                    return
+                                }
+                                do {
+                                    let json = try JSONSerialization.jsonObject(with: jsonData) as? [String: Any]
+                                    let error = removeSpecialCharsFromString(text: "\(json!["errors"] ?? "Error")")
+                                    completion(.failure(.NetworkErrorAPIError(error )))
+                                } catch {
+                                    print("Error deserializing JSON: \(error)")
+                                    if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                                        completion(.failure(.NetworkErrorAPIError("Error: \(utf8Text)")))
+                                    }
+                                    
+                                }
+                            }
                         }
+                    case .failure(let error):
+                        print("You are a failer")
+                        
+                        print("Failure maza error: \(error.localizedDescription)")
+                        completion(.failure(.NetworkErrorAPIError(error.localizedDescription)))
                     }
                 }
+                
             }
         func removeSpecialCharsFromString(text: String) -> String {
             let okayChars = Set("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ1234567890+-.!_")

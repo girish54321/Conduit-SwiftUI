@@ -11,24 +11,24 @@ import SwiftUI
 
 class FeedArticleViewModel: ObservableObject {
     
-    @Published var articleData: FeedArticle? = nil
+    @Published var articleData: FeedArticle? = FeedArticle(articles: [],articlesCount: 0)
     @Published var isLoading = true
+    @Published var flitterParameters: ArticleListParams = ArticleListParams(limit: "10", offset: "0")
     
     init() {
         getArticles()
     }
     
     func getArticles() {
+        print(flitterParameters.toDictionary())
         isLoading = true
-        let parameters: [String: Any] = [
-            "limit":"50",
-        ]
-        ArticleServices().getFeedArticle(parameters: parameters){
+        ArticleServices().getFeedArticle(parameters: flitterParameters.toDictionary()){
             result in
             self.isLoading = false
             switch result {
             case .success(let data):
-                self.articleData = data
+                self.articleData?.articlesCount = data.articlesCount
+                self.articleData?.articles?.append(contentsOf: data.articles!)
             case .failure(let error):
                 switch error {
                 case .NetworkErrorAPIError(let errorMessage):
@@ -44,10 +44,14 @@ class FeedArticleViewModel: ObservableObject {
         }
     }
     
+    func reloadArticles () {
+        flitterParameters = ArticleListParams(limit: "10", offset: "0")
+        getArticles()
+    }
+    
     
     func updateSelectedFeedArticle (article: Article)  {
         if let row = articleData?.articles!.firstIndex(where: {$0.slug == article.slug}) {
-            print("index at feed")
             articleData?.articles?[row] = article
         }
     }

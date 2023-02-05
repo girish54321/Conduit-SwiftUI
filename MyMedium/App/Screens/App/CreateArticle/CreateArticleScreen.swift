@@ -96,7 +96,6 @@ struct CreateArticleScreen: View {
             case .failure(let error):
                 switch error {
                 case .NetworkErrorAPIError(let errorMessage):
-                    print("3")
                     print(errorMessage)
                     appViewModel.errorMessage = errorMessage
                 case .BadURL:
@@ -116,14 +115,12 @@ struct CreateArticleScreen: View {
             result in
             switch result {
             case .success(_):
-                print("Done")
                 article = PlaceHolder
                 feedViewModal.getArticles()
                 articleViewModal.getArticles()
             case .failure(let error):
                 switch error {
                 case .NetworkErrorAPIError(let errorMessage):
-                    print("3")
                     print(errorMessage)
                     appViewModel.errorMessage = errorMessage
                 case .BadURL:

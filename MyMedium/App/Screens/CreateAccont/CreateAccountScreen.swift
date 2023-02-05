@@ -97,9 +97,7 @@ struct CreateAccountScreen: View {
     
     func UserLoginApi(email : String,password : String) {
         appViewModel.alertToast = AppMessage.loadingView
-        let authParams = UserAuthParams(email: "girish54321@gmail.com", password: "girish54321")
-        print(authParams.toDictionary())
-        print("data")
+        let authParams = UserAuthParams(email: email, password: password)
         AuthServices().userLogin(parameters: authParams.toDictionary()) {
             result in
             switch result {

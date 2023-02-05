@@ -38,10 +38,8 @@ struct AppButton: View {
     struct AppButton_Previews: PreviewProvider {
         static var previews: some View {
             AppButton(text: "Login", rightIcon: Image(systemName: "plus"), clicked: {
-                print("Clicked!")
             }).previewLayout(.sizeThatFits).padding()
             AppButton(text: "Login",rightIcon: Image(systemName: "plus"), clicked: {
-                print("Clicked!")
             }).previewLayout(.sizeThatFits).padding()
         }
     }

@@ -15,24 +15,40 @@ struct TradingArticleScreen: View {
     var body: some View {
         NavigationStack (path: $navStack.presentedScreen) {
             VStack {
-                if !articleViewModel.isLoading {
-                    List(articleViewModel.articleData?.articles ?? []) { article in
-                        Button (action: {
-                            let data = SelectedArticleScreenType(selectedArticle: article)
-                            navStack.presentedScreen.append(data)
-                            articleViewModel.selectedArticle = article
-                        }, label: {
-                            HStack {
-                                ArticleRow(article: article)
+                List {
+                    Section {
+                        ForEach(articleViewModel.articleData?.articles ?? []) { article in
+                            Button (action: {
+                                let data = SelectedArticleScreenType(selectedArticle: article)
+                                navStack.presentedScreen.append(data)
+                                articleViewModel.selectedArticle = article
+                            }, label: {
+                                HStack {
+                                    ArticleRow(article: article)
+                                }
+                            })
+                            .buttonStyle(.plain)
+                            .onAppear {
+                                if (articleViewModel.articleData?.articlesCount ?? 0 <= articleViewModel.articleData?.articles?.count ?? 0){
+                                    print("no api call")
+                                    return
+                                }
+                                if (article.id == articleViewModel.articleData?.articles?.last?.id){
+                                    articleViewModel.flitterParameters.offset = String(Int(articleViewModel.articleData?.articles?.count ?? 0))
+                                    articleViewModel.getArticles()
+                                }
                             }
-                        })
-                        .buttonStyle(.plain)
+                        }
+                        if articleViewModel.isLoading {
+                            VStack {
+                                LoadingArticleItem(article: DummyData().data)
+                                LoadingArticleItem(article: DummyData().data)
+                            }
+                        }
                     }
-                    .refreshable {
-                        articleViewModel.getArticles()
-                    }
-                } else {
-                    LoadingListing()
+                }
+                .refreshable {
+                    articleViewModel.reloadArticles()
                 }
             }
             .animation(.spring(), value: articleViewModel.isLoading)

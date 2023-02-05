@@ -18,10 +18,9 @@ struct FeedScreen: View {
     var body: some View {
         NavigationStack (path: $navStack.presentedScreen) {
             VStack {
-                if authViewModel.isLoggedIn {
-                    VStack {
-                        if !feedViewModel.isLoading  {
-                            List(feedViewModel.articleData?.articles ?? []) { article in
+                    List {
+                        Section {
+                            ForEach(feedViewModel.articleData?.articles ?? []){ article in
                                 Button (action: {
                                     let data = SelectedArticleScreenType(selectedArticle: article)
                                     navStack.presentedScreen.append(data)
@@ -32,19 +31,30 @@ struct FeedScreen: View {
                                     }
                                 })
                                 .buttonStyle(.plain)
+                                .onAppear {
+                                    if (feedViewModel.articleData?.articlesCount ?? 0 <= feedViewModel.articleData?.articles?.count ?? 0){
+                                        print("no api call")
+                                        return
+                                    }
+                                    if (article.id == feedViewModel.articleData?.articles?.last?.id){
+                                        feedViewModel.flitterParameters.offset = String(Int(feedViewModel.articleData?.articles?.count ?? 0))
+                                        feedViewModel.getArticles()
+                                    }
+                                }
                             }
-                            .refreshable {
-                                feedViewModel.getArticles()
+                            if feedViewModel.isLoading {
+                                VStack {
+                                    LoadingArticleItem(article: DummyData().data)
+                                    LoadingArticleItem(article: DummyData().data)
+                                }
                             }
-                        } else {
-                            LoadingListing()
                         }
                     }
-                    .animation(.spring(), value: feedViewModel.isLoading)
-                } else {
-                    LoginPlaceHolder(title: "see Feeds") 
-                }
+                    .refreshable {
+                        feedViewModel.reloadArticles()
+                    }
             }
+            .animation(.spring(), value: feedViewModel.isLoading)
             .navigationDestination(for: SelectedArticleScreenType.self) { type in
                 ArticleDetailViewScreen(activeStack:.feed)
             }
