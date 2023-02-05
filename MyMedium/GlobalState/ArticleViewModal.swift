@@ -80,6 +80,7 @@ class ArticleViewModel: ObservableObject {
     }
     
     func getArticles() {
+        print(flitterParameters.toDictionary())
         isLoading = true
         ArticleServices().getTrendingArticle(parameters: flitterParameters.toDictionary()){
             result in
@@ -104,7 +105,12 @@ class ArticleViewModel: ObservableObject {
         }
     }
     
+    func resetArticleList () {
+        articleData = TrendingArticles(articles: [],articlesCount: 0)
+    }
+    
     func reloadArticles () {
+        resetArticleList()
         flitterParameters = ArticleListParams(limit: "10", offset: "0")
         getArticles()
     }

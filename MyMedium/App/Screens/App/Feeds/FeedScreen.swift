@@ -32,6 +32,9 @@ struct FeedScreen: View {
                                 })
                                 .buttonStyle(.plain)
                                 .onAppear {
+                                    if(feedViewModel.isLoading){
+                                        return
+                                    }
                                     if (feedViewModel.articleData?.articlesCount ?? 0 <= feedViewModel.articleData?.articles?.count ?? 0){
                                         print("no api call")
                                         return

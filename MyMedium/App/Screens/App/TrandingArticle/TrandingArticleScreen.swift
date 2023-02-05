@@ -29,6 +29,9 @@ struct TradingArticleScreen: View {
                             })
                             .buttonStyle(.plain)
                             .onAppear {
+                                if(articleViewModel.isLoading){
+                                    return
+                                }
                                 if (articleViewModel.articleData?.articlesCount ?? 0 <= articleViewModel.articleData?.articles?.count ?? 0){
                                     print("no api call")
                                     return
@@ -56,16 +59,16 @@ struct TradingArticleScreen: View {
                 FlitterScreen()
             })
             .navigationBarTitle("Articles")
-            .navigationDestination(for: SelectedArticleScreenType.self) { type in
-                ArticleDetailViewScreen(activeStack: .article)
-            }
             .navigationBarItems(
                 trailing:
                     Button(action: {
                         articleViewModel.showFlitterScreen.toggle()
                     }) {
-                        Image(systemName: "slider.below.rectangle")
+                        Image(systemName: AppIconsSF.filtterIcon)
                     }            )
+            .navigationDestination(for: SelectedArticleScreenType.self) { type in
+                ArticleDetailViewScreen(activeStack: .article)
+            }
         }
     }
     
