@@ -18,8 +18,9 @@ struct FeedScreen: View {
     var body: some View {
         NavigationStack (path: $navStack.presentedScreen) {
             VStack {
-                    List {
-                        Section {
+                AppListViewScreen(
+                    forEach: {
+                        VStack {
                             ForEach(feedViewModel.articleData?.articles ?? []){ article in
                                 Button (action: {
                                     let data = SelectedArticleScreenType(selectedArticle: article)
@@ -31,31 +32,29 @@ struct FeedScreen: View {
                                     }
                                 })
                                 .buttonStyle(.plain)
-                                .onAppear {
-                                    if(feedViewModel.isLoading){
-                                        return
-                                    }
-                                    if (feedViewModel.articleData?.articlesCount ?? 0 <= feedViewModel.articleData?.articles?.count ?? 0){
-                                        print("no api call")
-                                        return
-                                    }
-                                    if (article.id == feedViewModel.articleData?.articles?.last?.id){
-                                        feedViewModel.flitterParameters.offset = String(Int(feedViewModel.articleData?.articles?.count ?? 0))
-                                        feedViewModel.getArticles()
-                                    }
-                                }
-                            }
-                            if feedViewModel.isLoading {
-                                VStack {
-                                    LoadingArticleItem(article: DummyData().data)
-                                    LoadingArticleItem(article: DummyData().data)
-                                }
                             }
                         }
-                    }
-                    .refreshable {
+                    }, headerView: {
+                     
+                    }, footerView: {
+                        if feedViewModel.isLoading {
+                            VStack {
+                                LoadingArticleItem(article: DummyData().data)
+                                LoadingArticleItem(article: DummyData().data)
+                            }
+                        }
+                    }, onEndFuncation: {
+                        if(feedViewModel.isLoading){
+                            return
+                        }
+                        if (feedViewModel.articleData?.articlesCount ?? 0 <= feedViewModel.articleData?.articles?.count ?? 0){
+                            return
+                        }
+                        feedViewModel.flitterParameters.offset = String(Int(feedViewModel.articleData?.articles?.count ?? 0))
+                        feedViewModel.getArticles()
+                    }, onReload: {
                         feedViewModel.reloadArticles()
-                    }
+                    })
             }
             .animation(.spring(), value: feedViewModel.isLoading)
             .navigationDestination(for: SelectedArticleScreenType.self) { type in

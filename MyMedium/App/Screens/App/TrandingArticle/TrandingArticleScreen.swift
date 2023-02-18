@@ -15,44 +15,45 @@ struct TradingArticleScreen: View {
     var body: some View {
         NavigationStack (path: $navStack.presentedScreen) {
             VStack {
-                List {
-                    Section {
-                        ForEach(articleViewModel.articleData?.articles ?? []) { article in
-                            Button (action: {
-                                let data = SelectedArticleScreenType(selectedArticle: article)
-                                navStack.presentedScreen.append(data)
-                                articleViewModel.selectedArticle = article
-                            }, label: {
-                                HStack {
-                                    ArticleRow(article: article)
-                                }
-                            })
-                            .buttonStyle(.plain)
-                            .onAppear {
-                                if(articleViewModel.isLoading){
-                                    return
-                                }
-                                if (articleViewModel.articleData?.articlesCount ?? 0 <= articleViewModel.articleData?.articles?.count ?? 0){
-                                    print("no api call")
-                                    return
-                                }
-                                if (article.id == articleViewModel.articleData?.articles?.last?.id){
-                                    articleViewModel.flitterParameters.offset = String(Int(articleViewModel.articleData?.articles?.count ?? 0))
-                                    articleViewModel.getArticles()
-                                }
+                AppListViewScreen(
+                    forEach: {
+                        LazyVStack {
+                            ForEach(articleViewModel.articleData?.articles ?? []) { article in
+                                Button (action: {
+                                    let data = SelectedArticleScreenType(selectedArticle: article)
+                                    navStack.presentedScreen.append(data)
+                                    articleViewModel.selectedArticle = article
+                                }, label: {
+                                    HStack {
+                                        ArticleRow(article: article)
+                                    }
+                                })
+                                .buttonStyle(.plain)
                             }
                         }
+                    }, headerView: {
+                        
+                    }, footerView: {
                         if articleViewModel.isLoading {
                             VStack {
                                 LoadingArticleItem(article: DummyData().data)
                                 LoadingArticleItem(article: DummyData().data)
                             }
                         }
-                    }
-                }
-                .refreshable {
-                    articleViewModel.reloadArticles()
-                }
+                    }, onEndFuncation: {
+                        if(articleViewModel.isLoading){
+                            return
+                        }
+                        if (articleViewModel.articleData?.articlesCount ?? 0 <= articleViewModel.articleData?.articles?.count ?? 0){
+                            print("no api call")
+                            return
+                        }
+                        
+                        articleViewModel.flitterParameters.offset = String(Int(articleViewModel.articleData?.articles?.count ?? 0))
+                        articleViewModel.getArticles()
+                    }, onReload: {
+                        articleViewModel.reloadArticles()
+                    })
             }
             .animation(.spring(), value: articleViewModel.isLoading)
             .sheet(isPresented: $articleViewModel.showFlitterScreen, content: {
@@ -65,7 +66,7 @@ struct TradingArticleScreen: View {
                         articleViewModel.showFlitterScreen.toggle()
                     }) {
                         Image(systemName: AppIconsSF.filtterIcon)
-                    }            )
+                    })
             .navigationDestination(for: SelectedArticleScreenType.self) { type in
                 ArticleDetailViewScreen(activeStack: .article)
             }

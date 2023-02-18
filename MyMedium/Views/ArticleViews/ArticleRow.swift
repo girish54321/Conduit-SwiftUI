@@ -37,6 +37,7 @@ struct ArticleRow: View {
                 }
                 .frame(width: 30,height: 30)
             }
+            Divider()
         }
     }
 }

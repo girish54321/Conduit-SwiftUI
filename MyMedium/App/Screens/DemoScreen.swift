@@ -16,26 +16,33 @@ struct EndReachedKey: PreferenceKey {
     }
 }
 
-struct DemoScreen: View {
-   
+struct AppListViewScreen<Content: View, HeaderContent: View, FooterContent: View>:View {
+    
+    @ViewBuilder var forEach: () -> Content
+    @ViewBuilder var headerView: () -> HeaderContent
+    @ViewBuilder var footerView: () -> FooterContent
+    var onEndFuncation: (() -> Void)
+    var onReload: (() -> Void)
     
     var body: some View {
         GeometryReader { geometry in
             List {
-                LazyVStack{
-                    ForEach([DummyData().data,DummyData().data,DummyData().data,DummyData().data,DummyData().data,DummyData().data,DummyData().data,DummyData().data,DummyData().data,DummyData().data,DummyData().data]) { article in
-                        //                    Text("article.title")
-                        ArticleRow(article: article)
-                    }
+                LazyVStack {
+                    headerView()
+                    forEach()
                     .background(GeometryReader { geo in
                         Color.clear.preference(key: EndReachedKey.self, value: [geo.frame(in: .global).maxY])
                     })
+                    footerView()
                 }
+            }
+            .refreshable {
+                onReload()
             }
             .onPreferenceChange(EndReachedKey.self) { value in
                 if let maxY = value.last {
                     if maxY < geometry.frame(in: .global).maxY {
-                        print("End reached")
+                       onEndFuncation()
                     }
                 }
             }
@@ -43,13 +50,19 @@ struct DemoScreen: View {
     }
 }
 
-//struct Article {
-//    let title: String
-//}
 
-
-struct DemoScreen_Previews: PreviewProvider {
+struct AppListViewScreen_Previews: PreviewProvider {
     static var previews: some View {
-        DemoScreen()
+        AppListViewScreen(forEach: {
+            Text("You are the best")
+        }, headerView: {
+            Text("You are the best")
+        }, footerView: {
+            Text("You are the best")
+        }, onEndFuncation: {
+            
+        }, onReload: {
+            
+        })
     }
 }
