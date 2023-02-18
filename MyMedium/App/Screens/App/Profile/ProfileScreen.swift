@@ -54,7 +54,7 @@ struct ProfileScreen: View {
                         authViewModel.getArticles(parameters: ArticleListParams(author:authViewModel.userState?.user?.username,limit: "50"))
                     }
                 } else {
-                    LoginPlaceHolder(title: "see Profile")
+                    LoginPlaceHolder(title: "See Profile")
                 }
             }
             .alert(isPresented: $showLogOutAlert) {

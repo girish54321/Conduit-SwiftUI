@@ -10,11 +10,11 @@ import Foundation
 // MARK: - TrendingArticles
 struct TrendingArticles: Codable {
     var articles: [Article]?
-    let articlesCount: Int?
+    var articlesCount: Int?
 }
 
 // MARK: - Article
-struct Article: Codable, Identifiable {
+struct Article: Codable, Identifiable{
     let id = UUID()
     var slug, title, description, body: String?
     var tagList: [String]?
@@ -56,7 +56,7 @@ struct favoriteBy: Codable {
 // MARK: - FeedArticle
 struct FeedArticle: Codable {
     var articles: [Article]?
-    let articlesCount: Int?
+    var articlesCount: Int?
 }
 
 // MARK: - Create Article Modal AF

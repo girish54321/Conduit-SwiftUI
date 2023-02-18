@@ -55,10 +55,13 @@ struct FlitterScreen: View {
                 }
                 Section {
                     Button("Apply") {
+                        articleViewModel.resetArticleList()
+                        articleViewModel.flitterParameters.offset = ""
                         articleViewModel.showFlitterScreen.toggle()
                         articleViewModel.getArticles()
                     }
                     Button("Clear",role: .destructive) {
+                        articleViewModel.reloadArticles()
                         articleViewModel.createFlitter()
                         articleViewModel.showFlitterScreen.toggle()
                     }

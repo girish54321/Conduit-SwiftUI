@@ -49,15 +49,12 @@ struct AboutAuthorView: View {
             res in
             switch res {
             case .success(let data):
-                print("Done deleteFollow")
                 articleViewModal.selectedArticle.author?.following = data.profile?.following
-                articleViewModal.getArticles()
-                feedViewModal.getArticles()
-                print(data)
+                articleViewModal.reloadArticles()
+                feedViewModal.reloadArticles()
             case .failure(let error):
                 switch error {
                 case .NetworkErrorAPIError(let errorMessage):
-                    print("3")
                     print(errorMessage)
                 case .BadURL:
                     print("BadURL")
@@ -75,15 +72,12 @@ struct AboutAuthorView: View {
             res in
             switch res {
             case .success(let data):
-                print(data)
-                print("Done followUser")
                 articleViewModal.selectedArticle.author?.following = data.profile?.following
                 articleViewModal.getArticles()
                 feedViewModal.getArticles()
             case .failure(let error):
                 switch error {
                 case .NetworkErrorAPIError(let errorMessage):
-                    print("3")
                     print(errorMessage)
                 case .BadURL:
                     print("BadURL")

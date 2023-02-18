@@ -15,41 +15,61 @@ struct TradingArticleScreen: View {
     var body: some View {
         NavigationStack (path: $navStack.presentedScreen) {
             VStack {
-                if !articleViewModel.isLoading {
-                    List(articleViewModel.articleData?.articles ?? []) { article in
-                        Button (action: {
-                            let data = SelectedArticleScreenType(selectedArticle: article)
-                            navStack.presentedScreen.append(data)
-                            articleViewModel.selectedArticle = article
-                        }, label: {
-                            HStack {
-                                ArticleRow(article: article)
+                AppListViewScreen(
+                    forEach: {
+                        LazyVStack {
+                            ForEach(articleViewModel.articleData?.articles ?? []) { article in
+                                Button (action: {
+                                    let data = SelectedArticleScreenType(selectedArticle: article)
+                                    navStack.presentedScreen.append(data)
+                                    articleViewModel.selectedArticle = article
+                                }, label: {
+                                    HStack {
+                                        ArticleRow(article: article)
+                                    }
+                                })
+                                .buttonStyle(.plain)
                             }
-                        })
-                        .buttonStyle(.plain)
-                    }
-                    .refreshable {
+                        }
+                    }, headerView: {
+                        
+                    }, footerView: {
+                        if articleViewModel.isLoading {
+                            VStack {
+                                LoadingArticleItem(article: DummyData().data)
+                                LoadingArticleItem(article: DummyData().data)
+                            }
+                        }
+                    }, onEndFuncation: {
+                        if(articleViewModel.isLoading){
+                            return
+                        }
+                        if (articleViewModel.articleData?.articlesCount ?? 0 <= articleViewModel.articleData?.articles?.count ?? 0){
+                            print("no api call")
+                            return
+                        }
+                        
+                        articleViewModel.flitterParameters.offset = String(Int(articleViewModel.articleData?.articles?.count ?? 0))
                         articleViewModel.getArticles()
-                    }
-                } else {
-                    LoadingListing()
-                }
+                    }, onReload: {
+                        articleViewModel.reloadArticles()
+                    })
             }
             .animation(.spring(), value: articleViewModel.isLoading)
             .sheet(isPresented: $articleViewModel.showFlitterScreen, content: {
                 FlitterScreen()
             })
             .navigationBarTitle("Articles")
-            .navigationDestination(for: SelectedArticleScreenType.self) { type in
-                ArticleDetailViewScreen(activeStack: .article)
-            }
             .navigationBarItems(
                 trailing:
                     Button(action: {
                         articleViewModel.showFlitterScreen.toggle()
                     }) {
-                        Image(systemName: "slider.below.rectangle")
-                    }            )
+                        Image(systemName: AppIconsSF.filtterIcon)
+                    })
+            .navigationDestination(for: SelectedArticleScreenType.self) { type in
+                ArticleDetailViewScreen(activeStack: .article)
+            }
         }
     }
     

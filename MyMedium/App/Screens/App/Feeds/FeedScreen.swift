@@ -18,10 +18,10 @@ struct FeedScreen: View {
     var body: some View {
         NavigationStack (path: $navStack.presentedScreen) {
             VStack {
-                if authViewModel.isLoggedIn {
-                    VStack {
-                        if !feedViewModel.isLoading  {
-                            List(feedViewModel.articleData?.articles ?? []) { article in
+                AppListViewScreen(
+                    forEach: {
+                        VStack {
+                            ForEach(feedViewModel.articleData?.articles ?? []){ article in
                                 Button (action: {
                                     let data = SelectedArticleScreenType(selectedArticle: article)
                                     navStack.presentedScreen.append(data)
@@ -33,18 +33,30 @@ struct FeedScreen: View {
                                 })
                                 .buttonStyle(.plain)
                             }
-                            .refreshable {
-                                feedViewModel.getArticles()
-                            }
-                        } else {
-                            LoadingListing()
                         }
-                    }
-                    .animation(.spring(), value: feedViewModel.isLoading)
-                } else {
-                    LoginPlaceHolder(title: "see Feeds") 
-                }
+                    }, headerView: {
+                     
+                    }, footerView: {
+                        if feedViewModel.isLoading {
+                            VStack {
+                                LoadingArticleItem(article: DummyData().data)
+                                LoadingArticleItem(article: DummyData().data)
+                            }
+                        }
+                    }, onEndFuncation: {
+                        if(feedViewModel.isLoading){
+                            return
+                        }
+                        if (feedViewModel.articleData?.articlesCount ?? 0 <= feedViewModel.articleData?.articles?.count ?? 0){
+                            return
+                        }
+                        feedViewModel.flitterParameters.offset = String(Int(feedViewModel.articleData?.articles?.count ?? 0))
+                        feedViewModel.getArticles()
+                    }, onReload: {
+                        feedViewModel.reloadArticles()
+                    })
             }
+            .animation(.spring(), value: feedViewModel.isLoading)
             .navigationDestination(for: SelectedArticleScreenType.self) { type in
                 ArticleDetailViewScreen(activeStack:.feed)
             }

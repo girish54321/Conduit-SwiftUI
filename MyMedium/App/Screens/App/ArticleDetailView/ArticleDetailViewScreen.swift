@@ -59,7 +59,6 @@ struct ArticleDetailViewScreen: View {
                     Text(Helpers.formatDateFormat(dateString: articleViewModal.selectedArticle.createdAt ?? ""))
                     Spacer()
                     Button(action: {
-                        print(articleViewModal.selectedArticle)
                         bookMarkArtie()
                     }) {
                         Image(systemName: articleViewModal.selectedArticle.favorited ?? false ? AppIconsSF.bookMarkFillIcon : AppIconsSF.bookMarkIcon)
@@ -205,7 +204,6 @@ struct ArticleDetailViewScreen: View {
                 case .failure(let error):
                     switch error {
                     case .NetworkErrorAPIError(let errorMessage):
-                        print("3")
                         print(errorMessage)
                         appViewModel.errorMessage = errorMessage
                     case .BadURL:
@@ -228,7 +226,6 @@ struct ArticleDetailViewScreen: View {
                     appViewModel.errorMessage = error!
                     return
                 }
-                print("1")
                 articleViewModal.updateSelectedArticle(article: data!)
                 feedViewModal.updateSelectedFeedArticle(article: data!)
             })
@@ -239,7 +236,6 @@ struct ArticleDetailViewScreen: View {
                     appViewModel.errorMessage = error!
                     return
                 }
-                print("12")
                 articleViewModal.updateSelectedArticle(article: data!)
                 feedViewModal.updateSelectedFeedArticle(article: data!)
             })
@@ -264,11 +260,9 @@ struct ArticleDetailViewScreen: View {
                 if (activeStack == .profile){
                     profileStack.presentedScreen.removeLast()
                 }
-                print(data)
             case .failure(let error):
                 switch error {
                 case .NetworkErrorAPIError(let errorMessage):
-                    print("3")
                     print(errorMessage)
                     appViewModel.errorMessage = errorMessage
                 case .BadURL:
