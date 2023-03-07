@@ -25,7 +25,7 @@ struct ArticleDetailViewScreen: View {
     
     var body: some View {
         ScrollView {
-            VStack {
+            LazyVStack {
                 AppNetworkImage(imageUrl: "https://picsum.photos/300")
                     .frame(minWidth: 0, maxWidth: .infinity)
                     .aspectRatio(contentMode: .fill)
@@ -44,8 +44,10 @@ struct ArticleDetailViewScreen: View {
                     .transition(.move(edge: .bottom))
                     .animation(.spring(), value: articleViewModal.selectedArticle.title)
                     .padding()
-                Text(UIHelper().formateHelptext(text: articleViewModal.selectedArticle.body ?? ""))
-                    .lineLimit(nil)
+                //                Text(UIHelper().formateHelptext(text: articleViewModal.selectedArticle.body ?? ""))
+                //                    .lineLimit(nil)
+                //                    .padding()
+                Text(articleViewModal.selectedArticle.body ?? "")
                     .padding()
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
@@ -154,21 +156,21 @@ struct ArticleDetailViewScreen: View {
                         /*@START_MENU_TOKEN@*/EmptyView()/*@END_MENU_TOKEN@*/
                     }
                 }
+                .alert(isPresented: $showDeleteAlert) {
+                    Alert(title: Text("Delete Article"),
+                          message: Text("Are you sure you want to delete this article?"),
+                          primaryButton: .destructive(Text("Yes")) {
+                        deleteArticle()
+                    }, secondaryButton: .cancel())
+                }
+                .navigationDestination(for: CreateArticleScreenType.self) { type in
+                    let data = type.selectedArticle
+                    CreateArticleScreen(article: ArticleParams(title: data?.title ?? "", description: data?.description ?? "", body: data?.body ?? "", tagList: data?.tagList ?? []), activeStack: activeStack,slug: articleViewModal.selectedArticle.slug)
+                }
+                .navigationDestination(for: SelectedProfileScreenType.self){ type in
+                    SelectedUserScreen(author: type.author, activeStack: activeStack)
+                }
         )
-        .alert(isPresented: $showDeleteAlert) {
-            Alert(title: Text("Delete Article"),
-                  message: Text("Are you sure you want to delete this article?"),
-                  primaryButton: .destructive(Text("Yes")) {
-                deleteArticle()
-            }, secondaryButton: .cancel())
-        }
-        .navigationDestination(for: CreateArticleScreenType.self) { type in
-            let data = type.selectedArticle
-            CreateArticleScreen(article: ArticleParams(title: data?.title ?? "", description: data?.description ?? "", body: data?.body ?? "", tagList: data?.tagList ?? []), activeStack: activeStack,slug: articleViewModal.selectedArticle.slug)
-        }
-        .navigationDestination(for: SelectedProfileScreenType.self){ type in
-            SelectedUserScreen(author: type.author, activeStack: activeStack)
-        }
         .navigationBarTitle(Text(articleViewModal.selectedArticle.title ?? "NA"), displayMode: .inline)
     }
     

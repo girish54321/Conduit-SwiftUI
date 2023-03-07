@@ -37,7 +37,6 @@ class RestAPIClient {
                     switch result {
                     case .success(let value):
                         print("Success: \(value)")
-                        //                            value.
                         DispatchQueue.main.async {
                             if (costumeCompletion != nil) {
                                 costumeCompletion!(response.response)
@@ -113,9 +112,7 @@ class RestAPIClient {
                             }
                         }
                     case .failure(let error):
-                        print("You are a failer")
-                        
-                        print("Failure maza error: \(error.localizedDescription)")
+                        print("Failure: \(error.localizedDescription)")
                         completion(.failure(.NetworkErrorAPIError(error.localizedDescription)))
                     }
                 }
