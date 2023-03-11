@@ -31,6 +31,11 @@ class RestAPIClient {
         } else {
             headers = nil
         }
+        print("DEBUG Only")
+        print("API EndPoint")
+        print(encodedURL)
+        print("Tokan")
+        print("Bearer \(token)")
         AF.request(encodedURL,method: method,parameters: parameters,headers: headers)
             .response { response in
                 ApiError().handleError(response: response) { result in
