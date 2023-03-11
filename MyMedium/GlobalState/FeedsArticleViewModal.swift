@@ -46,6 +46,7 @@ class FeedArticleViewModel: ObservableObject {
     
     func reloadArticles () {
         flitterParameters = ArticleListParams(limit: "10", offset: "0")
+        articleData = FeedArticle(articles: [],articlesCount: 0)
         getArticles()
     }
     

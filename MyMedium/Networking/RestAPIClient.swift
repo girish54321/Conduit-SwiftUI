@@ -31,13 +31,17 @@ class RestAPIClient {
         } else {
             headers = nil
         }
+        print("DEBUG Only")
+        print("API EndPoint")
+        print(encodedURL)
+        print("Tokan")
+        print("Bearer \(token)")
         AF.request(encodedURL,method: method,parameters: parameters,headers: headers)
             .response { response in
                 ApiError().handleError(response: response) { result in
                     switch result {
                     case .success(let value):
                         print("Success: \(value)")
-                        //                            value.
                         DispatchQueue.main.async {
                             if (costumeCompletion != nil) {
                                 costumeCompletion!(response.response)
@@ -113,9 +117,7 @@ class RestAPIClient {
                             }
                         }
                     case .failure(let error):
-                        print("You are a failer")
-                        
-                        print("Failure maza error: \(error.localizedDescription)")
+                        print("Failure: \(error.localizedDescription)")
                         completion(.failure(.NetworkErrorAPIError(error.localizedDescription)))
                     }
                 }

@@ -45,7 +45,6 @@ struct TradingArticleScreen: View {
                             return
                         }
                         if (articleViewModel.articleData?.articlesCount ?? 0 <= articleViewModel.articleData?.articles?.count ?? 0){
-                            print("no api call")
                             return
                         }
                         

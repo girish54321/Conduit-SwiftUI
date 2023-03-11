@@ -19,34 +19,17 @@ struct ArticleDetailViewScreen: View {
     @State private var showDeleteAlert = false
     @EnvironmentObject var appViewModel: AppViewModel
     @State var isTheOwner : Bool = false
+    @State var viewLoaded : Bool = false
     @State var activeStack: AppNavStackType
     
     @State private var comment: String = ""
     
+    
     var body: some View {
         ScrollView {
-            VStack {
-                AppNetworkImage(imageUrl: "https://picsum.photos/300")
-                    .frame(minWidth: 0, maxWidth: .infinity)
-                    .aspectRatio(contentMode: .fill)
-                    .clipped()
-                    .cornerRadius(10)
-                    .shadow(radius: 10)
-                    .transition(.move(edge: .bottom))
-                    .animation(.spring(), value: articleViewModal.selectedArticle.title)
-                    .padding()
-                Text(articleViewModal.selectedArticle.title ?? "NA")
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.black.opacity(0.5))
-                    .cornerRadius(10)
-                    .shadow(radius: 10)
-                    .transition(.move(edge: .bottom))
-                    .animation(.spring(), value: articleViewModal.selectedArticle.title)
-                    .padding()
-                Text(UIHelper().formateHelptext(text: articleViewModal.selectedArticle.body ?? ""))
-                    .lineLimit(nil)
-                    .padding()
+            LazyVStack {
+                ArticleBodyView(title: articleViewModal.selectedArticle.title,
+                                bodyText: articleViewModal.selectedArticle.body)
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(articleViewModal.selectedArticle.tagList ?? [], id: \.self) { data in
@@ -96,10 +79,13 @@ struct ArticleDetailViewScreen: View {
             }
             .padding()
             .onAppear {
+                if viewLoaded {
+                    return
+                }
                 articleViewModal.getComments()
             }
             VStack {
-                ForEach(articleViewModal.comments?.comments ?? [Commetdata().data23,Commetdata().data23])
+                ForEach(articleViewModal.comments?.comments ?? [])
                 { data in
                     CommentsView(comment: data, clicked: deleteComment)
                         .animation(.easeIn, value: articleViewModal.comments?.comments?.count)
@@ -113,11 +99,15 @@ struct ArticleDetailViewScreen: View {
             articleViewModal.getComments()
         }
         .onAppear {
+            if viewLoaded {
+                return
+            }
             withAnimation {
-                isTheOwner = Helpers.isTheOwner(
+                isTheOwner = Helpers.isTheOwner (
                     user: authViewModel.userState?.user,
                     author: articleViewModal.selectedArticle.author
                 )
+                viewLoaded = true
             }
         }
         .navigationBarItems(
@@ -154,14 +144,15 @@ struct ArticleDetailViewScreen: View {
                         /*@START_MENU_TOKEN@*/EmptyView()/*@END_MENU_TOKEN@*/
                     }
                 }
+                .alert(isPresented: $showDeleteAlert) {
+                    Alert(title: Text("Delete Article"),
+                          message: Text("Are you sure you want to delete this article?"),
+                          primaryButton: .destructive(Text("Yes")) {
+                        deleteArticle()
+                    }, secondaryButton: .cancel())
+                }
         )
-        .alert(isPresented: $showDeleteAlert) {
-            Alert(title: Text("Delete Article"),
-                  message: Text("Are you sure you want to delete this article?"),
-                  primaryButton: .destructive(Text("Yes")) {
-                deleteArticle()
-            }, secondaryButton: .cancel())
-        }
+        .navigationBarTitle(Text(articleViewModal.selectedArticle.title ?? "NA"), displayMode: .inline)
         .navigationDestination(for: CreateArticleScreenType.self) { type in
             let data = type.selectedArticle
             CreateArticleScreen(article: ArticleParams(title: data?.title ?? "", description: data?.description ?? "", body: data?.body ?? "", tagList: data?.tagList ?? []), activeStack: activeStack,slug: articleViewModal.selectedArticle.slug)
@@ -169,7 +160,6 @@ struct ArticleDetailViewScreen: View {
         .navigationDestination(for: SelectedProfileScreenType.self){ type in
             SelectedUserScreen(author: type.author, activeStack: activeStack)
         }
-        .navigationBarTitle(Text(articleViewModal.selectedArticle.title ?? "NA"), displayMode: .inline)
     }
     
     func deleteComment (data: Comment) {
@@ -198,7 +188,7 @@ struct ArticleDetailViewScreen: View {
             endpoint: articleViewModal.selectedArticle.slug! + "/comments", completion: {
                 res in
                 switch res {
-                case .success(let data):
+                case .success(_):
                     articleViewModal.getComments()
                     comment = ""
                 case .failure(let error):
