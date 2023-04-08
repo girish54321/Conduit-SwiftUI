@@ -40,8 +40,7 @@ class RestAPIClient {
             .response { response in
                 ApiError().handleError(response: response) { result in
                     switch result {
-                    case .success(let value):
-                        print("Success: \(value)")
+                    case .success(_):
                         DispatchQueue.main.async {
                             if (costumeCompletion != nil) {
                                 costumeCompletion!(response.response)
@@ -82,7 +81,7 @@ class RestAPIClient {
                                     let json = try JSONSerialization.jsonObject(with: jsonData) as? [String: Any]
                                     let error = removeSpecialCharsFromString(text: "\(json!["errors"] ?? "Error")")
                                     var errorList:[String] = []
-                                    let errorData = JSON(json!["errors"])
+                                    let errorData = JSON(json!["errors"] as Any)
                                     errorData.dictionaryValue.forEach({
                                         var sunError:[String] = []
                                         var finalSubError = ""

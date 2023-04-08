@@ -17,6 +17,7 @@ class ArticleViewModel: ObservableObject {
     
     @Published var selectedArticle: Article = DummyData().data
     @Published var comments: CommentListResponse?
+    
     init() {
         getArticles()
         getTags()
@@ -87,7 +88,6 @@ class ArticleViewModel: ObservableObject {
             self.isLoading = false
             switch result {
             case .success(let data):
-                print("geting data")
                 self.articleData?.articlesCount = data.articlesCount
                 self.articleData?.articles?.append(contentsOf: data.articles!)
             case .failure(let error):
