@@ -24,16 +24,9 @@ struct SelectedUserScreen: View {
                         bio: profileViewModal.selectedAuthor.username ?? "Bio",
                         email: profileViewModal.selectedAuthor.username ?? "Email", clicked: nil
             )
-            Section ("articles") {
                 if !profileViewModal.isLoading {
                     ForEach(profileViewModal.selectedUserArticle?.articles ?? []) { article in
-                        VStack {
-                            HStack {
-                                ArticleRow(article: article)
-                                    .padding(.bottom)
-                                Spacer()
-                            }
-                        }
+                        ArticleRow(article: article,withoutDivider: true)
                         .onTapGesture {
                             articleViewModel.selectedArticle = article
                             if (activeStack == .feed){
@@ -50,7 +43,6 @@ struct SelectedUserScreen: View {
                 } else {
                     LoadingForEachListing()
                 }
-            }
         }
         .onAppear {
             profileViewModal.selectedAuthor = author

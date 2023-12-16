@@ -23,18 +23,11 @@ struct ProfileScreen: View {
                         ProfileView(profileImage: authViewModel.userState?.user?.image ?? AppConst.imagePath, userName: authViewModel.userState?.user?.username ?? "username", bio: authViewModel.userState?.user?.bio ?? "Bio", email: authViewModel.userState?.user?.email ?? "Email", clicked: {
                             goToEditProfileScreen()
                         })
-                        Section ("Article") {
                             if !authViewModel.isLoading {
                                 VStack {
                                     ForEach(authViewModel.userArticle?.articles ?? [DummyData().data,DummyData().data]) { article in
-                                        VStack {
-                                            HStack {
-                                                ArticleRow(article: article)
-                                                    .padding(.bottom)
-                                                Spacer()
-                                            }
-                                            Divider()
-                                        }
+                                        ArticleRow(article: article)
+                                            .padding(.bottom)
                                         .onTapGesture {
                                             if (authViewModel.isLoading){
                                                 return
@@ -48,7 +41,6 @@ struct ProfileScreen: View {
                             } else {
                                 LoadingForEachListing()
                             }
-                        }
                     }
                     .refreshable {
                         authViewModel.getArticles(parameters: ArticleListParams(author:authViewModel.userState?.user?.username,limit: "50"))

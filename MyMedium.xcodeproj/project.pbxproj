@@ -247,6 +247,7 @@
 		92D2D728296C15EB008BA685 /* MyMedium */ = {
 			isa = PBXGroup;
 			children = (
+				F4065B472B2DBD78008A813E /* Auth */,
 				92FD1530296ECB9E00C8AE0E /* GlobalState */,
 				92FD1522296EC3E700C8AE0E /* Networking */,
 				92594905296D73280029B2C1 /* Modal */,
@@ -309,7 +310,6 @@
 			isa = PBXGroup;
 			children = (
 				92EBBBD029755777006E34EE /* App */,
-				92594904296D6DA70029B2C1 /* CreateAccont */,
 				92D2D741296C1967008BA685 /* Welcome */,
 				F4A347DD298FC1B8001365BF /* DemoScreen.swift */,
 			);
@@ -435,6 +435,14 @@
 				F4EA179D297F98F0007E7230 /* ProfileViewModal.swift */,
 			);
 			path = GlobalState;
+			sourceTree = "<group>";
+		};
+		F4065B472B2DBD78008A813E /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				92594904296D6DA70029B2C1 /* CreateAccont */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		F4D66350297E81E40045BDDA /* CommentServers */ = {
