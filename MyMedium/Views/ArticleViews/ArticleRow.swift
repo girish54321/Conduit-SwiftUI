@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ArticleRow: View {
     var article: Article?
+    var withoutDivider: Bool? = false
     @EnvironmentObject var appViewModal: AppViewModel
     
     var body: some View {
@@ -37,7 +38,9 @@ struct ArticleRow: View {
                 }
                 .frame(width: 30,height: 30)
             }
-            Divider()
+            if withoutDivider == false {
+                Divider()
+            }
         }
     }
 }

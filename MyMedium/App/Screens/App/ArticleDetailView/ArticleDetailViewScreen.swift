@@ -239,12 +239,12 @@ struct ArticleDetailViewScreen: View {
             case .success(let data):
                 if(activeStack == .feed){
                     feedStack.presentedScreen.removeLast()
-                    feedViewModal.getArticles()
+                    feedViewModal.reloadArticles()
                     return
                 }
                 if (activeStack == .article){
                     articleStack.presentedScreen.removeLast()
-                    articleViewModal.getArticles()
+                    articleViewModal.reloadArticles()
                     return
                 }
                 if (activeStack == .profile){
