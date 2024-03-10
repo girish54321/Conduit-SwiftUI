@@ -116,6 +116,7 @@
 		92FD1536296ED6E000C8AE0E /* AuthViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModal.swift; sourceTree = "<group>"; };
 		F407E08E29BC713100237020 /* ArticleBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleBodyView.swift; sourceTree = "<group>"; };
 		F4407827298CF4830003F52A /* EditProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileScreen.swift; sourceTree = "<group>"; };
+		F440A5432B9C689E00FE6C9C /* MyMedium.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyMedium.entitlements; sourceTree = "<group>"; };
 		F44C745B298E994500573B72 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		F468C87B297D1E2F00DFB1BB /* FeedsArticleViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedsArticleViewModal.swift; sourceTree = "<group>"; };
 		F46AAFBD297BFC3300B682C4 /* AppHTMLView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHTMLView.swift; sourceTree = "<group>"; };
@@ -247,6 +248,7 @@
 		92D2D728296C15EB008BA685 /* MyMedium */ = {
 			isa = PBXGroup;
 			children = (
+				F440A5432B9C689E00FE6C9C /* MyMedium.entitlements */,
 				F4065B472B2DBD78008A813E /* Auth */,
 				92FD1530296ECB9E00C8AE0E /* GlobalState */,
 				92FD1522296EC3E700C8AE0E /* Networking */,
@@ -736,6 +738,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MyMedium/MyMedium.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MyMedium/Preview Content\"";
@@ -754,6 +758,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.girish.MyMedium;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -765,6 +772,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MyMedium/MyMedium.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MyMedium/Preview Content\"";
@@ -783,6 +792,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.girish.MyMedium;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
