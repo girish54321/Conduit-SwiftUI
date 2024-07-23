@@ -65,7 +65,7 @@ struct ArticleDetailViewScreen: View {
                     }
             }
             HStack {
-                AppInputBox(placeHolder: "Add You Comments",
+                AppInputBox(placeHolder: "Add your comments",
                             keyboard: AppKeyBoardType.default, value: $comment)
                 Button(action: {
                     addComment()
