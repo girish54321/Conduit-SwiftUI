@@ -55,7 +55,7 @@ struct CreateArticleScreen: View {
                         }
                         .padding()
                     }
-                    AppButton(text: "Save", clicked: {
+                    AppButton(text: "Save", isDisabled: false, clicked: {
                         if (slug == nil){
                             uploadArticle()
                         } else {

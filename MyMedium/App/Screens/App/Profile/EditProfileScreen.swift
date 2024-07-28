@@ -51,7 +51,7 @@ struct EditProfileScreen: View {
                     title:"Password", value: $userparms.password.toUnwrapped(defaultValue: ""))
             }
             .padding()
-            AppButton(text: "Save", clicked: {
+            AppButton(text: "Save", isDisabled: false, clicked: {
                 updateProfile()
             })
             .padding()

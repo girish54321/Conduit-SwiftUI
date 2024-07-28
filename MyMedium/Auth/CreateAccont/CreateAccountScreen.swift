@@ -14,6 +14,16 @@ struct CreateAccountScreen: View {
     @State private var passwordText: String = ""
     @State private var username: String = ""
     
+    var disabledButton: Bool {
+        let loginFields = !isValidEmail(emailText) || passwordText.count < 6
+        
+        guard let createAccountView = screenType.isCreateAccount else { return false }
+        if createAccountView {
+            return loginFields || username.count < 2
+        }
+        return loginFields
+    }
+    
     @EnvironmentObject var appViewModel: AppViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
     @AppStorage(AppConst.isSkipped) var isSkipped: Bool = false
@@ -49,7 +59,7 @@ struct CreateAccountScreen: View {
                 passwordView:  SecureField("Password", text: $passwordText),
                 title:"Password", value: $passwordText
             )
-            AppButton(text: screenType.isCreateAccount ?? true ? "Sign Up": "Login", clicked: {
+            AppButton(text: screenType.isCreateAccount ?? true ? "Sign Up": "Login", isDisabled: disabledButton, clicked: {
                 if screenType.isCreateAccount == false {
                     UserLoginApi(email: emailText, password: passwordText)
                     return
@@ -58,6 +68,7 @@ struct CreateAccountScreen: View {
                 }
             })
             .padding(.top)
+            
             Spacer()
             Button(action: toggleLoginState) {
                 Text(screenType.isCreateAccount ?? true ? "all ready have an account?\nLogin here" : "Don't have an account?\n Create here")
@@ -117,6 +128,12 @@ struct CreateAccountScreen: View {
                 }
             }
         }
+    }
+    
+    func isValidEmail(_ email: String) -> Bool {
+        let emailRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$"
+        let emailTest = NSPredicate(format:"SELF MATCHES[c] %@", emailRegex)
+        return emailTest.evaluate(with: email)
     }
 }
 

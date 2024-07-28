@@ -12,6 +12,7 @@ struct AppButton: View {
     var text: String
     var leftIcon: Image?
     var rightIcon: Image?
+    var isDisabled: Bool
     var clicked: (() -> Void)
     
     var body: some View {
@@ -26,20 +27,21 @@ struct AppButton: View {
             }
             .frame(height:25)
             .padding(12)
-            .background(Color("ButtonColor"))
+            .background(isDisabled ? Color.gray.opacity(0.5) : Color("ButtonColor"))
             .overlay(
                 RoundedRectangle(cornerRadius: 6)
-                    .stroke(Color.accentColor, lineWidth: 3)
+                    .stroke(isDisabled ? Color.gray : Color.accentColor, lineWidth: 3)
             )
             .cornerRadius(6)
         }
+        .disabled(isDisabled)
     }
     
     struct AppButton_Previews: PreviewProvider {
         static var previews: some View {
-            AppButton(text: "Login", rightIcon: Image(systemName: "plus"), clicked: {
+            AppButton(text: "Login", rightIcon: Image(systemName: "plus"), isDisabled: false, clicked: {
             }).previewLayout(.sizeThatFits).padding()
-            AppButton(text: "Login",rightIcon: Image(systemName: "plus"), clicked: {
+            AppButton(text: "Login",rightIcon: Image(systemName: "plus"), isDisabled: false, clicked: {
             }).previewLayout(.sizeThatFits).padding()
         }
     }
