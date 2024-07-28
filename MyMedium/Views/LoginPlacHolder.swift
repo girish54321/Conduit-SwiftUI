@@ -26,7 +26,7 @@ struct LoginPlaceHolder: View {
                     Text("Login to " + title + ".")
                         .font(.largeTitle)
                     
-                    AppButton(text: "Login", clicked: {
+                    AppButton(text: "Login", isDisabled: false, clicked: {
                         isSkipped = false
                         token = ""
                     })

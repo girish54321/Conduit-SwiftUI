@@ -62,13 +62,15 @@ struct WelcomeScreen: View {
                         .padding(.horizontal)
                     VStack (alignment: .center,spacing: 16) {
                         AppButton(
-                            text: "Login",
+                            text: "Login", 
+                            isDisabled: false,
                             clicked: {
                                 let data = LoginScreenType(title: "Welcome Back", isCreateAccount: false)
                                 presentedScreen.append(data)
                             })
                         AppButton(
                             text: "Sign Up",
+                            isDisabled: false,
                             clicked: {
                                 let data = LoginScreenType(title: "Let's Start", isCreateAccount: true)
                                 presentedScreen.append(data)
