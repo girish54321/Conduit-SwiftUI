@@ -24,7 +24,6 @@ struct ArticleDetailViewScreen: View {
     
     @State private var comment: String = ""
     
-    
     var body: some View {
         ScrollView {
             LazyVStack {
@@ -65,15 +64,27 @@ struct ArticleDetailViewScreen: View {
                     }
             }
             HStack {
-                AppInputBox(placeHolder: "Add You Comments",
-                            keyboard: AppKeyBoardType.default, value: $comment)
-                Button(action: {
-                    addComment()
-                }) {
+                if authViewModel.isLoggedIn {
+                    AppInputBox(placeHolder: "Add your comments",
+                                keyboard: AppKeyBoardType.default, value: $comment)
+                    Button(action: {
+                        addComment()
+                    }) {
+                        VStack {
+                            Spacer()
+                            Text("Post")
+                                .padding()
+                        }
+                    }
+                } else {
                     VStack {
-                        Spacer()
-                        Text("Post")
-                            .padding()
+                        Text("Please log in to post a comment.")
+                        AppButton(
+                            text: "Login",
+                            clicked: {
+                                let data = LoginScreenType(title: "Welcome Back", isCreateAccount: false)
+                                articleStack.presentedScreen.append(data)
+                            })
                     }
                 }
             }
@@ -159,6 +170,9 @@ struct ArticleDetailViewScreen: View {
         }
         .navigationDestination(for: SelectedProfileScreenType.self){ type in
             SelectedUserScreen(author: type.author, activeStack: activeStack)
+        }
+        .navigationDestination(for: LoginScreenType.self) { type in
+            CreateAccountScreen(screenType: type)
         }
     }
     

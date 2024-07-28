@@ -18,43 +18,47 @@ struct FeedScreen: View {
     var body: some View {
         NavigationStack (path: $navStack.presentedScreen) {
             VStack {
-                AppListViewScreen(
-                    forEach: {
-                        VStack {
-                            ForEach(feedViewModel.articleData?.articles ?? []){ article in
-                                Button (action: {
-                                    let data = SelectedArticleScreenType(selectedArticle: article)
-                                    navStack.presentedScreen.append(data)
-                                    articleViewModel.selectedArticle = article
-                                }, label: {
-                                    HStack {
-                                        ArticleRow(article: article)
-                                    }
-                                })
-                                .buttonStyle(.plain)
-                            }
-                        }
-                    }, headerView: {
-                     
-                    }, footerView: {
-                        if feedViewModel.isLoading {
+                if authViewModel.isLoggedIn {
+                    AppListViewScreen(
+                        forEach: {
                             VStack {
-                                LoadingArticleItem(article: DummyData().data)
-                                LoadingArticleItem(article: DummyData().data)
+                                ForEach(feedViewModel.articleData?.articles ?? []){ article in
+                                    Button (action: {
+                                        let data = SelectedArticleScreenType(selectedArticle: article)
+                                        navStack.presentedScreen.append(data)
+                                        articleViewModel.selectedArticle = article
+                                    }, label: {
+                                        HStack {
+                                            ArticleRow(article: article)
+                                        }
+                                    })
+                                    .buttonStyle(.plain)
+                                }
                             }
-                        }
-                    }, onEndFuncation: {
-                        if(feedViewModel.isLoading){
-                            return
-                        }
-                        if (feedViewModel.articleData?.articlesCount ?? 0 <= feedViewModel.articleData?.articles?.count ?? 0){
-                            return
-                        }
-                        feedViewModel.flitterParameters.offset = String(Int(feedViewModel.articleData?.articles?.count ?? 0))
-                        feedViewModel.getArticles()
-                    }, onReload: {
-                        feedViewModel.reloadArticles()
-                    })
+                        }, headerView: {
+                            
+                        }, footerView: {
+                            if feedViewModel.isLoading {
+                                VStack {
+                                    LoadingArticleItem(article: DummyData().data)
+                                    LoadingArticleItem(article: DummyData().data)
+                                }
+                            }
+                        }, onEndFuncation: {
+                            if(feedViewModel.isLoading){
+                                return
+                            }
+                            if (feedViewModel.articleData?.articlesCount ?? 0 <= feedViewModel.articleData?.articles?.count ?? 0){
+                                return
+                            }
+                            feedViewModel.flitterParameters.offset = String(Int(feedViewModel.articleData?.articles?.count ?? 0))
+                            feedViewModel.getArticles()
+                        }, onReload: {
+                            feedViewModel.reloadArticles()
+                        })
+                } else {
+                    LoginPlaceHolder(title: "See your Feed")
+                }
             }
             .animation(.spring(), value: feedViewModel.isLoading)
             .navigationDestination(for: SelectedArticleScreenType.self) { type in
